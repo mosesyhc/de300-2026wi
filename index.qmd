@@ -1,0 +1,98 @@
+---
+title: "DATA_ENG 300: Data Engineering Studio"
+jupyter: python3
+---
+
+
+**Instructor:** Moses Chan, `moses.chan@northwestern.edu`
+
+**TA:** Dinglin Xia
+
+**Office Hours:** See [Canvas](https://canvas.northwestern.edu).
+
+**Prerequisites:** DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.
+
+# Course Outline
+
+Introduction to the foundation and modern tools of data engineering. Topics include:
+
+-   Introduction to data engineering
+-   Containerization
+-   Exploratory data analysis
+-   Distributed (cloud) computing
+-   ETL and ELT via Spark
+-   Automation of data pipelines
+-   NoSQL databases
+-   A/B testing, *if time permits*
+-   Transfer learning, *if time permits*
+
+# Course Materials
+
+All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.
+
+**Recommended Text**. @reis2022fundamentals. Available at [Northwestern Library](https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441).
+
+# Grading
+
+| **Item**            |   **Count**      |  **Contribution** |
+|:--------------------|------------------|-------------------|
+| Labs[^1]            |   8              |  15 %             |
+| Homeworks           |   4              |  40 %             |
+| Project             |   1              |  35 %             |
+| In-class participation |    ~10           |  10 %             |
+
+[^1]: The lowest lab and the lowest (or missed) in-class participation will be dropped.
+
+# Class policy
+
+## Inclusivity
+
+This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.
+
+## Office Hours
+
+Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.
+
+## Late Days
+
+You have 4 late days total for the quarter that you may use on homeworks. **Late days are automatically applied.**
+
+A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.
+
+If you have no late days remaining, late work will incur a penalty:
+
+-   Less than 24 hours late: 20% deduction
+-   24–48 hours late: 40% deduction
+-   More than 48 hours late: not accepted
+
+*Please contact Professor Chan in the case of an emergency and discuss a plan.*
+
+## Communications
+
+[Canvas](https://canvas.northwestern.edu), where the syllabus, class announcements, exams, notes, and assignments are posted.
+
+Emails should lead with a title including **DE300**, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion.  The teaching team observes a 24-workhour response policy.  
+
+## Collaboration
+
+You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.
+
+You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.
+
+## Generative AI Policy
+GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered **the engineer of record**: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).
+
+Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.
+
+Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”
+
+Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.
+
+
+## Accessibility
+
+Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact [AccessibleNU](https://www.northwestern.edu/accessiblenu/about-us/contact-us/) to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.
+
+## Northwestern University Syllabus Standards
+
+In addition, this course follows the [Northwestern University Syllabus Standards](https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html). Students are responsible for familiarizing themselves with this information.

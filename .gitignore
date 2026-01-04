@@ -1,0 +1,11 @@
+.ipynb_checkpoints
+_build/
+lab/soln/
+homework/soln/
+
+# specific files
+homework/misc/
+*zip
+/.quarto/
+**/*.quarto_ipynb
+/_site/

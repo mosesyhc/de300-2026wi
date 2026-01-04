@@ -1,0 +1,25 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "DATA_ENG 300: Data Engineering Studio"
+  author: "Moses Y.-H. Chan"
+
+  chapters:
+    - index.qmd
+    - 99-references.qmd
+
+bibliography: de300.bib
+
+format:
+  html:
+    number-sections: false
+    theme:
+      - cosmo
+      - brand
+  # pdf:
+  #   documentclass: scrreprt
+
+
+
