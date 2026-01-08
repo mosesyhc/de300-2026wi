@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-07">
 
-<title>Exploratory Data Analysis – DATA_ENG 300: Data Engineering Studio</title>
+<title>Intro to EDA – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html"><span class="chapter-title">Exploratory Data Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html"><span class="chapter-title">Intro to EDA</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -164,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notes/02-exploratory-data-analysis-class.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Exploratory Data Analysis</span></a>
+  <a href="../notes/02-exploratory-data-analysis-class.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Intro to EDA</span></a>
   </div>
 </li>
       </ul>
@@ -197,9 +198,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html"><span class="chapter-title">Exploratory Data Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="../notes/02-exploratory-data-analysis-class.html"><span class="chapter-title">Intro to EDA</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Exploratory Data Analysis</h1>
+<h1 class="title">Intro to EDA</h1>
 </div>
 
 
@@ -207,6 +208,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 7, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -216,15 +223,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://raw.githubusercontent.com/mosesyhc/de300-2026wi/refs/heads/main/class-notebooks/02-exploratory-data-analysis-class.ipynb">Download the source notebook</a></p>
 <p>Exploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.</p>
-<p>Recall that data engineering is primarily about data preparation to <em>serve</em> smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:<br>
-- <strong>summarizing characteristics of raw data</strong> - <strong>visualizing data (single and multiple variables)</strong> - identifying missing data - identifying outliers</p>
+<p>Recall that data engineering is primarily about data preparation to <em>serve</em> smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:</p>
+<ul>
+<li><strong>summarizing characteristics of raw data</strong></li>
+<li><strong>visualizing data (single and multiple variables)</strong></li>
+<li>identifying missing data</li>
+<li>identifying outliers</li>
+</ul>
 <p>This document primarily deals with the first two items.</p>
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
 <p>In the <strong>exploratory</strong> phase, these are for people behind the scenes to see.</p>
-<p>The main goals here are: - capture main message - (relatively) quick exploration across many summaries (including plots) - <em>not</em> intended for a client or presentation</p>
-<p>What does this translate to, technically? - each summary should have meaningful information - <strong>label</strong> your plots</p>
+<p>The main goals here are:</p>
+<ul>
+<li>capture main message</li>
+<li>(relatively) quick exploration across many summaries (including plots)</li>
+<li><em>not</em> intended for a client or presentation</li>
+</ul>
+<p>What does this translate to, technically?</p>
+<ul>
+<li>each summary should have meaningful information</li>
+<li><strong>label</strong> your plots</li>
+</ul>
 </section>
 <section id="data-summary" class="level2">
 <h2 class="anchored" data-anchor-id="data-summary">Data summary</h2>

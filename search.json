@@ -122,67 +122,78 @@
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html",
     "href": "notes/02-exploratory-data-analysis-class.html",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "",
-    "text": "Goals\nExploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.\nRecall that data engineering is primarily about data preparation to serve smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:\n- summarizing characteristics of raw data - visualizing data (single and multiple variables) - identifying missing data - identifying outliers\nThis document primarily deals with the first two items.\nIn the exploratory phase, these are for people behind the scenes to see.\nThe main goals here are: - capture main message - (relatively) quick exploration across many summaries (including plots) - not intended for a client or presentation\nWhat does this translate to, technically? - each summary should have meaningful information - label your plots",
+    "text": "Goals\nDownload the source notebook\nExploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.\nRecall that data engineering is primarily about data preparation to serve smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:\nThis document primarily deals with the first two items.\nIn the exploratory phase, these are for people behind the scenes to see.\nThe main goals here are:\nWhat does this translate to, technically?",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
+    ]
+  },
+  {
+    "objectID": "notes/02-exploratory-data-analysis-class.html#goals",
+    "href": "notes/02-exploratory-data-analysis-class.html#goals",
+    "title": "Intro to EDA",
+    "section": "",
+    "text": "capture main message\n(relatively) quick exploration across many summaries (including plots)\nnot intended for a client or presentation\n\n\n\neach summary should have meaningful information\nlabel your plots",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html#data-summary",
     "href": "notes/02-exploratory-data-analysis-class.html#data-summary",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "Data summary",
     "text": "Data summary\nAs a starting point, simply looking at the data is worth the while. Some common questions to consider are the following:\n\nGeneral dataset info: size, dtypes\n\nMissing values?\n\nDuplicate data?\n\nContinuous variables\n\nCategorical variables\n\nBivariate relationships\n\nPotential data quality issues, e.g., inconsistency, special NA characters\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\n\n\n\n\n\n\n\nThe origin of sns.",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html#earthquake-dataset",
     "href": "notes/02-exploratory-data-analysis-class.html#earthquake-dataset",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "Earthquake dataset",
     "text": "Earthquake dataset\nSource Link\n\n# load and save a copy of the earthquake dataset\nearthquake = pd.read_csv('https://raw.githubusercontent.com/mosesyhc/de300-2026wi/refs/heads/main/datasets/Canadian-Earthquakes-2010-2019.csv')\n\n\n# take a glimpse of the data\n\n\n# view a summary of the full data\n\n\n# checks for duplicates (also ask if duplicates make sense)\n\n\n# duplicates\n\n\n# a quick numerical summary \n\n\n# checks for possible statistical assumption(s)\nimport scipy.stats as sps\n\n\n# extract only numeric variables\n\n\n# for example, normality test\n\n\n# for example, another normality test\n\n\n# pairwise correlation",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html#data-visualization",
     "href": "notes/02-exploratory-data-analysis-class.html#data-visualization",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "Data visualization",
     "text": "Data visualization\n\nsns.set(context='talk', style='ticks')  # simply for aesthetics\nsns.set_palette('magma')\n%matplotlib inline \n\n# earthquake = earthquake.sample(n=500)  # (if too slow) for illustration purposes\n\n\n# histogram for continuous variables using pandas built-in plots \n\n\n# relative frequency? ...\n\n\n# histogram of masses by group\n\n\n# other types of plots\n\n\n# counts for categorical variables\n\n\n# barplots by group\n\n\n# bivariate plots\n\n\n# bivariate plots (log-log)\n\n\n# pairwise plots  (time-consuming)\n\n\n# another pairwise plot by group",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html#in-class-activity",
     "href": "notes/02-exploratory-data-analysis-class.html#in-class-activity",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "In-class activity",
     "text": "In-class activity\nRefer to the following figure, choose two subfigures to reproduce with the earthquake dataset.",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
     "objectID": "notes/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
     "href": "notes/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
-    "title": "Exploratory Data Analysis",
+    "title": "Intro to EDA",
     "section": "(In case you need this) Jupyter notebook setup",
     "text": "(In case you need this) Jupyter notebook setup\nVisit https://docs.jupyter.org/en/latest/install/notebook-classic.html for some guidance to set up jupyter notebook.\n\nNote: These notes are adapted from a blog post on Tom’s Blog.",
     "crumbs": [
       "Exploratory Data Analysis",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
