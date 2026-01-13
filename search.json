@@ -100,8 +100,8 @@
     ]
   },
   {
-    "objectID": "notes/01-intro-data-engineering.html",
-    "href": "notes/01-intro-data-engineering.html",
+    "objectID": "01-intro-data-engineering.html",
+    "href": "01-intro-data-engineering.html",
     "title": "Introduction to Data Engineering",
     "section": "",
     "text": "Data Engineering Lifecycle\nThis notebook summarizes the data engineering lifecycle, and emphasizes the components covered in DATA_ENG 300.\nReis, J., & Housley, M. (2022) describes the data engineering lifecycle with five main stages:\n- Generation - Storage - Ingestion - Transformation - Serving data\n```",
@@ -110,8 +110,8 @@
     ]
   },
   {
-    "objectID": "notes/01-intro-data-engineering.html#data-engineering-lifecycle",
-    "href": "notes/01-intro-data-engineering.html#data-engineering-lifecycle",
+    "objectID": "01-intro-data-engineering.html#data-engineering-lifecycle",
+    "href": "01-intro-data-engineering.html#data-engineering-lifecycle",
     "title": "Introduction to Data Engineering",
     "section": "",
     "text": "Data engineering lifecycle components (Reis, J., & Housley, M. (2022))",
@@ -120,19 +120,29 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html",
-    "href": "notes/02-exploratory-data-analysis-class.html",
+    "objectID": "01-intro-data-engineering.html#preparation-for-next-week",
+    "href": "01-intro-data-engineering.html#preparation-for-next-week",
+    "title": "Introduction to Data Engineering",
+    "section": "Preparation for next week",
+    "text": "Preparation for next week\n\nLabs are on Tuesdays 5 - 7PM\nFamiliarize with Github (if you have not, register for an account.)\nFamiliarize with colab / jupyter notebook",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction to Data Engineering</span>"
+    ]
+  },
+  {
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html",
     "title": "Intro to EDA",
     "section": "",
-    "text": "Goals\nDownload the source notebook\nExploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.\nRecall that data engineering is primarily about data preparation to serve smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:\nThis document primarily deals with the first two items.\nIn the exploratory phase, these are for people behind the scenes to see.\nThe main goals here are:\nWhat does this translate to, technically?",
+    "text": "Goals\nExploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.\nRecall that data engineering is primarily about data preparation to serve smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:\nThis document primarily deals with the first two items.\nIn the exploratory phase, these are for people behind the scenes to see.\nThe main goals here are:\nWhat does this translate to, technically?",
     "crumbs": [
       "Exploratory Data Analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#goals",
-    "href": "notes/02-exploratory-data-analysis-class.html#goals",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#goals",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#goals",
     "title": "Intro to EDA",
     "section": "",
     "text": "capture main message\n(relatively) quick exploration across many summaries (including plots)\nnot intended for a client or presentation\n\n\n\neach summary should have meaningful information\nlabel your plots",
@@ -142,8 +152,8 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#data-summary",
-    "href": "notes/02-exploratory-data-analysis-class.html#data-summary",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#data-summary",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#data-summary",
     "title": "Intro to EDA",
     "section": "Data summary",
     "text": "Data summary\nAs a starting point, simply looking at the data is worth the while. Some common questions to consider are the following:\n\nGeneral dataset info: size, dtypes\n\nMissing values?\n\nDuplicate data?\n\nContinuous variables\n\nCategorical variables\n\nBivariate relationships\n\nPotential data quality issues, e.g., inconsistency, special NA characters\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\n\n\n\n\n\n\n\nThe origin of sns.",
@@ -153,8 +163,8 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#earthquake-dataset",
-    "href": "notes/02-exploratory-data-analysis-class.html#earthquake-dataset",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#earthquake-dataset",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#earthquake-dataset",
     "title": "Intro to EDA",
     "section": "Earthquake dataset",
     "text": "Earthquake dataset\nSource Link\n\n# load and save a copy of the earthquake dataset\nearthquake = pd.read_csv('https://raw.githubusercontent.com/mosesyhc/de300-2026wi/refs/heads/main/datasets/Canadian-Earthquakes-2010-2019.csv')\n\n\n# take a glimpse of the data\n\n\n# view a summary of the full data\n\n\n# checks for duplicates (also ask if duplicates make sense)\n\n\n# duplicates\n\n\n# a quick numerical summary \n\n\n# checks for possible statistical assumption(s)\nimport scipy.stats as sps\n\n\n# extract only numeric variables\n\n\n# for example, normality test\n\n\n# for example, another normality test\n\n\n# pairwise correlation",
@@ -164,8 +174,8 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#data-visualization",
-    "href": "notes/02-exploratory-data-analysis-class.html#data-visualization",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#data-visualization",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#data-visualization",
     "title": "Intro to EDA",
     "section": "Data visualization",
     "text": "Data visualization\n\nsns.set(context='talk', style='ticks')  # simply for aesthetics\nsns.set_palette('magma')\n%matplotlib inline \n\n# earthquake = earthquake.sample(n=500)  # (if too slow) for illustration purposes\n\n\n# histogram for continuous variables using pandas built-in plots \n\n\n# relative frequency? ...\n\n\n# histogram of masses by group\n\n\n# other types of plots\n\n\n# counts for categorical variables\n\n\n# barplots by group\n\n\n# bivariate plots\n\n\n# bivariate plots (log-log)\n\n\n# pairwise plots  (time-consuming)\n\n\n# another pairwise plot by group",
@@ -175,8 +185,8 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#in-class-activity",
-    "href": "notes/02-exploratory-data-analysis-class.html#in-class-activity",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#in-class-activity",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#in-class-activity",
     "title": "Intro to EDA",
     "section": "In-class activity",
     "text": "In-class activity\nRefer to the following figure, choose two subfigures to reproduce with the earthquake dataset.",
@@ -186,14 +196,47 @@
     ]
   },
   {
-    "objectID": "notes/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
-    "href": "notes/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
+    "objectID": "class-notebooks/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
+    "href": "class-notebooks/02-exploratory-data-analysis-class.html#in-case-you-need-this-jupyter-notebook-setup",
     "title": "Intro to EDA",
     "section": "(In case you need this) Jupyter notebook setup",
     "text": "(In case you need this) Jupyter notebook setup\nVisit https://docs.jupyter.org/en/latest/install/notebook-classic.html for some guidance to set up jupyter notebook.\n\nNote: These notes are adapted from a blog post on Tom’s Blog.",
     "crumbs": [
       "Exploratory Data Analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
+    ]
+  },
+  {
+    "objectID": "class-notebooks/03-missing-data-class.html",
+    "href": "class-notebooks/03-missing-data-class.html",
+    "title": "Handling missing data",
+    "section": "",
+    "text": "Classical categories of missing data\nThis document (briefly) introduces the concept, categorization, and treatment of missing data.\nIf we know how the missing data are generated, so-called missing data mechanisms, we can take into account why data are missing in data analysis.\nA particularly useful (and wide-known) framework for missingness categorizes missingness into the following three categories (Little and Rudin, 2019):\nCaveat… the category namings are… confusing\nMCAR (missing completely at random): how data are missing is independent with any aspect of the data\nMAR (missing at random): how data are missing depends on observed quantities, so-called predictors, or independent variables - e.g., a person with certain characteristics (known) may not answer certain questions on a survey, imagine reporting salary for different socio-economic classes - e.g., for certain inputs, a simulation model may crash or produce nonsensical outputs\nMNAR (missing not at random): how data are missing depends on the unobserved quantities - e.g., a pollutant sensor can only detect particles that are \\(&gt; 0.1\\mu\\mathrm{m}\\)\n- e.g., storm surges only occur in areas that get below the water level\nUnderstanding the causes of missing data helps designing algorithms to handle missing data. However, in reality, we often do not know the causes, or multiple causes exist in producing a data set.\nCautionary note: Where the data are missing matters, i.e., is a response value missing, is a predictor value missing, or do we not know what our analysis questions are yet?",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
+    ]
+  },
+  {
+    "objectID": "class-notebooks/03-missing-data-class.html#treatment-of-missing-data",
+    "href": "class-notebooks/03-missing-data-class.html#treatment-of-missing-data",
+    "title": "Handling missing data",
+    "section": "Treatment of missing data",
+    "text": "Treatment of missing data\nStarting with an example of “completing the data”\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean + noise\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean + noise + parameter uncertainty\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMore information + replace with mean + noise\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredictive mean matching\n\n\n\n\n\n\n\n\n\nExample of missingness impacting analysis from Daniel et al. (2012), reproducing Figure 4 in the paper:\n\n\n\n\n\n\n\n\nEffect of missingness mechanism on data analysis.\n\n\n\n\nGeneral rules for treating missing data:\n\nUnder MCAR, focusing on complete cases or employing imputation methods tend to be sufficient.\nUnder MAR, some methods are valid choices:\n\nIf the missingness is independent of the response conditional on the predictor, linear regression is still “valid”.\nImputation methods tend to introduce biases, depending on the data analysis methods.\n\nUnder MNAR, the missingness should be explicitly modeled.\n\ne.g., censored observations in survival analysis.",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
+    ]
+  },
+  {
+    "objectID": "class-notebooks/03-missing-data-class.html#imputation-methods",
+    "href": "class-notebooks/03-missing-data-class.html#imputation-methods",
+    "title": "Handling missing data",
+    "section": "Imputation methods",
+    "text": "Imputation methods\nWe introduce a (limited) list of imputation methods in this section, using the titanic dataset as an example:\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\npd.set_option('display.precision', 3)\n\ntitanic = sns.load_dataset('titanic', cache=True, data_home='datasets/')\n\n\nIdentifying missingness\nWe have covered some basic ways how to identify missingness in the EDA module. Here is one other option with the help of missingno.\n\n# !pip install missingno  \n# in case you need to install the package\n\ntitanic.info()\n\n\nimport missingno as msno\n# visualization of available/missing data\n\n\n\nRemoving data\nWe have discussed that removing data is typically not ideal, but nothing stops us from doing that…\n\n# retaining titanic dataset with complete data\ntitanic_agecomp = \ntitanic_agecomp.info()\n\n\n# comparing the correlation with / without missing data\n\n\n# changes in correlation matrix with / without age missingness\n\n\n# one other possibility (that includes boolean)\n\n# changes in correlation matrix with / without age missingness\n\n\n\nSimple imputation with a constant\n\n# !pip install scikit-learn\nfrom sklearn.impute import SimpleImputer\n\n\ntitanic_constant = titanic.copy()\n\n# set constant, completing data\n\n# visualize completed data\nsns.histplot(titanic_constant['age'])\n\n\ntitanic_median = titanic.copy()\n\n# example with median, admitting only numeric columns\n\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_median['age'], binwidth=5, alpha=0.3, color='k', label='imputed w/ median')\nsns.histplot(titanic['age'], binwidth=5, alpha=0.3, color='purple', label='unimputed')\nax.legend()\n\n\n\nMultiple imputation\nMultiple imputation is a technique to generate multiple realizations of imputation values, often modeled by a probability distribution.\nOne method is the multiple imputation by chained equations, or MICE. miceforest uses LightBGM as its training algorithm for MICE.\n\n# !pip install -U miceforest plotnine\n\n\nimport miceforest as mf\n\n# miceforest requires a real matrix. \n# For illustrative purposes, we only use the numerical columns.\n\n# set up a kernel to produce `num_datasets` imputed datasets\nnum_datasets = 4\nkernel = mf.ImputationKernel(\n    \n)\n\n\n# run the MICE algorithm\n\n\n# retrieve completed data\ntitanic_mf = kernel.complete_data\n\n\n# code for plotting mice completed dataset\ndef plot_hist(kernel, completed_titanic, original_titanic, num_plot):\n    num_datasets = kernel.num_datasets\n    num_plot = min(num_datasets, num_plot)\n    for k in range(num_plot):  # 1, 2, 3, num_datasets\n        sns.histplot(completed_titanic(dataset=k)['age'], binwidth=5, stat='probability', color='k', label='imputed sample', alpha=0.3)\n    \n    sns.histplot(original_titanic['age'], binwidth=5, stat='probability', color='purple', label='unimputed', alpha=0.2)\n    \n    plt.title('{:d} realizations of imputed age'.format(num_plot))\n    plt.legend()\n    plt.tight_layout()\n    plt.show()\n\n\n# retrieving each imputed dataset (recall that M in MICE means multiple)\n\n\n# comparing the original and imputed dataset\nfig, ax = plt.subplots(ncols=5)\n\nfor k, axi in enumerate(ax.flatten()):\n    if k &lt; num_datasets:\n        sns.boxplot(titanic_mf(dataset=k)['age'], ax=axi)\n    else:\n        sns.boxplot(titanic['age'], ax=axi, color='purple')\n\nplt.tight_layout()\n\n\n# Generate more datasets \n\n# Visualize the result variable density/histogram\n\n\n\nPredictive mean matiching (MICE) [Last figure in the gas consumption example]\n\nkernel_pmm = mf.ImputationKernel(\n    \n)\n\n\n\n\\(k\\) Nearest Neighbor\n\ntitanic_knn = titanic.select_dtypes('number').copy()\n\nfrom sklearn.impute import KNNImputer\n# set up imputing for KNN\n\ntitanic_knn_df =\n\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_knn_df['age'], binwidth=5, stat='probability', alpha=0.3, color='k', label='knn imputation')\nsns.histplot(titanic['age'], binwidth=5, stat='probability', alpha=0.3, color='purple', label='unimputed')\nax.legend()",
+    "crumbs": [
+      "Exploratory Data Analysis",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
   {
