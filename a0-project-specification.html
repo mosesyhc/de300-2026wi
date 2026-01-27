@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>Project Specification – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./a1-presentation-rubric.html" rel="next">
+<link href="./05-spark.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -103,7 +83,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a0-project-specification.html">Project</a></li><li class="breadcrumb-item"><a href="./a0-project-specification.html"><span class="chapter-title">Project Specification</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +110,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -191,7 +171,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./a0-project-specification.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Project Specification</span></a>
+  <a href="./a0-project-specification.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Project Specification</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -233,41 +213,31 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
+  <li><a href="#group-formation" id="toc-group-formation" class="nav-link active" data-scroll-target="#group-formation">Group formation</a></li>
+  <li><a href="#project-grading" id="toc-project-grading" class="nav-link" data-scroll-target="#project-grading">Project grading</a></li>
+  <li><a href="#project-proposal" id="toc-project-proposal" class="nav-link" data-scroll-target="#project-proposal">Project proposal</a>
   <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
+  <li><a href="#guidelines-for-proposal" id="toc-guidelines-for-proposal" class="nav-link" data-scroll-target="#guidelines-for-proposal">Guidelines for proposal</a></li>
   </ul></li>
+  <li><a href="#potential-data-sources" id="toc-potential-data-sources" class="nav-link" data-scroll-target="#potential-data-sources">Potential data sources</a></li>
+  <li><a href="#project-check-up" id="toc-project-check-up" class="nav-link" data-scroll-target="#project-check-up">Project check-up</a></li>
+  <li><a href="#presentation" id="toc-presentation" class="nav-link" data-scroll-target="#presentation">Presentation</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report">Report</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a0-project-specification.html">Project</a></li><li class="breadcrumb-item"><a href="./a0-project-specification.html"><span class="chapter-title">Project Specification</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">Project Specification</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -278,125 +248,195 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Classroom</strong>: Lecture: 2122 Sheridan Rm 250, Lab: Tech C135</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
-<ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
-</ul>
+<section id="group-formation" class="level2">
+<h2 class="anchored" data-anchor-id="group-formation">Group formation</h2>
+<p>The project group may consist of up to 3 students.</p>
 </section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
+<section id="project-grading" class="level2">
+<h2 class="anchored" data-anchor-id="project-grading">Project grading</h2>
+<p>The project is worth 35% of the class grade, with the following details:</p>
 <table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
-</tr>
-</thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
+<td></td>
+<td style="text-align: center;"><strong>Due date</strong></td>
+<td style="text-align: center;"><strong>Proportion (%)</strong></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
+<td>Proposal</td>
+<td style="text-align: center;">Feb 3</td>
+<td style="text-align: center;">15</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
+<td>Check-up</td>
+<td style="text-align: center;">Feb 19</td>
+<td style="text-align: center;">20</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
+<td>Presentation</td>
+<td style="text-align: center;">Mar 12</td>
+<td style="text-align: center;">25</td>
+</tr>
+<tr class="odd">
+<td>Report</td>
+<td style="text-align: center;">Mar 18</td>
+<td style="text-align: center;">35</td>
+</tr>
+<tr class="even">
+<td>Peer experience summary</td>
+<td style="text-align: center;">Mar 18</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">100</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
-</section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
-</section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
+<section id="project-proposal" class="level2">
+<h2 class="anchored" data-anchor-id="project-proposal">Project proposal</h2>
+<p>Develop a proposal that includes your topic, the selection of relevant dataset(s), and a plan to answer questions of interests. Keep in mind the timeline of the quarter and set achievable goals.</p>
+<section id="guidelines-for-proposal" class="level3">
+<h3 class="anchored" data-anchor-id="guidelines-for-proposal">Guidelines for proposal</h3>
+<p>Review the guidelines below carefully.</p>
+<p><strong>Overarching theme:</strong> Design a data process that involves ingesting data, preprocessing, analysis, and service. Consider a process that can scale and can be reused given data update.</p>
+<p>The proposal should follow this format (5 points):</p>
 <ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
+<li>Include full names of all teammates.</li>
+<li>Between 1 to 2 pages, single-spaced, 11-point type, 1-inch margins.</li>
+<li>Do not include graphics.</li>
+<li>Decide on the name of your group. A pdf named <code>[GroupName]_proposal.pdf</code> should be submitted.</li>
 </ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
-</section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
-</section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
-</section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
-</section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
+<p>The proposal should cover the following components (but in a narrative format, not Q/A):</p>
+<ul>
+<li><strong>Introduction</strong> (12 points): Introduce your project and motivation, e.g.,
+<ul>
+<li>What is the main issue you are interested in?</li>
+<li>Why is this topic important?</li>
+<li>In what way does this project provide a solution?</li>
+</ul></li>
+<li><strong>Data source(s)</strong> (10 points): Describe the data sources you have chosen, e.g.,
+<ul>
+<li>How can the data be retrieved?</li>
+<li>How are the data related to the topic?</li>
+<li>State the amount of data you will be working with.</li>
+</ul></li>
+<li><strong>Goal definitions</strong> (18 points): State two to three goals you are interested in achieving with the selected data sources.<br>
+As you tackle the goals, you should use <strong>at least one</strong> of the data engineering techniques covered in class:
+<ul>
+<li>Missing data imputation</li>
+<li>Database system (relational or non-relational)</li>
+<li>Distributed computing framework (e.g., pyspark)<br>
+For each goal, answer the following:</li>
+<li>How do you intend to achieve your goal?</li>
+<li>How do you intend to use the above techniques?</li>
+<li>What can you answer (and not answer) with the proposed datasets?</li>
+</ul></li>
+<li><strong>Reference</strong> (5 points): Provide valid references for your data source(s). (Reference does not count toward the page limit.)
+<ul>
+<li>For example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., &amp; Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). <em>PhysioNet</em>. https://doi.org/10.13026/C2XW26.</li>
+<li>or the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … &amp; Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. <em>Scientific data</em>, 3(1), 1-9.</li>
+</ul></li>
+</ul>
 </section>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<section id="potential-data-sources" class="level2">
+<h2 class="anchored" data-anchor-id="potential-data-sources">Potential data sources</h2>
+<p>Below are some possible avenues for finding data sources:</p>
+<ul>
+<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a></li>
+<li><a href="https://github.com/awesomedata/awesome-public-datasets">Awesome public datasets</a></li>
+<li><a href="https://github.com/BuzzFeedNews/everything">BuzzFeed news repository</a></li>
+<li><a href="https://github.com/sisinflab/DataRec">Recommendation systems reference</a></li>
+<li><a href="https://challenge.ey.com">Open data challenge</a></li>
+</ul>
+</section>
+<section id="project-check-up" class="level2">
+<h2 class="anchored" data-anchor-id="project-check-up">Project check-up</h2>
+<p>Two elements are required for the project check-up:</p>
+<ol type="1">
+<li><strong>Group, submitted on Canvas as a pdf.</strong> (30 points)
+<ul>
+<li>For each of your set goals in the proposal, provide a brief summary of progress. <em>If you have not worked on a particular goal yet, feel free to say that you have not made progress there.</em></li>
+<li>Include any questions or roadblocks you are encountering and require assistance.</li>
+<li>If you find it helpful to set up a time to meet with Prof.&nbsp;Chan, indicate so.</li>
+</ul></li>
+<li><strong>Individual.</strong> (20 points)
+<ul>
+<li>Complete the following Google form: <a href="">DE300 Project check-up Google Form, Link to come</a></li>
+</ul></li>
 </ol>
+<p><em>Note:</em> While the check-up form would not necessarily change your individual project grades, adjustments will be considered combining the feedback from the check-up and the peer experience summary.</p>
+</section>
+<section id="presentation" class="level2">
+<h2 class="anchored" data-anchor-id="presentation">Presentation</h2>
+<p>A presentation will be due on the last day of class. The presentation should follow these guidelines:</p>
+<ul>
+<li>Up to fifteen minutes.</li>
+<li><em>Tips:</em> Distribute your content and do a quick dry run in advance. This will smoothen out your presentation.</li>
+</ul>
+<p>The presentation should include <em>but not limited to the following</em>:</p>
+<ul>
+<li>Motivation of your project.</li>
+<li>Introduction to your dataset(s) and its relevance.</li>
+<li>Goals, method of analyses, and findings.</li>
+<li>Summary.</li>
+</ul>
+<p>The presentation is evaluated via the following criteria (20 each):</p>
+<ul>
+<li>Organization of content</li>
+<li>Appropriate use of language</li>
+<li>Delivery</li>
+<li>Use of supporting materials (visuals, statistics, etc.)</li>
+<li>Clarity of central idea</li>
+</ul>
+<p>Note that while the evaluation is primarily for the entire group, evaluation may differ among students if significant discrepancy is observed. You may refer to the <a href="a1-presentation-rubric">sample reference rubric</a> for details.</p>
+</section>
+<section id="report" class="level2">
+<h2 class="anchored" data-anchor-id="report">Report</h2>
+<p>Prepare a project report to clearly outline your project choice and its importance, your approach to achieving the set of goals, your results, and a summary.</p>
+<p>The report should follow these guidlines:</p>
+<ul>
+<li>Include full names of all teammates.
+<ul>
+<li>This is a reminder that it is an academic violation to include your name on any work you have not contributed or performed.</li>
+</ul></li>
+<li>Up to 15 pages (not including Appendix), single-spaced, 11-point type, 1-inch margins.</li>
+</ul>
+<p><strong>Submission:</strong> A single pdf named <code>LastName1_LastName2_..._report.pdf</code> should be submitted.</p>
+<p>Include all of your code in a zipped folder in your submission. Make sure your codes and code organization are understandable.</p>
+<hr>
+<p>The report should include the following components in a narrative format:</p>
+<ul>
+<li><strong>Introduction</strong> (5 points): Introduce your project and motivation, e.g.,
+<ul>
+<li>What is the main issue you are interested in?</li>
+<li>Why is this topic important?</li>
+<li>In what way does this project provide a solution?</li>
+</ul></li>
+<li><strong>Data source(s)</strong> (5 points): Describe the data sources you have chosen, e.g.,
+<ul>
+<li>How can the data be retrieved?</li>
+<li>How are the data related to the topic?</li>
+<li>State the amount of data you will be working with.</li>
+</ul></li>
+<li><strong>Goals and approaches</strong> (60 points): State the <em>specific</em> goals you are attempting to achieve with the selected data sources. For each goal, provide the approach in achieving said goal, its implementation, and your results. Use any graph, table, or other visualization to support your narrative.</li>
+<li><strong>Summary</strong> (10 points): Provide a brief summary of your project, and describe any loose ends or future opportunities.</li>
+<li><strong>Generative AI statement and reference</strong> (10 points):
+<ul>
+<li>Generative AI statement: If you have, in any way, employed the use of generative AI tools, report all usage according to the syllabus. This statement does not count toward the page limit.</li>
+<li>Reference: Provide valid references for your data source(s). (<em>Does not count toward the page limit.</em>)
+<ul>
+<li>For example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., &amp; Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). <em>PhysioNet</em>. https://doi.org/10.13026/C2XW26.</li>
+<li>or the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … &amp; Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. <em>Scientific data</em>, 3(1), 1-9.</li>
+</ul></li>
+</ul></li>
+<li><strong>Code legibility and organization</strong> (10 points): Give a brief summary or provide a README to use and evaluate your code. (<em>Does not count toward the page limit.</em>)</li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -802,10 +842,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./05-spark.html" class="pagination-link" aria-label="Intro to parallelized computing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Intro to parallelized computing</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./a1-presentation-rubric.html" class="pagination-link" aria-label="Presentation reference rubric">
+        <span class="nav-page-text"><span class="chapter-title">Presentation reference rubric</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

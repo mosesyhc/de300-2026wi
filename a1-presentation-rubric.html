@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>Presentation reference rubric – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./0a-jupyter-ec2.html" rel="next">
+<link href="./a0-project-specification.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -103,7 +83,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a0-project-specification.html">Project</a></li><li class="breadcrumb-item"><a href="./a1-presentation-rubric.html"><span class="chapter-title">Presentation reference rubric</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +110,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -196,7 +176,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./a1-presentation-rubric.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Presentation reference rubric</span></a>
+  <a href="./a1-presentation-rubric.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Presentation reference rubric</span></a>
   </div>
 </li>
       </ul>
@@ -228,46 +208,21 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
-  <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a0-project-specification.html">Project</a></li><li class="breadcrumb-item"><a href="./a1-presentation-rubric.html"><span class="chapter-title">Presentation reference rubric</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">Presentation reference rubric</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -278,126 +233,63 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Classroom</strong>: Lecture: 2122 Sheridan Rm 250, Lab: Tech C135</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
-<ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
-</ul>
-</section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 26%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
+<th></th>
+<th>Thorough Understanding</th>
+<th>Good Understanding</th>
+<th>Basic Understanding</th>
+<th>Poor/No Understanding</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
+<td>Organization</td>
+<td>Organizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable and is skillful and makes the content of the presentation cohesive.</td>
+<td>Organizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable within the presentation.</td>
+<td>Organizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is intermittently observable within the presentation.</td>
+<td>Organizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is not observable within the presentation.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
+<td>Language</td>
+<td>Language choices are memorable, compelling, and enhance the effectiveness of the presentation. Language in presentation is appropriate to audience.</td>
+<td>Language choices are thoughtful and generally support the effectiveness of the presentation. Language in presentation is appropriate to audience.</td>
+<td>Language choices are mundane and commonplace and partially support the effectiveness of the presentation. Language in presentation is appropriate to audience.</td>
+<td>Language choices are unclear and minimally support the effectiveness of the presentation. Language in presentation is not appropriate to audience.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
+<td>Delivery</td>
+<td>Delivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation compelling, and speaker appears polished and confident.</td>
+<td>Delivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation interesting, and speaker appears comfortable.</td>
+<td>Delivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation understandable, and speaker appears tentative.</td>
+<td>Delivery techniques (posture, gesture, eye contact, and vocal expressiveness) detract from the understandability of the presentation, and speaker appears uncomfortable.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
+<td>Supporting Material</td>
+<td>A variety of types of supporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that significantly supports the presentation or establishes the presenter’s credibility/authority on the topic.</td>
+<td>Supporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that generally supports the presentation or establishes the presenter’s credibility/authority on the topic.</td>
+<td>Supporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that partially supports the presentation or establishes the presenter’s credibility/authority on the topic.</td>
+<td>Insufficient supporting materials (explanations, illustrations, statistics) make reference to information or analysis that minimally supports the presentation or establishes the presenter’s credibility/authority on the topic.</td>
+</tr>
+<tr class="odd">
+<td>Central Message</td>
+<td>Central message is precisely stated and strongly supported.</td>
+<td>Central message is clear and consistent with the supporting material.</td>
+<td>Central message is basically understandable but is not memorable.</td>
+<td>Central message can be deduced, but is not explicitly stated in the presentation.</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
-</section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
-</section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
-<ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
-</ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
-</section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
-</section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
-</section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
-</section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -802,10 +694,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./a0-project-specification.html" class="pagination-link" aria-label="Project Specification">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Project Specification</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./0a-jupyter-ec2.html" class="pagination-link" aria-label="Setting up EC2 instance for jupyter notebook">
+        <span class="nav-page-text"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

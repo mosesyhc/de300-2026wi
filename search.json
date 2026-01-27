@@ -361,6 +361,94 @@
     ]
   },
   {
+    "objectID": "a0-project-specification.html",
+    "href": "a0-project-specification.html",
+    "title": "Project Specification",
+    "section": "",
+    "text": "Group formation\nThe project group may consist of up to 3 students.",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#project-grading",
+    "href": "a0-project-specification.html#project-grading",
+    "title": "Project Specification",
+    "section": "Project grading",
+    "text": "Project grading\nThe project is worth 35% of the class grade, with the following details:\n\n\n\n\nDue date\nProportion (%)\n\n\nProposal\nFeb 3\n15\n\n\nCheck-up\nFeb 19\n20\n\n\nPresentation\nMar 12\n25\n\n\nReport\nMar 18\n35\n\n\nPeer experience summary\nMar 18\n10\n\n\nTotal\n\n100",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#project-proposal",
+    "href": "a0-project-specification.html#project-proposal",
+    "title": "Project Specification",
+    "section": "Project proposal",
+    "text": "Project proposal\nDevelop a proposal that includes your topic, the selection of relevant dataset(s), and a plan to answer questions of interests. Keep in mind the timeline of the quarter and set achievable goals.\n\nGuidelines for proposal\nReview the guidelines below carefully.\nOverarching theme: Design a data process that involves ingesting data, preprocessing, analysis, and service. Consider a process that can scale and can be reused given data update.\nThe proposal should follow this format (5 points):\n\nInclude full names of all teammates.\nBetween 1 to 2 pages, single-spaced, 11-point type, 1-inch margins.\nDo not include graphics.\nDecide on the name of your group. A pdf named [GroupName]_proposal.pdf should be submitted.\n\nThe proposal should cover the following components (but in a narrative format, not Q/A):\n\nIntroduction (12 points): Introduce your project and motivation, e.g.,\n\nWhat is the main issue you are interested in?\nWhy is this topic important?\nIn what way does this project provide a solution?\n\nData source(s) (10 points): Describe the data sources you have chosen, e.g.,\n\nHow can the data be retrieved?\nHow are the data related to the topic?\nState the amount of data you will be working with.\n\nGoal definitions (18 points): State two to three goals you are interested in achieving with the selected data sources.\nAs you tackle the goals, you should use at least one of the data engineering techniques covered in class:\n\nMissing data imputation\nDatabase system (relational or non-relational)\nDistributed computing framework (e.g., pyspark)\nFor each goal, answer the following:\nHow do you intend to achieve your goal?\nHow do you intend to use the above techniques?\nWhat can you answer (and not answer) with the proposed datasets?\n\nReference (5 points): Provide valid references for your data source(s). (Reference does not count toward the page limit.)\n\nFor example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., & Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). PhysioNet. https://doi.org/10.13026/C2XW26.\nor the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … & Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. Scientific data, 3(1), 1-9.",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#potential-data-sources",
+    "href": "a0-project-specification.html#potential-data-sources",
+    "title": "Project Specification",
+    "section": "Potential data sources",
+    "text": "Potential data sources\nBelow are some possible avenues for finding data sources:\n\nGoogle dataset search\nAwesome public datasets\nBuzzFeed news repository\nRecommendation systems reference\nOpen data challenge",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#project-check-up",
+    "href": "a0-project-specification.html#project-check-up",
+    "title": "Project Specification",
+    "section": "Project check-up",
+    "text": "Project check-up\nTwo elements are required for the project check-up:\n\nGroup, submitted on Canvas as a pdf. (30 points)\n\nFor each of your set goals in the proposal, provide a brief summary of progress. If you have not worked on a particular goal yet, feel free to say that you have not made progress there.\nInclude any questions or roadblocks you are encountering and require assistance.\nIf you find it helpful to set up a time to meet with Prof. Chan, indicate so.\n\nIndividual. (20 points)\n\nComplete the following Google form: DE300 Project check-up Google Form, Link to come\n\n\nNote: While the check-up form would not necessarily change your individual project grades, adjustments will be considered combining the feedback from the check-up and the peer experience summary.",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#presentation",
+    "href": "a0-project-specification.html#presentation",
+    "title": "Project Specification",
+    "section": "Presentation",
+    "text": "Presentation\nA presentation will be due on the last day of class. The presentation should follow these guidelines:\n\nUp to fifteen minutes.\nTips: Distribute your content and do a quick dry run in advance. This will smoothen out your presentation.\n\nThe presentation should include but not limited to the following:\n\nMotivation of your project.\nIntroduction to your dataset(s) and its relevance.\nGoals, method of analyses, and findings.\nSummary.\n\nThe presentation is evaluated via the following criteria (20 each):\n\nOrganization of content\nAppropriate use of language\nDelivery\nUse of supporting materials (visuals, statistics, etc.)\nClarity of central idea\n\nNote that while the evaluation is primarily for the entire group, evaluation may differ among students if significant discrepancy is observed. You may refer to the sample reference rubric for details.",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a0-project-specification.html#report",
+    "href": "a0-project-specification.html#report",
+    "title": "Project Specification",
+    "section": "Report",
+    "text": "Report\nPrepare a project report to clearly outline your project choice and its importance, your approach to achieving the set of goals, your results, and a summary.\nThe report should follow these guidlines:\n\nInclude full names of all teammates.\n\nThis is a reminder that it is an academic violation to include your name on any work you have not contributed or performed.\n\nUp to 15 pages (not including Appendix), single-spaced, 11-point type, 1-inch margins.\n\nSubmission: A single pdf named LastName1_LastName2_..._report.pdf should be submitted.\nInclude all of your code in a zipped folder in your submission. Make sure your codes and code organization are understandable.\n\nThe report should include the following components in a narrative format:\n\nIntroduction (5 points): Introduce your project and motivation, e.g.,\n\nWhat is the main issue you are interested in?\nWhy is this topic important?\nIn what way does this project provide a solution?\n\nData source(s) (5 points): Describe the data sources you have chosen, e.g.,\n\nHow can the data be retrieved?\nHow are the data related to the topic?\nState the amount of data you will be working with.\n\nGoals and approaches (60 points): State the specific goals you are attempting to achieve with the selected data sources. For each goal, provide the approach in achieving said goal, its implementation, and your results. Use any graph, table, or other visualization to support your narrative.\nSummary (10 points): Provide a brief summary of your project, and describe any loose ends or future opportunities.\nGenerative AI statement and reference (10 points):\n\nGenerative AI statement: If you have, in any way, employed the use of generative AI tools, report all usage according to the syllabus. This statement does not count toward the page limit.\nReference: Provide valid references for your data source(s). (Does not count toward the page limit.)\n\nFor example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., & Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). PhysioNet. https://doi.org/10.13026/C2XW26.\nor the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … & Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. Scientific data, 3(1), 1-9.\n\n\nCode legibility and organization (10 points): Give a brief summary or provide a README to use and evaluate your code. (Does not count toward the page limit.)",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Project Specification</span>"
+    ]
+  },
+  {
+    "objectID": "a1-presentation-rubric.html",
+    "href": "a1-presentation-rubric.html",
+    "title": "Presentation reference rubric",
+    "section": "",
+    "text": "Thorough Understanding\nGood Understanding\nBasic Understanding\nPoor/No Understanding\n\n\n\n\nOrganization\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable and is skillful and makes the content of the presentation cohesive.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable within the presentation.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is intermittently observable within the presentation.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is not observable within the presentation.\n\n\nLanguage\nLanguage choices are memorable, compelling, and enhance the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are thoughtful and generally support the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are mundane and commonplace and partially support the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are unclear and minimally support the effectiveness of the presentation. Language in presentation is not appropriate to audience.\n\n\nDelivery\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation compelling, and speaker appears polished and confident.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation interesting, and speaker appears comfortable.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation understandable, and speaker appears tentative.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) detract from the understandability of the presentation, and speaker appears uncomfortable.\n\n\nSupporting Material\nA variety of types of supporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that significantly supports the presentation or establishes the presenter’s credibility/authority on the topic.\nSupporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that generally supports the presentation or establishes the presenter’s credibility/authority on the topic.\nSupporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that partially supports the presentation or establishes the presenter’s credibility/authority on the topic.\nInsufficient supporting materials (explanations, illustrations, statistics) make reference to information or analysis that minimally supports the presentation or establishes the presenter’s credibility/authority on the topic.\n\n\nCentral Message\nCentral message is precisely stated and strongly supported.\nCentral message is clear and consistent with the supporting material.\nCentral message is basically understandable but is not memorable.\nCentral message can be deduced, but is not explicitly stated in the presentation.",
+    "crumbs": [
+      "Project",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Presentation reference rubric</span>"
+    ]
+  },
+  {
     "objectID": "0a-jupyter-ec2.html",
     "href": "0a-jupyter-ec2.html",
     "title": "Setting up EC2 instance for jupyter notebook",
@@ -368,7 +456,7 @@
     "text": "Reconnect to EC2 Jupyter notebook\nImportant: Whenever you are not running anything (for more than 15 minutes), you should stop the EC2 instance on the AWS Instances page.",
     "crumbs": [
       "Useful guides",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
     ]
   },
   {
@@ -379,7 +467,7 @@
     "text": "Start your EC2 instance from https://nu-sso.awsapps.com/start/. (The one you have a private key for.)\nOnce the EC2 instance is running, connect to the instance via SSH\n\nUnder the SSH client tab, you will see the instructions to connect to the EC2 instance via SSH on your console.\n\nIf your EC2 console shows (base) before your cursor, it indicates that conda environment is already running.\n\nIf not, you have to run eval \"$($CONDA_PATH/bin/conda shell.bash hook)\" to activate the conda environment.\n\nSSH into Jupyter notebook on EC2 (as in step 7 above.)",
     "crumbs": [
       "Useful guides",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
     ]
   },
   {
