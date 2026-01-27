@@ -317,11 +317,77 @@
     ]
   },
   {
+    "objectID": "05-spark.html",
+    "href": "05-spark.html",
+    "title": "Intro to parallelized computing",
+    "section": "",
+    "text": "Separation of compute from storage\nThis document covers the key elements for modern distributed computing, specifically a quick word on Hadoop and Spark.\nTraditionally compute and storage are colocated, e.g.,\n. . .\nThen why separate compute and storage?\n. . .",
+    "crumbs": [
+      "Parallelization of computing",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Intro to parallelized computing</span>"
+    ]
+  },
+  {
+    "objectID": "05-spark.html#separation-of-compute-from-storage",
+    "href": "05-spark.html#separation-of-compute-from-storage",
+    "title": "Intro to parallelized computing",
+    "section": "",
+    "text": "a transactional database leverages its low-latency disk reads and high bandwidth.\neven for distributed jobs, a map job locates the location of data and runs the map local to the data.\n\n\n\n\nAvailability of cloud computing and storage purchase\n\nCost: It is cheap to buy and host a server than to rent if the server is up 24/7, minus maintenance cost\nTowards ephermerality: Spin up an instance, use, and stop when done.\nTowards scalability: If you only need to run this titan job once a month, only pay for the resources then.\n\n\n\n\nData durability and availability\n\nFault tolerance: Replication of data increases availability and mitgates a write operation that destroys data.\n\n\n\n\nHybridization of separation and colocation\nIn reality, compute and storage are not either separated or colocated, e.g.,\n\nAWS elastic mapreduce (EMR) and S3\nSpark infrastructure dependence on RAM\n\n\n\n\nInstances as a processing cache in an ephemeral Hadoop cluster, Fig 6.7 from Reis and Housley (2022)",
+    "crumbs": [
+      "Parallelization of computing",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Intro to parallelized computing</span>"
+    ]
+  },
+  {
+    "objectID": "05-spark.html#hadoop",
+    "href": "05-spark.html#hadoop",
+    "title": "Intro to parallelized computing",
+    "section": "Hadoop",
+    "text": "Hadoop\nDeveloped in 2006 to process data with the MapReduce programming model Dean and Ghemawat (2008), with the “big data” processing idea.\n. . .\nMain components of Apache Hadoop:\n\nHadoop Distributed File System (HDFS): Manages large data sets running on commodity hardware (with data replication)\nYet Another Resource Negotiator (YARN)\nHadoop MapReduce: Splits data into blocks, distributes across different nodes, then runs task on each block in parallel\nHadoop Common (Hadoop Core): Common libraries and utilities\n\n. . .\nWhy Hadoop is not enough?\n\nHadoop utilizes external storage. Read/write latency is high.\nAll codes must be restricted to a map and reduce constructs.",
+    "crumbs": [
+      "Parallelization of computing",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Intro to parallelized computing</span>"
+    ]
+  },
+  {
+    "objectID": "05-spark.html#spark",
+    "href": "05-spark.html#spark",
+    "title": "Intro to parallelized computing",
+    "section": "Spark",
+    "text": "Spark\nMain components:\n\nSpark Core: Execution engine for resource coordination\nSpark SQL\nMachine Learning Library (MLlib)\nSpark Streaming: Capability for processing streaming data\nGraphX: Capability for processing graph-based data\n\n. . .\nSpark essentially tackles only where Hadoop does not perform well, by using an in-memory distributed computing engine,\n\nmaking use of Resilient Distributed Dataset (RDD)\nemploying dynamic RAM in processing\n\n\n\n\nMapReduce schema from Tian and Zhao (2015).\n\n\n\n\n\n\n\n\nDean, Jeffrey, and Sanjay Ghemawat. 2008. “MapReduce: Simplified Data Processing on Large Clusters.” Communications of the ACM 51 (1): 107–13.\n\n\nReis, Joe, and Matt Housley. 2022. Fundamentals of Data Engineering. O’Reilly Media, Inc.\n\n\nTian, Wenhong, and Yong Zhao. 2015. “9 - Energy Efficiency Scheduling in Hadoop.” In Optimized Cloud Resource Management and Scheduling, edited by Wenhong Tian and Yong Zhao, 179–204. Boston: Morgan Kaufmann. https://doi.org/https://doi.org/10.1016/B978-0-12-801476-9.00009-4.",
+    "crumbs": [
+      "Parallelization of computing",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Intro to parallelized computing</span>"
+    ]
+  },
+  {
+    "objectID": "0a-jupyter-ec2.html",
+    "href": "0a-jupyter-ec2.html",
+    "title": "Setting up EC2 instance for jupyter notebook",
+    "section": "",
+    "text": "Reconnect to EC2 Jupyter notebook\nImportant: Whenever you are not running anything (for more than 15 minutes), you should stop the EC2 instance on the AWS Instances page.",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0a-jupyter-ec2.html#reconnect-to-ec2-jupyter-notebook",
+    "href": "0a-jupyter-ec2.html#reconnect-to-ec2-jupyter-notebook",
+    "title": "Setting up EC2 instance for jupyter notebook",
+    "section": "",
+    "text": "Start your EC2 instance from https://nu-sso.awsapps.com/start/. (The one you have a private key for.)\nOnce the EC2 instance is running, connect to the instance via SSH\n\nUnder the SSH client tab, you will see the instructions to connect to the EC2 instance via SSH on your console.\n\nIf your EC2 console shows (base) before your cursor, it indicates that conda environment is already running.\n\nIf not, you have to run eval \"$($CONDA_PATH/bin/conda shell.bash hook)\" to activate the conda environment.\n\nSSH into Jupyter notebook on EC2 (as in step 7 above.)",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+    ]
+  },
+  {
     "objectID": "99-references.html",
     "href": "99-references.html",
     "title": "References",
     "section": "",
-    "text": "Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.\n“Bert: Pre-Training of Deep Bidirectional Transformers for\nLanguage Understanding.” In Proceedings of the 2019\nConference of the North American Chapter of the Association for\nComputational Linguistics: Human Language Technologies, Volume 1 (Long\nand Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015.\n“Matrix Completion and Low-Rank SVD via Fast Alternating Least\nSquares.” The Journal of Machine Learning Research 16\n(1): 3367–3402.\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li,\nShean Wang, Lu Wang, Weizhu Chen, et al. 2022. “Lora: Low-Rank\nAdaptation of Large Language Models.” ICLR 1 (2): 3.\n\n\nReis, Joe, and Matt Housley. 2022. Fundamentals of Data\nEngineering. O’Reilly Media, Inc.",
+    "text": "Dean, Jeffrey, and Sanjay Ghemawat. 2008. “MapReduce: Simplified\nData Processing on Large Clusters.” Communications of the\nACM 51 (1): 107–13.\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.\n“Bert: Pre-Training of Deep Bidirectional Transformers for\nLanguage Understanding.” In Proceedings of the 2019\nConference of the North American Chapter of the Association for\nComputational Linguistics: Human Language Technologies, Volume 1 (Long\nand Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015.\n“Matrix Completion and Low-Rank SVD via Fast Alternating Least\nSquares.” The Journal of Machine Learning Research 16\n(1): 3367–3402.\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li,\nShean Wang, Lu Wang, Weizhu Chen, et al. 2022. “Lora: Low-Rank\nAdaptation of Large Language Models.” ICLR 1 (2): 3.\n\n\nReis, Joe, and Matt Housley. 2022. Fundamentals of Data\nEngineering. O’Reilly Media, Inc.\n\n\nTian, Wenhong, and Yong Zhao. 2015. “9 - Energy Efficiency\nScheduling in Hadoop.” In Optimized Cloud Resource Management\nand Scheduling, edited by Wenhong Tian and Yong Zhao, 179–204.\nBoston: Morgan Kaufmann. https://doi.org/https://doi.org/10.1016/B978-0-12-801476-9.00009-4.",
     "crumbs": [
       "References"
     ]

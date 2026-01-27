@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Handling missing data in recommendation systems – DATA_ENG 300: Data Engineering Studio</title>
+<title>Intro to parallelized computing – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-spark.html" rel="next">
-<link href="./class-notebooks/03-missing-data-class.html" rel="prev">
+<link href="./0a-jupyter-ec2.html" rel="next">
+<link href="./04-rec-system.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -126,35 +126,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -167,7 +138,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./class-notebooks/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./04-rec-system.html"><span class="chapter-title">Handling missing data in recommendation systems</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-spark.html">Parallelization of computing</a></li><li class="breadcrumb-item"><a href="./05-spark.html"><span class="chapter-title">Intro to parallelized computing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -223,7 +194,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-rec-system.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Handling missing data in recommendation systems</span></a>
+  <a href="./04-rec-system.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Handling missing data in recommendation systems</span></a>
   </div>
 </li>
       </ul>
@@ -239,7 +210,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-spark.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Intro to parallelized computing</span></a>
+  <a href="./05-spark.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Intro to parallelized computing</span></a>
   </div>
 </li>
       </ul>
@@ -276,19 +247,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#matrix-completion" id="toc-matrix-completion" class="nav-link active" data-scroll-target="#matrix-completion">Matrix completion</a></li>
-  <li><a href="#alternating-least-squares" id="toc-alternating-least-squares" class="nav-link" data-scroll-target="#alternating-least-squares">Alternating Least Squares</a></li>
-  <li><a href="#bidirectional-encoder-representations-bert-devlin2019bert" id="toc-bidirectional-encoder-representations-bert-devlin2019bert" class="nav-link" data-scroll-target="#bidirectional-encoder-representations-bert-devlin2019bert">Bidirectional Encoder Representations (BERT) <span class="citation" data-cites="devlin2019bert">(Devlin et al. 2019)</span></a></li>
-  <li><a href="#low-rank-adaptation-hu2022lora" id="toc-low-rank-adaptation-hu2022lora" class="nav-link" data-scroll-target="#low-rank-adaptation-hu2022lora">Low rank adaptation <span class="citation" data-cites="hu2022lora">(Hu et al. 2022)</span></a></li>
+  <li><a href="#separation-of-compute-from-storage" id="toc-separation-of-compute-from-storage" class="nav-link active" data-scroll-target="#separation-of-compute-from-storage">Separation of compute from storage</a>
+  <ul class="collapse">
+  <li><a href="#hybridization-of-separation-and-colocation" id="toc-hybridization-of-separation-and-colocation" class="nav-link" data-scroll-target="#hybridization-of-separation-and-colocation">Hybridization of separation and colocation</a></li>
+  </ul></li>
+  <li><a href="#hadoop" id="toc-hadoop" class="nav-link" data-scroll-target="#hadoop">Hadoop</a></li>
+  <li><a href="#spark" id="toc-spark" class="nav-link" data-scroll-target="#spark">Spark</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/04b-lastfm-class.ipynb"><i class="bi bi-link-45deg"></i>Source Code to ALS algorithm example</a></li><li><a href="https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/04c-bert-example.ipynb"><i class="bi bi-link-45deg"></i>Source Code to BERT algorithm example</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/05b-rdd-class.ipynb"><i class="bi bi-link-45deg"></i>Source Code to RDD example</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./class-notebooks/02-exploratory-data-analysis-class.html">Exploratory Data Analysis</a></li><li class="breadcrumb-item"><a href="./04-rec-system.html"><span class="chapter-title">Handling missing data in recommendation systems</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-spark.html">Parallelization of computing</a></li><li class="breadcrumb-item"><a href="./05-spark.html"><span class="chapter-title">Intro to parallelized computing</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Handling missing data in recommendation systems</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Intro to parallelized computing</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -305,73 +278,100 @@ window.Quarto = {
 </header>
 
 
-<section id="matrix-completion" class="level2">
-<h2 class="anchored" data-anchor-id="matrix-completion">Matrix completion</h2>
-<p>Matrix completion typically assumes some low-rank structure within the dataset.</p>
-<p>Examples of usage:</p>
+<p>This document covers the key elements for modern distributed computing, specifically a quick word on Hadoop and Spark.</p>
+<section id="separation-of-compute-from-storage" class="level2">
+<h2 class="anchored" data-anchor-id="separation-of-compute-from-storage">Separation of compute from storage</h2>
+<p>Traditionally compute and storage are colocated, e.g.,</p>
 <ul>
-<li>recommendation system</li>
-<li>image restoration</li>
-<li>generative image</li>
+<li>a transactional database leverages its low-latency disk reads and high bandwidth.</li>
+<li>even for distributed jobs, a <em>map</em> job locates the location of data and runs the <em>map</em> local to the data.</li>
+</ul>
+<p>. . .</p>
+<p>Then why separate compute and storage?</p>
+<ul>
+<li>Availability of cloud computing and storage purchase
+<ul>
+<li>Cost: It is cheap to buy and host a server than to rent <em>if the server is up 24/7</em>, minus <em>maintenance cost</em></li>
+<li>Towards ephermerality: Spin up an instance, use, and stop when done.</li>
+<li>Towards scalability: If you only need to run this titan job once a month, only pay for the resources then.</li>
+</ul></li>
+</ul>
+<p>. . .</p>
+<ul>
+<li>Data durability and availability
+<ul>
+<li>Fault tolerance: Replication of data increases availability and mitgates a write operation that destroys data.</li>
+</ul></li>
 </ul>
 <hr>
-</section>
-<section id="alternating-least-squares" class="level2">
-<h2 class="anchored" data-anchor-id="alternating-least-squares">Alternating Least Squares</h2>
-<p>One particular algorithm that has garnered considerable interest is the Alternating Least Squares algorithm <span class="citation" data-cites="hastie2015matrix">(<a href="99-references.html#ref-hastie2015matrix" role="doc-biblioref">Hastie et al. 2015</a>)</span>.</p>
-<p>Suppose we have a matrix <span class="math inline">\(R \in \mathbb{R}^{n\times m}\)</span> that contains user ratings for items. The matrix completion or factorziation problem typically solves for some matrices <span class="math inline">\(X \in \mathbb{R}^{k\times n}, Y \in \mathbb{R}^{k\times m}\)</span> such that <span class="math inline">\(R \approx X^\mathsf{T} Y\)</span>, through the optimization problem</p>
-<p><span class="math display">\[\min_{X, Y} \ell(X, Y) := \underbrace{\frac{1}{2} \|R - X^\mathsf{T} Y\|^2_F}_\text{recovery} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization}.\]</span></p>
-<hr>
-<p><strong>Observation</strong>:</p>
+<section id="hybridization-of-separation-and-colocation" class="level3">
+<h3 class="anchored" data-anchor-id="hybridization-of-separation-and-colocation">Hybridization of separation and colocation</h3>
+<p>In reality, compute and storage are not either separated or colocated, e.g.,</p>
 <ul>
-<li><span class="math inline">\(\ell(X, Y)\)</span> is non-convex.</li>
-<li><span class="math inline">\(\ell(X, Y)\)</span> is bi-convex, meaning that fixing either <span class="math inline">\(X\)</span>, or <span class="math inline">\(Y\)</span> leads to a convex function.</li>
+<li>AWS elastic mapreduce (EMR) and S3</li>
+<li>Spark infrastructure dependence on RAM</li>
 </ul>
-<p>The bi-convexity leads to an alternating algorithm (for a full <span class="math inline">\(R\)</span>). But the missing locations do introduce nuances to the algorithm. See details in Theorem 3.1 of <span class="citation" data-cites="hastie2015matrix">(<a href="99-references.html#ref-hastie2015matrix" role="doc-biblioref">Hastie et al. 2015</a>)</span>.</p>
-<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/hadoop-emr.png" class="img-fluid figure-img"></p>
+<figcaption>Instances as a processing cache in an ephemeral Hadoop cluster, Fig 6.7 from <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span></figcaption>
+</figure>
+</div>
 </section>
-<section id="bidirectional-encoder-representations-bert-devlin2019bert" class="level2">
-<h2 class="anchored" data-anchor-id="bidirectional-encoder-representations-bert-devlin2019bert">Bidirectional Encoder Representations (BERT) <span class="citation" data-cites="devlin2019bert">(<a href="99-references.html#ref-devlin2019bert" role="doc-biblioref">Devlin et al. 2019</a>)</span></h2>
-<p>Modern methods replace explicit low-rank assumptions with <strong>contextual representation learning</strong>, especially through masked prediction and self-attention.</p>
-<p>Instead of predicting a single entry or factorizing the matrix directly, consider a full row as a sequence:</p>
-<p><span class="math display">\[\mathbf{r}_i = (r_{i1}, r_{i2}, \dots, r_{im})\]</span></p>
-<p>with missing entries treated as <em>masked tokens</em>.</p>
-<p>The question becomes:<br>
-how do we predict a missing entry using <em>all other entries</em> in the row?</p>
-<p>Consider a contextual encoder (BERT):</p>
-<p><span class="math display">\[(\mathbf{h}_{i1}, \dots, \mathbf{h}_{im})=\mathrm{BERT}_\theta(\mathbf{r}_i)\]</span></p>
-<p>where each <span class="math inline">\(\mathbf{h}_{ij}\)</span> depends on <em>both left and right context</em>.</p>
-<p>Prediction is made from a contextual embedding, e.g.,:</p>
-<p><span class="math display">\[\hat{R}_{ij} = W \mathbf{h}_{ij}\]</span></p>
-<p>Training is performed via masked reconstruction (randomly drop data in training):</p>
-<p><span class="math display">\[\min_\theta \underbrace{\sum_{(i,j)\in\Omega_{\text{mask}}}\ell\big(\hat{R}_{ij}, R_{ij}\big)}_{\text{predict masked entries}}\]</span></p>
-<p>Compare with classical matrix completion:</p>
-<p><span class="math display">\[\min_{X,Y}\underbrace{\tfrac12 \|R - X^\mathsf{T}Y\|_F^2}_{\text{low-rank structure}} + \underbrace{\tfrac{\lambda}{2}(\|X\|_F^2+\|Y\|_F^2)}_{\text{regularization}}\]</span></p>
-<hr>
 </section>
-<section id="low-rank-adaptation-hu2022lora" class="level2">
-<h2 class="anchored" data-anchor-id="low-rank-adaptation-hu2022lora">Low rank adaptation <span class="citation" data-cites="hu2022lora">(<a href="99-references.html#ref-hu2022lora" role="doc-biblioref">Hu et al. 2022</a>)</span></h2>
-<p>Modern methods consider “pre-trained” data and adaptation to previously trained models, especially in the large language model perspective.</p>
-<p>Instead of viewing all data at once, consider the prediction of row <span class="math inline">\(i\)</span> of the matrix <span class="math inline">\(R\)</span>:</p>
-<p><span class="math display">\[ \mathbf{r}_i = W \underbrace{\mathbf{e}_i}_{\text{unit vec.}} \]</span></p>
-<p>The question becomes, how do we learn the weight matrix <span class="math inline">\(W\)</span>?</p>
-<p>Suppose there is a pre-trained estimate <span class="math inline">\(W_0\)</span>, then matrix completion technique is used in estimating the <em>residual</em>:</p>
-<p><span class="math display">\[ \min_{X, Y} \ell(X, Y; W_0) := \underbrace{\frac{1}{2} \|R - W_0 - X^\mathsf{T} Y\|^2_F}_\text{fit residual} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization} \]</span></p>
-<p>Compare with:</p>
-<p><span class="math display">\[ \min_{X, Y} \ell(X, Y) := \underbrace{\frac{1}{2} \|R - X^\mathsf{T} Y\|^2_F}_\text{recovery} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization}. \]</span></p>
+<section id="hadoop" class="level2">
+<h2 class="anchored" data-anchor-id="hadoop">Hadoop</h2>
+<p>Developed in 2006 to process data with the <em>MapReduce programming model</em> <span class="citation" data-cites="dean2008mapreduce">Dean and Ghemawat (<a href="99-references.html#ref-dean2008mapreduce" role="doc-biblioref">2008</a>)</span>, with the “big data” processing idea.</p>
+<p>. . .</p>
+<p>Main components of Apache Hadoop:</p>
+<ul>
+<li><em>Hadoop Distributed File System (HDFS)</em>: Manages large data sets running on commodity hardware (with data replication)</li>
+<li>Yet Another Resource Negotiator (YARN)</li>
+<li><em>Hadoop MapReduce</em>: Splits data into blocks, distributes across different nodes, then runs task on each block in parallel</li>
+<li>Hadoop Common (Hadoop Core): Common libraries and utilities</li>
+</ul>
+<p>. . .</p>
+<p><em>Why Hadoop is not enough?</em></p>
+<ul>
+<li>Hadoop utilizes external storage. Read/write latency is high.</li>
+<li>All codes must be restricted to a <code>map</code> and <code>reduce</code> constructs.</li>
+</ul>
+</section>
+<section id="spark" class="level2">
+<h2 class="anchored" data-anchor-id="spark">Spark</h2>
+<p>Main components:</p>
+<ul>
+<li>Spark Core: Execution engine for resource coordination</li>
+<li><em>Spark SQL</em></li>
+<li><em>Machine Learning Library (MLlib)</em></li>
+<li>Spark Streaming: Capability for processing streaming data</li>
+<li>GraphX: Capability for processing graph-based data</li>
+</ul>
+<p>. . .</p>
+<p>Spark essentially tackles <em>only</em> where Hadoop does not perform well, by using an <em>in-memory</em> distributed computing engine,</p>
+<ul>
+<li>making use of Resilient Distributed Dataset (RDD)</li>
+<li>employing dynamic RAM in processing</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/mapreduce-trad.jpg" class="img-fluid figure-img"></p>
+<figcaption>MapReduce schema from <span class="citation" data-cites="tian2015energy">Tian and Zhao (<a href="99-references.html#ref-tian2015energy" role="doc-biblioref">2015</a>)</span>.</figcaption>
+</figure>
+</div>
 
 
 <!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-devlin2019bert" class="csl-entry" role="listitem">
-Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. <span>“Bert: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4171–86.
+<div id="ref-dean2008mapreduce" class="csl-entry" role="listitem">
+Dean, Jeffrey, and Sanjay Ghemawat. 2008. <span>“MapReduce: Simplified Data Processing on Large Clusters.”</span> <em>Communications of the ACM</em> 51 (1): 107–13.
 </div>
-<div id="ref-hastie2015matrix" class="csl-entry" role="listitem">
-Hastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015. <span>“Matrix Completion and Low-Rank SVD via Fast Alternating Least Squares.”</span> <em>The Journal of Machine Learning Research</em> 16 (1): 3367–3402.
+<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
+Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
 </div>
-<div id="ref-hu2022lora" class="csl-entry" role="listitem">
-Hu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, et al. 2022. <span>“Lora: Low-Rank Adaptation of Large Language Models.”</span> <em>ICLR</em> 1 (2): 3.
+<div id="ref-tian2015energy" class="csl-entry" role="listitem">
+Tian, Wenhong, and Yong Zhao. 2015. <span>“9 - Energy Efficiency Scheduling in Hadoop.”</span> In <em>Optimized Cloud Resource Management and Scheduling</em>, edited by Wenhong Tian and Yong Zhao, 179–204. Boston: Morgan Kaufmann. https://doi.org/<a href="https://doi.org/10.1016/B978-0-12-801476-9.00009-4">https://doi.org/10.1016/B978-0-12-801476-9.00009-4</a>.
 </div>
 </div>
 </section>
@@ -835,139 +835,100 @@ Hu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean W
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./class-notebooks/03-missing-data-class.html" class="pagination-link" aria-label="Handling missing data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Handling missing data</span></span>
+      <a href="./04-rec-system.html" class="pagination-link" aria-label="Handling missing data in recommendation systems">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Handling missing data in recommendation systems</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-spark.html" class="pagination-link" aria-label="Intro to parallelized computing">
-        <span class="nav-page-text"><span class="chapter-title">Intro to parallelized computing</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./0a-jupyter-ec2.html" class="pagination-link" aria-label="Setting up EC2 instance for jupyter notebook">
+        <span class="nav-page-text"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Handling missing data in recommendation systems</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Intro to parallelized computing</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html: </span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    other-links: </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: Source Code to ALS algorithm example</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        href: https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/04b-lastfm-class.ipynb</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: Source Code to BERT algorithm example</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">        href: https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/04c-bert-example.ipynb</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    link-external-newwindow: true</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  ipynb: default</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">      - text: Source Code to RDD example</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        href: https://github.com/mosesyhc/de300-2026wi/blob/main/class-notebooks/05b-rdd-class.ipynb</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    link-external-newwindow: true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  ipynb: default</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>This document covers the key elements for modern distributed computing, specifically a quick word on Hadoop and Spark.</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matrix completion</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Matrix completion typically assumes some low-rank structure within the dataset.  </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Separation of compute from storage</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Traditionally compute and storage are colocated, e.g.,</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Examples of usage:</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>a transactional database leverages its low-latency disk reads and high bandwidth.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>even for distributed jobs, a *map* job locates the location of data and runs the *map* local to the data.</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>recommendation system</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>image restoration</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>generative image</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Alternating Least Squares</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>One particular algorithm that has garnered considerable interest is the Alternating Least Squares algorithm <span class="co">[</span><span class="ot">@hastie2015matrix</span><span class="co">]</span>.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>. . . </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Then why separate compute and storage?</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Availability of cloud computing and storage purchase</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Cost: It is cheap to buy and host a server than to rent *if the server is up 24/7*, minus *maintenance cost*</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Towards ephermerality: Spin up an instance, use, and stop when done.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Towards scalability: If you only need to run this titan job once a month, only pay for the resources then.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>. . .</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Suppose we have a matrix $R \in \mathbb{R}^{n\times m}$ that contains user ratings for items.  The matrix completion or factorziation problem typically solves for some matrices $X \in \mathbb{R}^{k\times n}, Y \in \mathbb{R}^{k\times m}$ such that $R \approx X^\mathsf{T} Y$, through the optimization problem</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data durability and availability</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Fault tolerance: Replication of data increases availability and mitgates a write operation that destroys data.</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>--- </span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>$$\min_{X, Y} \ell(X, Y) := \underbrace{\frac{1}{2} <span class="sc">\|</span>R - X^\mathsf{T} Y<span class="sc">\|</span>^2_F}_\text{recovery} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization}.$$</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>**Observation**:  </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hybridization of separation and colocation</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>In reality, compute and storage are not either separated or colocated, e.g.,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>AWS elastic mapreduce (EMR) and S3</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spark infrastructure dependence on RAM</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\ell(X, Y)$ is non-convex.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\ell(X, Y)$ is bi-convex, meaning that fixing either $X$, or $Y$ leads to a convex function.</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>The bi-convexity leads to an alternating algorithm (for a full $R$).  But the missing locations do introduce nuances to the algorithm.  See details in Theorem 3.1 of <span class="co">[</span><span class="ot">@hastie2015matrix</span><span class="co">]</span>.</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bidirectional Encoder Representations (BERT) [@devlin2019bert]</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Modern methods replace explicit low-rank assumptions with **contextual representation learning**, especially through masked prediction and self-attention.</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="al">![Instances as a processing cache in an ephemeral Hadoop cluster, Fig 6.7 from @reis2022fundamentals](img/hadoop-emr.png)</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hadoop</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>Developed in 2006 to process data with the *MapReduce programming model* @dean2008mapreduce, with the "big data" processing idea.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>. . .</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>Main components of Apache Hadoop:  </span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Hadoop Distributed File System (HDFS)*: Manages large data sets running on commodity hardware (with data replication)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Yet Another Resource Negotiator (YARN)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Hadoop MapReduce*: Splits data into blocks, distributes across different nodes, then runs task on each block in parallel</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hadoop Common (Hadoop Core): Common libraries and utilities</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Instead of predicting a single entry or factorizing the matrix directly, consider a full row as a sequence:</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>. . .</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>$$\mathbf{r}_i = (r_{i1}, r_{i2}, \dots, r_{im})$$</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>*Why Hadoop is not enough?* </span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>with missing entries treated as *masked tokens*.</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hadoop utilizes external storage.  Read/write latency is high.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All codes must be restricted to a <span class="in">`map`</span> and <span class="in">`reduce`</span> constructs.</span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>The question becomes:  </span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>how do we predict a missing entry using *all other entries* in the row?</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spark </span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>Main components:</span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>Consider a contextual encoder (BERT):</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>$$(\mathbf{h}_{i1}, \dots, \mathbf{h}_{im})=\mathrm{BERT}_\theta(\mathbf{r}_i)$$</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spark Core: Execution engine for resource coordination</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Spark SQL*</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Machine Learning Library (MLlib)*</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spark Streaming: Capability for processing streaming data</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GraphX: Capability for processing graph-based data</span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>where each $\mathbf{h}_{ij}$ depends on *both left and right context*.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>. . .</span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>Spark essentially tackles *only* where Hadoop does not perform well, by using an *in-memory* distributed computing engine,</span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>Prediction is made from a contextual embedding, e.g.,:</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>$$\hat{R}_{ij} = W \mathbf{h}_{ij}$$</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>Training is performed via masked reconstruction (randomly drop data in training):</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>$$\min_\theta \underbrace{\sum_{(i,j)\in\Omega_{\text{mask}}}\ell\big(\hat{R}_{ij}, R_{ij}\big)}_{\text{predict masked entries}}$$</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>Compare with classical matrix completion:</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>$$\min_{X,Y}\underbrace{\tfrac12 <span class="sc">\|</span>R - X^\mathsf{T}Y<span class="sc">\|</span>_F^2}_{\text{low-rank structure}} + \underbrace{\tfrac{\lambda}{2}(\|X\|_F^2+\|Y\|_F^2)}_{\text{regularization}}$$</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>--- </span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Low rank adaptation [@hu2022lora]</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>Modern methods consider "pre-trained" data and adaptation to previously trained models, especially in the large language model perspective. </span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Instead of viewing all data at once, consider the prediction of row $i$ of the matrix $R$:</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>$$ \mathbf{r}_i = W \underbrace{\mathbf{e}_i}_{\text{unit vec.}} $$</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>The question becomes, how do we learn the weight matrix $W$?</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>Suppose there is a pre-trained estimate $W_0$, then matrix completion technique is used in estimating the *residual*:</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>$$ \min_{X, Y} \ell(X, Y; W_0) := \underbrace{\frac{1}{2} <span class="sc">\|</span>R - W_0 - X^\mathsf{T} Y<span class="sc">\|</span>^2_F}_\text{fit residual} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization} $$</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>Compare with:</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>$$ \min_{X, Y} \ell(X, Y) := \underbrace{\frac{1}{2} <span class="sc">\|</span>R - X^\mathsf{T} Y<span class="sc">\|</span>^2_F}_\text{recovery} + \underbrace{\frac{\lambda}{2} (\|X\|^2_F + \|Y\|^2_F)}_\text{regularization}. $$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>making use of Resilient Distributed Dataset (RDD)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>employing dynamic RAM in processing</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="al">![MapReduce schema from @tian2015energy.](img/mapreduce-trad.jpg)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

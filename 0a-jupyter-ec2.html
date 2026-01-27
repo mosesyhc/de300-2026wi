@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>Setting up EC2 instance for jupyter notebook – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./99-references.html" rel="next">
+<link href="./05-spark.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -103,7 +83,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./0a-jupyter-ec2.html">Useful guides</a></li><li class="breadcrumb-item"><a href="./0a-jupyter-ec2.html"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +110,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -191,7 +171,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./0a-jupyter-ec2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></a>
+  <a href="./0a-jupyter-ec2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></a>
   </div>
 </li>
       </ul>
@@ -212,41 +192,22 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
-  <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
-  </ul></li>
+  <li><a href="#reconnect-to-ec2-jupyter-notebook" id="toc-reconnect-to-ec2-jupyter-notebook" class="nav-link active" data-scroll-target="#reconnect-to-ec2-jupyter-notebook">Reconnect to EC2 Jupyter notebook</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./0a-jupyter-ec2.html">Useful guides</a></li><li class="breadcrumb-item"><a href="./0a-jupyter-ec2.html"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">Setting up EC2 instance for jupyter notebook</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -257,125 +218,127 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Classroom</strong>: Lecture: 2122 Sheridan Rm 250, Lab: Tech C135</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
+<ol type="1">
+<li>Access AWS
 <ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
-</ul>
-</section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
-</section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
-</section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
-<ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
-</ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
-</section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
-</section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
-</section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
-</section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li>Always access AWS by using the Northwestern AWS portal and your NetID: https://nu-sso.awsapps.com/start/</li>
+<li>You should have access through the <code>mse-tl-dataeng300-EMR</code> user account.</li>
+<li>If you do not, reach out to the instructor.</li>
+<li>(Preferred) Check that you are in the <code>N. Virginia</code> region (right top corner).</li>
+</ul></li>
 </ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ec2/aws-start.png" class="img-fluid figure-img"></p>
+<figcaption>AWS Start page</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li><strong>If you do not currently have an EC2 instance under your name,</strong> launch an EC2 instance, by doing the following:
+<ul>
+<li>Services -&gt; EC2</li>
+<li>(<em>Optional</em>) Launch an instance using <code>Launch instance from template</code>:
+<ul>
+<li>You will find a <code>de300-t2.medium</code> template available.</li>
+</ul></li>
+<li>Verify the following configurations (or set up an instance from scratch):
+<ul>
+<li>Image: AMI (Linux 64-bit)</li>
+<li>Instance type: <code>t2.medium</code></li>
+<li><strong>Key pair</strong>: You should create a new key pair for your instance (if you do not currently have one).
+<ul>
+<li>Name your key pair name in the same way such that you can identify it. Default options are fine.</li>
+<li>Upon creating a key pair, a “key file” <code>[name].pem</code> will be automatically downloaded. Store it somewhere your machine has read/write access to.</li>
+<li>(You only have to do this once.) run <code>chmod 400 [name].pem</code> on your console. (If you use a Windows machine, use either bash or PowerShell.) The command modifies the “key file” to be read-only.</li>
+</ul></li>
+<li>Subnet: <code>RDS-Pvt-subnet-5</code></li>
+<li>Firewall: Select <code>launch-wizard-3</code> security group</li>
+<li>Storage: Specify 12 Gb of EBS storage.</li>
+<li><strong>Resource tags:</strong> Key: <code>Name</code>, Value: <code>[firstname][lastname]-de300</code> as your instance name.</li>
+</ul></li>
+<li>Launch instance.
+<ul>
+<li>An instance will be <em>running</em> automatically. You may track running instances under the <code>Instances</code> page.</li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ec2/launch-from-template.png" class="img-fluid figure-img"></p>
+<figcaption>Launching from template</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li>SSH into EC2
+<ul>
+<li>Once your instance is running, select the instance under the <code>Instances</code> page and hit <code>Connect</code>.</li>
+<li>Under the <code>SSH client</code> tab, you will see the instructions to connect to the EC2 instance via SSH on your console.</li>
+<li><em>Troubleshoot</em>:
+<ul>
+<li>If access is denied, double check your <code>[name].pem</code> file is located in your console working directory.</li>
+<li>If an error about unprotected key arises, make sure you have run <code>chmod 400 [name].pem</code>.</li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ec2/instances.png" class="img-fluid figure-img"></p>
+<figcaption>EC2 Instances</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Anaconda installation on EC2
+<ul>
+<li>Fetch source code: <code>wget https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh</code> or the appropriate source code.</li>
+<li>(<em>Optional</em>) Verify the source code SHA256 key: <code>sha256sum [filename].sh</code>.</li>
+<li>Install: <code>bash Anaconda3-2023.09-0-Linux-x86_64.sh</code>
+<ul>
+<li>The first prompt requires you to read the agreement and respond <code>yes</code></li>
+<li>You may have to confirm the location of installation. The default is fine.</li>
+<li>By the end of installation, you will see a prompt about <code>conda init</code>, you may respond <code>yes</code> such that each time you log into EC2, the conda environment is automatically loaded.</li>
+</ul></li>
+<li>Activate conda environment:
+<ul>
+<li>If you responded yes above, run <code>source .bashrc</code> to activate the conda environment. You should see <code>(base)</code> as the beginning of your console cursor.</li>
+<li>If you did not respond yes above, you can run <code>eval "$($CONDA_PATH/bin/conda shell.bash hook)"</code> to activate the conda environment.</li>
+</ul></li>
+<li>To verify that Anaconda is successfully installed, you can run <code>which python</code> in the console, and a path to the Python executables should be returned.
+<ul>
+<li>If no python is found, it means that your conda environment was not successfully activated.</li>
+</ul></li>
+</ul></li>
+<li>Set Jupyter notebook password
+<ul>
+<li>Run <code>jupyter notebook password</code>.</li>
+<li>Enter and verify your password.</li>
+</ul></li>
+<li>SSH into Jupyter notebook on EC2
+<ul>
+<li>In the console where EC2 is running, run <code>jupyter notebook --no-browser --port=8888</code></li>
+<li>Once a jupyter notebook is running, <strong>open</strong> a new console on your local machine.</li>
+<li>On the new console, run <code>ssh -i [name].pem -N -f -L 8888:localhost:8888 ec2-user@[your-public-DNS].compute-1.amazonaws.com</code>.</li>
+<li>Open a new browser (Chrome, Firefox, etc.), access https://localhost:8888.</li>
+<li>Enter your password to access your Jupyter notebook.</li>
+</ul></li>
+<li>Stop your EC2 instance on AWS <code>Instances</code> page.</li>
+</ol>
+<p><strong>Important: Whenever you are not running anything (for more than 15 minutes), you should stop the EC2 instance on the AWS <code>Instances</code> page.</strong></p>
+<section id="reconnect-to-ec2-jupyter-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="reconnect-to-ec2-jupyter-notebook">Reconnect to EC2 Jupyter notebook</h2>
+<ol type="1">
+<li>Start your EC2 instance from https://nu-sso.awsapps.com/start/. (<em>The one you have a private key for.</em>)</li>
+<li>Once the EC2 instance is running, connect to the instance via SSH
+<ul>
+<li>Under the SSH client tab, you will see the instructions to connect to the EC2 instance via SSH on your console.</li>
+</ul></li>
+<li>If your EC2 console shows <code>(base)</code> before your cursor, it indicates that conda environment is already running.
+<ul>
+<li>If not, you have to run <code>eval "$($CONDA_PATH/bin/conda shell.bash hook)"</code> to activate the conda environment.</li>
+</ul></li>
+<li>SSH into Jupyter notebook on EC2 (as in step 7 above.)</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -781,10 +744,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./05-spark.html" class="pagination-link" aria-label="Intro to parallelized computing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Intro to parallelized computing</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./99-references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
