@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>Resilient distributed datasets – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +65,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./07-pyspark-ml.html" rel="next">
+<link href="./05-spark.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -103,7 +118,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-spark.html">Parallelization of computing</a></li><li class="breadcrumb-item"><a href="./06-rdd.html"><span class="chapter-title">Resilient distributed datasets</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +145,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -180,7 +195,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-rdd.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Resilient distributed datasets</span></a>
+  <a href="./06-rdd.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Resilient distributed datasets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -243,19 +258,13 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
+  <li><a href="#what-is-rdd" id="toc-what-is-rdd" class="nav-link active" data-scroll-target="#what-is-rdd">What is RDD?</a></li>
+  <li><a href="#why-rdd-if-we-have-dataframes" id="toc-why-rdd-if-we-have-dataframes" class="nav-link" data-scroll-target="#why-rdd-if-we-have-dataframes">Why RDD if we have dataframes?</a></li>
+  <li><a href="#main-ingredients-of-rdd-manipulation" id="toc-main-ingredients-of-rdd-manipulation" class="nav-link" data-scroll-target="#main-ingredients-of-rdd-manipulation">Main ingredients of RDD manipulation</a>
   <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
+  <li><a href="#map-through-an-example" id="toc-map-through-an-example" class="nav-link" data-scroll-target="#map-through-an-example"><code>map</code> through an example</a></li>
+  <li><a href="#filter-through-an-example" id="toc-filter-through-an-example" class="nav-link" data-scroll-target="#filter-through-an-example"><code>filter</code> through an example</a></li>
+  <li><a href="#reduce-through-an-example" id="toc-reduce-through-an-example" class="nav-link" data-scroll-target="#reduce-through-an-example"><code>reduce</code> through an example</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,21 +272,15 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-spark.html">Parallelization of computing</a></li><li class="breadcrumb-item"><a href="./06-rdd.html"><span class="chapter-title">Resilient distributed datasets</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">Resilient distributed datasets</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -288,125 +291,197 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Classroom</strong>: Lecture: 2122 Sheridan Rm 250, Lab: Tech C135</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
+<p>Resilient distributed datasets, or <em>RDD</em>s, are the fundamental blocks in PySpark.</p>
+<section id="what-is-rdd" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-rdd">What is RDD?</h2>
+<p>RDD is essentially a collection of unordered objects,</p>
 <ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
+<li>or a mathematical <em>set</em>,</li>
+<li>or a Python list of objects,</li>
+<li>or similar to a JSON.</li>
+</ul>
+<div id="2215afa3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"JAVA_HOME"</span>] <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">Program Files</span><span class="er">\</span><span class="vs">Java</span><span class="er">\</span><span class="vs">jdk-24"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"SPARK_HOME"</span>] <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">Program Files</span><span class="dv">\S</span><span class="vs">park</span><span class="dv">\s</span><span class="vs">park-4</span><span class="dv">.</span><span class="vs">1</span><span class="dv">.</span><span class="vs">1-bin-hadoop3"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="3d80b60d-935c-41a1-b28a-03ac73accf41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>spark <span class="op">=</span> SparkSession.builder.getOrCreate()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> [<span class="dv">1</span>, <span class="st">"two"</span>, <span class="fl">3.0</span>, (<span class="st">"four"</span>, <span class="dv">4</span>), {<span class="st">"five"</span>: <span class="dv">5</span>}]  <span class="co"># generic list</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> spark.sparkContext</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>collection_rdd <span class="op">=</span> sc.parallelize(collection)  <span class="co"># list promoted to RDD</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(collection_rdd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a9c2ade2-a513-4c43-9d22-c509b2be2093" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection_rdd.collect()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="why-rdd-if-we-have-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="why-rdd-if-we-have-dataframes">Why RDD if we have dataframes?</h2>
+<ul>
+<li>If the data at hand are more <em>freeformed</em>, using an RDD allows for storage of various types of objects.</li>
+<li>Compared to dataframe, which will <em>attempt</em> (and fail) to find a common denominator to fit the data above.</li>
 </ul>
 </section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
+<section id="main-ingredients-of-rdd-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="main-ingredients-of-rdd-manipulation">Main ingredients of RDD manipulation</h2>
+<p>We cover three main building blocks for using RDDs, inheriting the concept of a MapReduce scheme.</p>
+<p>Each of the following building blocks (<em>functions</em>) takes a functional input:</p>
+<ul>
+<li><code>map()</code></li>
+<li><code>filter()</code></li>
+<li><code>reduce()</code></li>
+</ul>
+<section id="map-through-an-example" class="level3">
+<h3 class="anchored" data-anchor-id="map-through-an-example"><code>map</code> through an example</h3>
+<p><code>map()</code> applies the given function to each element of the RDD.</p>
+<div id="312efecc-4e1a-4291-8eba-003b9ac9062f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> py4j.protocol <span class="im">import</span> Py4JJavaError</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_one(value):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>collection_rdd_p1 <span class="op">=</span> collection_rdd.<span class="bu">map</span>(add_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="59b073c6-1b0d-4ee2-a0b2-2e27ee90dfc6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>: </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(collection_rdd_p1.collect())</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> Py4JJavaError <span class="im">as</span> e:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># You'll get one of the following:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># TypeError: can only concatenate str (not "int") to str</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># TypeError: unsupported operand type(s) for +: 'dict' and 'int'</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># TypeError: can only concatenate tuple (not "int") to tuple</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
+<th style="text-align: center;"><img src="img/rdd-map.png" class="img-fluid" alt="rdd-map"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
+<td style="text-align: center;">Applying <code>add_one()</code> to each element of RDD through <code>map()</code> (Fig 8.2 in Rioux, 2022).</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
+</tbody>
+</table>
+<p><strong>Quick note:</strong></p>
+<ul>
+<li>Why did the line throw an error?</li>
+<li>When was the error thrown?</li>
+</ul>
+<p><strong>A potential fix:</strong></p>
+<div id="69a233c8-6d1c-44d2-9412-e47fa06cfe64" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safer_add_one(value):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">TypeError</span>:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>collection_rdd_p1_again <span class="op">=</span> collection_rdd.<span class="bu">map</span>(safer_add_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Lesson here</strong>:</p>
+<ul>
+<li>PySpark does not warn you about the content of the RDD.</li>
+<li>As the developer, we are responsible for how to deal with the data given to an RDD.</li>
+</ul>
+</section>
+<section id="filter-through-an-example" class="level3">
+<h3 class="anchored" data-anchor-id="filter-through-an-example"><code>filter</code> through an example</h3>
+<p><code>filter()</code> takes a function that returns <code>True</code>/<code>False</code> based on any conditions.</p>
+<div id="dbfff441-752b-49a4-8654-e6e073be1495" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>collection_rdd_filter <span class="op">=</span> collection_rdd.<span class="bu">filter</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> elem: <span class="bu">isinstance</span>(elem, (<span class="bu">float</span>, <span class="bu">int</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="371e7767-2713-40ec-9618-7212ca4496de" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print(collection_rdd_filter.collect())</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/rdd-filter.png" class="img-fluid" alt="rdd-filter"></th>
 </tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
+<td style="text-align: center;">Applying <code>filter()</code> to the RDD (Fig 8.3 in Rioux, 2022).</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
+</tbody>
+</table>
+<p><strong>A word about <code>lambda</code> function</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/rdd-lambda.png" class="img-fluid" alt="rdd-lambda"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">The use of <code>lambda</code> function (Rioux, 2022).</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
-</section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
-</section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
+<section id="reduce-through-an-example" class="level3">
+<h3 class="anchored" data-anchor-id="reduce-through-an-example"><code>reduce</code> through an example</h3>
+<p><code>reduce()</code> summarizes the RDD by sequentially applying the given function.</p>
 <ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
+<li>similar to <code>groupby()</code> in a dataframe.</li>
 </ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
-</section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
-</section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
-</section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
-</section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
+<div id="4d8b2328-9c01-4cb3-83a9-e5f076098071" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> add</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>collection_rdd2 <span class="op">=</span> sc.parallelize([<span class="dv">4</span>, <span class="dv">7</span>, <span class="fl">9.2</span>, <span class="fl">5.6</span>, <span class="op">-</span><span class="dv">20</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4ec95197-9069-4685-ad01-1320955448f5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>collection_rdd2.<span class="bu">reduce</span>(add)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="38c173fb-a37c-4eea-b451-67cdc081adab" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># collection_rdd2.reduce(</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#     lambda a, b: a + b</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/rdd-reduce.png" class="img-fluid" alt="rdd-reduce"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Applying <code>add</code> through <code>reduce()</code> to the RDD (Fig 8.4 in Rioux, 2022).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Warnings about <code>reduce()</code></strong></p>
+<ul>
+<li>What functions are reasonable for <code>reduce()</code>?</li>
+<li><em>commutative operation</em></li>
+<li><em>associative operation</em></li>
+</ul>
+<p><strong>Additional Note:</strong></p>
+<p>A dataframe is actually an RDD, e.g.,</p>
+<div id="801bee99-595f-4b1a-b6fa-2a8a89d10b8f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> spark.createDataFrame([[<span class="dv">1</span>], [<span class="dv">2</span>], [<span class="dv">3</span>]], schema<span class="op">=</span>[<span class="st">"column"</span>])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.rdd)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.rdd.collect())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
 </section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -812,10 +887,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./05-spark.html" class="pagination-link" aria-label="Intro to parallelized computing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Intro to parallelized computing</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07-pyspark-ml.html" class="pagination-link" aria-label="Machine learning examples in PySpark">
+        <span class="nav-page-text"><span class="chapter-title">Machine learning examples in PySpark</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
