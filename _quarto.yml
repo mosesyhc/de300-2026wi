@@ -1,6 +1,5 @@
 project:
   type: book
-  
 book:
   title: "DATA_ENG 300: Data Engineering Studio"
   author: "Moses Y.-H. Chan"
