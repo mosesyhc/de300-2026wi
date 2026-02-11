@@ -20,7 +20,7 @@ book:
       - 07-pyspark-ml.qmd
     - part: "Additional topic: Time series forecasting"
       chapters:
-      - 08-add-time-series.qmd
+      - 08-add-times-series.qmd
     - part: "Project"
       chapters:
       - a0-project-specification.ipynb
