@@ -1,13 +1,33 @@
 project:
   type: book
-  output-dir: docs
-
+  
 book:
   title: "DATA_ENG 300: Data Engineering Studio"
   author: "Moses Y.-H. Chan"
 
   chapters:
     - index.qmd
+    - 01-intro-data-engineering.ipynb
+    - part: "Exploratory Data Analysis"
+      chapters:
+      - class-notebooks/02-exploratory-data-analysis-class.ipynb
+      - class-notebooks/03-missing-data-class.ipynb
+      - 04-rec-system.qmd
+    - part: "Parallelization of computing"
+      chapters:
+      - 05-spark.qmd
+      - 06-rdd.ipynb
+      - 07-pyspark-ml.qmd
+    - part: "Additional topic: Time series forecasting"
+      chapters:
+      - 08-add-time-series.qmd
+    - part: "Project"
+      chapters:
+      - a0-project-specification.ipynb
+      - a1-presentation-rubric.ipynb
+    - part: "Useful guides"
+      chapters:
+      - 0a-jupyter-ec2.ipynb
     - 99-references.qmd
 
 bibliography: de300.bib
