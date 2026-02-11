@@ -9,3 +9,4 @@ homework/misc/
 /.quarto/
 **/*.quarto_ipynb
 /_site/
+/docs/
