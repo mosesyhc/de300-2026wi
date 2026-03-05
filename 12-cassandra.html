@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>Wide-column database system (Apache Cassandra) – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +65,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./a0-project-specification.html" rel="next">
+<link href="./11-intro-to-nosql.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -91,6 +106,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -103,7 +147,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-data-modeling.html">Non-relational database modeling</a></li><li class="breadcrumb-item"><a href="./12-cassandra.html"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -132,7 +176,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -245,7 +289,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12-cassandra.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></a>
+  <a href="./12-cassandra.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></a>
   </div>
 </li>
       </ul>
@@ -308,41 +352,34 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
+  <li><a href="#an-abridged-version-of-the-cassandra-timeline" id="toc-an-abridged-version-of-the-cassandra-timeline" class="nav-link active" data-scroll-target="#an-abridged-version-of-the-cassandra-timeline">An abridged version of the Cassandra timeline</a></li>
+  <li><a href="#architecture-of-cassandra" id="toc-architecture-of-cassandra" class="nav-link" data-scroll-target="#architecture-of-cassandra">Architecture of Cassandra</a>
   <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
+  <li><a href="#decentralized-multiple-nodes" id="toc-decentralized-multiple-nodes" class="nav-link" data-scroll-target="#decentralized-multiple-nodes">Decentralized multiple nodes</a></li>
+  <li><a href="#partitions" id="toc-partitions" class="nav-link" data-scroll-target="#partitions">Partitions</a></li>
+  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication">Replication</a></li>
+  <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency">Consistency</a></li>
+  <li><a href="#pre-sorting" id="toc-pre-sorting" class="nav-link" data-scroll-target="#pre-sorting">Pre-sorting</a></li>
+  <li><a href="#deletion-of-data" id="toc-deletion-of-data" class="nav-link" data-scroll-target="#deletion-of-data">Deletion of data</a></li>
+  <li><a href="#node-failure-detection" id="toc-node-failure-detection" class="nav-link" data-scroll-target="#node-failure-detection">Node failure detection</a></li>
+  <li><a href="#main-take-aways" id="toc-main-take-aways" class="nav-link" data-scroll-target="#main-take-aways">Main take-aways</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-data-modeling.html">Non-relational database modeling</a></li><li class="breadcrumb-item"><a href="./12-cassandra.html"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -353,124 +390,192 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
+<p>This document covers the wide-column database system, with Cassandra queries that are used via AWS Keyspaces.</p>
+<section id="an-abridged-version-of-the-cassandra-timeline" class="level2">
+<h2 class="anchored" data-anchor-id="an-abridged-version-of-the-cassandra-timeline">An abridged version of the Cassandra timeline</h2>
 <ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
+<li><p><strong>2008</strong>: First developed to address Facebook scaling needs by improving search function.</p></li>
+<li><p><strong>2008</strong>: Released by Facebook as an open-source project.</p></li>
+<li><p><strong>2009</strong>: Apache picked up Cassandra as an Incubator project, and graduated in 2010.</p></li>
+<li><p><strong>2011</strong>: Cassandra Query Language (CQL) is introduced (v0.8).</p></li>
+<li><p><strong>2021</strong>: Cassandra 4.0 was released. In <a href="https://thenewstack.io/the-end-of-the-beginning-for-apache-cassandra/">Patrick McFadin’s own words</a>, &gt; This is an important milestone in the lifecycle of a database project that has come into its own as an important database used around the world.</p></li>
 </ul>
 </section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
+<section id="architecture-of-cassandra" class="level2">
+<h2 class="anchored" data-anchor-id="architecture-of-cassandra">Architecture of Cassandra</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
+<th style="text-align: center;"><img src="img/apache-cassandra-ring.jpg" class="img-fluid" alt="apache-cassandra"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
+<td style="text-align: center;">Apache Cassandra distributed database schema.</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
+</tbody>
+</table>
+<section id="decentralized-multiple-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="decentralized-multiple-nodes">Decentralized multiple nodes</h3>
+<p>Each node can receive request (query) and coordinates the request:</p>
+<ul>
+<li><p>If the coordinator node contains the data, it may return the results.</p></li>
+<li><p>If the coordinator node does not contain the data, it can calculate which other node does (via a <em>consistent hashing algorithm</em>).</p></li>
+<li><p>If consistency level is requested, the coordinator node queries the data from replica nodes.</p></li>
+</ul>
+<p>A note about the hashing algorithm:</p>
+<ul>
+<li><p>Data are assigned to nodes by a hash function to calculate a <em>token</em> for the partition key.</p></li>
+<li><p>Each node owns a range of the tokens.</p></li>
+</ul>
+<p>Example through the following query:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> subject_id, token(subject_id) <span class="kw">FROM</span> de300_demo.patient_tbl;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/token_ring.png" class="img-fluid" alt="token-ring"></th>
 </tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
+<td style="text-align: center;">Token ring (Fig 6.2 from Carpenter, 2022).</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
+<section id="partitions" class="level3">
+<h3 class="anchored" data-anchor-id="partitions">Partitions</h3>
+<p><em>Recall</em> what a primary key is in a relational database table.</p>
+<p>Cassandra calls the main entity a <em>Keyspace</em>, as a group of tables with some relationships (<em>analogous to database in a relational database system</em>).</p>
+<p>The primary key in a Cassandra table consists of - a mandatory <strong>partition key</strong>, and - an optional set of <strong>clustering columns</strong>.</p>
+<p>Example of partitioning:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">CREATE</span> <span class="kw">TABLE</span> de300keyspaces.users_by_country (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    country text,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    user_email text,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    first_name text,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    last_name text,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    age <span class="dt">smallint</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ((country), user_email)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">Table</span> Users | Legend: p <span class="op">-</span> <span class="kw">Partition</span><span class="op">-</span><span class="kw">Key</span>, c <span class="op">-</span> Clustering <span class="kw">Column</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>country (p) | user_email (c)  | first_name | last_name | age</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">----------------------------------------------------------------</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>US          | john@email.com  | John       | Wick      | <span class="dv">55</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>UK          | peter@email.com | Peter      | Clark     | <span class="dv">65</span>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>UK          | bob@email.com   | Bob        | Sandler   | <span class="dv">23</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>UK          | alice@email.com | Alice      | Brown     | <span class="dv">26</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Why use country as the mandatory key?</strong> - The most important bit to understanding is <em>scalability</em>. - <em>If</em> we often query the user database for specific countries, this may be a good idea.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="img/partition-key.png" class="img-fluid" alt="partition-key"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Illstration for partition key.</td>
+</tr>
+</tbody>
+</table>
+<p>The main role of the <strong>partition key</strong> is to distribute data evenly among nodes.</p>
+<p>An example query that will work really efficiently is the following:<br>
+<code>&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE country='US';</code></p>
+<p>An example query that will work poorly would be the following:<br>
+<code>&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE age &gt; 50;</code></p>
+<p>In fact, the query above will not run. Queries without conditions (<code>WHERE</code>) or use conditions that don’t use the partition key should be avoided.</p>
+<p><em>With caution:</em> You may force this kind of query to run with the following:<br>
+<code>&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE age &gt; 50 ALLOW FILTERING;</code></p>
 </section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
+<section id="replication" class="level3">
+<h3 class="anchored" data-anchor-id="replication">Replication</h3>
+<p>Data are duplicated and stored in different nodes (replicas). By default, a replication of three “availability zones” is supported in AWS Keyspace.</p>
+<p>When a keyspace is created, a query such as the following requires specifying a replication factor.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a># AWS Keyspace</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">CREATE</span> KEYSPACE <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> <span class="ot">"de300keyspaces"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WITH</span> REPLICATION <span class="op">=</span> {<span class="st">'class'</span>: <span class="st">'SingleRegionStrategy'</span>};</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a># General Cassandra</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">CREATE</span> KEYSPACE de300keyspaces  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WITH</span> REPLICATION <span class="op">=</span> { </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">'class'</span> : <span class="st">'NetworkTopologyStrategy'</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>   <span class="st">'datacenter1'</span> : <span class="dv">3</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  };</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A <strong>replication factor</strong> of 3 means that for each row of data, there are three copies stored on different nodes.</p>
+<pre><code>&gt;&gt;&gt; CONSISTENCY ONE;
+&gt;&gt;&gt; CONSISTENCY LOCAL_ONE;
+&gt;&gt;&gt; CONSISTENCY LOCAL_QUORUM;</code></pre>
+<p>Note: Strong consistency means <span class="math display">\[[\textrm{read-consistency-level}] + [\textrm{write-consistency-level}] &gt; [\textrm{replication-factor}].\]</span></p>
 </section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
+<section id="consistency" class="level3">
+<h3 class="anchored" data-anchor-id="consistency">Consistency</h3>
+<p>Once we have replicates, the notion of consistency beceomes important. As we have seen before, <em>strong consistency</em> means only one state of your data can be observed at any time in any location. Cassandra generally runs an <em>eventually consistent</em> model.</p>
+<p><em>The biggest question is how important strong consistency in your use case.</em></p>
+<p><strong>Read/Write consistency level</strong> means how many of the read/write operations (replica) are completed.</p>
+<p>Consistency for all queries can be set by the following query examples:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> CONSISTENCY ONE;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> CONSISTENCY LOCAL_QUORUM;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pre-sorting" class="level3">
+<h3 class="anchored" data-anchor-id="pre-sorting">Pre-sorting</h3>
+<p>Recalling that the primary key consists of - a mandatory partition key (1+ columns), and - an optional set of clustering columns (0+ columns).</p>
+<p>Cassandra sorts the data by default. Using the same example from above:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">CREATE</span> <span class="kw">TABLE</span> de300keyspaces.users_by_country_sorted_by_age_asc (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    country text,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    user_email text,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    first_name text,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    last_name text,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    age <span class="dt">smallint</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ((country), age, user_email)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>) <span class="kw">WITH</span> CLUSTERING <span class="kw">ORDER</span> <span class="kw">BY</span> (age <span class="kw">ASC</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> de300keyspaces.users_by_country_sorted_by_age_asc <span class="kw">WHERE</span> country<span class="op">=</span><span class="st">'UK'</span>;</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> country | age | user_email       | first_name | last_name</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">---------+-----+------------------+------------+-----------</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      UK |  <span class="dv">20</span> | bob@email.com   |        Bob |   Sandler</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      UK |  <span class="dv">30</span> | peter@email.com |      Peter |     Clark</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      UK |  <span class="dv">40</span> | alice@email.com |      Alice |   Brown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that age is included as a clustering column, and sorted.</p>
+<p>The <strong>order</strong> of your clustering columns matters!</p>
+<p>It is now possible to query the table by - <code>country</code> - <code>country</code>, <code>age</code> - <code>country</code>, <code>age</code>, <code>user_email</code></p>
+<p>But querying by <code>country</code> and <code>user_email</code> becomes inefficient.</p>
+</section>
+<section id="deletion-of-data" class="level3">
+<h3 class="anchored" data-anchor-id="deletion-of-data">Deletion of data</h3>
+<p>When data are replicated, deletion of data becomes complicated.</p>
+<p>Cassandra sets up <em>tombstone</em> to prevent reintroducing any deleted data.</p>
 <ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
+<li>Typically a tombstone is placed on the values to be deleted (i.e., an <em>update</em>).</li>
+<li>(In a relational database,) an update statement is issued to change values to <em>deleted</em> in a row.</li>
+<li>The tombstones are kept for some length of time (<code>gc_grace_seconds = 864000</code> by default).</li>
 </ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
 </section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
+<section id="node-failure-detection" class="level3">
+<h3 class="anchored" data-anchor-id="node-failure-detection">Node failure detection</h3>
+<p>Since a Cassandra ring (or cluster of nodes) contains potentially many nodes (which may fail), we need a mechanism to check if any individual node is failing.</p>
+<p>A <em>gossip</em> protocol system is employed in Cassandra to detect failures in the ring. When any node spins up, it registers itself with the gossiper to receive the state of the cluster.</p>
+<p>The gossip protocol goes as follows: 1. Once per second, the gossiper will choose a random node in the cluster and initialize a gossip session.<br>
+(Each round of gossip requires three messages back-and-forth.) 2. The gossip initiator sends a <code>GossipDigestSyn</code> message. 3. When the friend receives the message, it returns a <code>GossipDigestAck</code> message. 4. When the initiator receives the <em>ack</em> message, it sends a <code>GossipDigestAck2</code> message to complete the round of gossip. 5. If there is no response, the initiator <em>convicts</em> the friend by marking it as dead in its local list and logging that fact.</p>
+<p>When is a failure detected? Cassandra implements <strong>the <span class="math inline">\(\phi\)</span> accrual failure detector</strong> (Hayashibara et al., 2004). - A <em>suspicion</em> level is maintained by the failure monitoring system. - Each node has a <em>Phi</em> suspicion level attached. - If the suspicion level (e.g., number of gossips missed) goes beyond Phi in the node, then failure is declared.</p>
 </section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
+<section id="main-take-aways" class="level3">
+<h3 class="anchored" data-anchor-id="main-take-aways">Main take-aways</h3>
+<ul>
+<li>The strength of Cassandra is in horizontal scalability, balancing consistency and availability.</li>
+<li>Implication:
+<ul>
+<li>No <code>JOIN</code> statements</li>
+<li>No nested query, subquery</li>
+<li>Tables are designed for queries, not the other way around.</li>
+</ul></li>
+</ul>
 </section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
 </section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Carpenter, J., &amp; Hewitt, E. (2022). <em>Cassandra</em>. “O’Reilly Media, Inc.”.<br>
+Hayashibara, N., Defago, X., Yared, R., &amp; Katayama, T. (2004, October). The/spl phi/accrual failure detector. <em>In Proceedings of the 23rd IEEE International Symposium on Reliable Distributed Systems</em>, 2004. (pp.&nbsp;66-78). IEEE.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -876,10 +981,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./11-intro-to-nosql.html" class="pagination-link" aria-label="Introduction to NoSQL databases">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introduction to NoSQL databases</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./a0-project-specification.html" class="pagination-link" aria-label="Project Specification">
+        <span class="nav-page-text"><span class="chapter-title">Project Specification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "DATA_ENG 300: Data Engineering Studio",
     "section": "",
-    "text": "Course Outline\nInstructor: Moses Chan, moses.chan@northwestern.edu\nTA: Dinglin Xia\nClassroom: Lecture: 2122 Sheridan Rm 250, Lab: Tech C135\nOffice Hours: See Canvas.\nPrerequisites: DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.\nIntroduction to the foundation and modern tools of data engineering. Topics include:",
+    "text": "Course Outline\nInstructor: Moses Chan, moses.chan@northwestern.edu\nTA: Dinglin Xia\nOffice Hours: See Canvas.\nPrerequisites: DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.\nIntroduction to the foundation and modern tools of data engineering. Topics include:",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>DATA_ENG 300: Data Engineering Studio</span>"
     ]
@@ -136,7 +136,7 @@
     "section": "",
     "text": "Goals\nExploratory data analysis, or EDA, is a standard practice prior to any data manipulation and analysis.\nRecall that data engineering is primarily about data preparation to serve smooth and effective data analysis. Exploratory data analysis generally refers to the step of understanding the data:\nThis document primarily deals with the first two items.\nIn the exploratory phase, these are for people behind the scenes to see.\nThe main goals here are:\nWhat does this translate to, technically?",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -147,7 +147,7 @@
     "section": "",
     "text": "capture main message\n(relatively) quick exploration across many summaries (including plots)\nnot intended for a client or presentation\n\n\n\neach summary should have meaningful information\nlabel your plots",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -158,7 +158,7 @@
     "section": "Data summary",
     "text": "Data summary\nAs a starting point, simply looking at the data is worth the while. Some common questions to consider are the following:\n\nGeneral dataset info: size, dtypes\n\nMissing values?\n\nDuplicate data?\n\nContinuous variables\n\nCategorical variables\n\nBivariate relationships\n\nPotential data quality issues, e.g., inconsistency, special NA characters\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n\n\n\n\n\n\n\n\nThe origin of sns.",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -169,7 +169,7 @@
     "section": "Earthquake dataset",
     "text": "Earthquake dataset\nSource Link\n\n# load and save a copy of the earthquake dataset\nearthquake = pd.read_csv('https://raw.githubusercontent.com/mosesyhc/de300-2026wi/refs/heads/main/datasets/Canadian-Earthquakes-2010-2019.csv')\n\n\n# take a glimpse of the data\n\n\n# view a summary of the full data\n\n\n# checks for duplicates (also ask if duplicates make sense)\n\n\n# duplicates\n\n\n# a quick numerical summary \n\n\n# checks for possible statistical assumption(s)\nimport scipy.stats as sps\n\n\n# extract only numeric variables\n\n\n# for example, normality test\n\n\n# for example, another normality test\n\n\n# pairwise correlation",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -180,7 +180,7 @@
     "section": "Data visualization",
     "text": "Data visualization\n\nsns.set(context='talk', style='ticks')  # simply for aesthetics\nsns.set_palette('magma')\n%matplotlib inline \n\n# earthquake = earthquake.sample(n=500)  # (if too slow) for illustration purposes\n\n\n# histogram for continuous variables using pandas built-in plots \n\n\n# relative frequency? ...\n\n\n# histogram of masses by group\n\n\n# other types of plots\n\n\n# counts for categorical variables\n\n\n# barplots by group\n\n\n# bivariate plots\n\n\n# bivariate plots (log-log)\n\n\n# pairwise plots  (time-consuming)\n\n\n# another pairwise plot by group",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -191,7 +191,7 @@
     "section": "In-class activity",
     "text": "In-class activity\nRefer to the following figure, choose two subfigures to reproduce with the earthquake dataset.",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -202,7 +202,7 @@
     "section": "(In case you need this) Jupyter notebook setup",
     "text": "(In case you need this) Jupyter notebook setup\nVisit https://docs.jupyter.org/en/latest/install/notebook-classic.html for some guidance to set up jupyter notebook.\n\nNote: These notes are adapted from a blog post on Tom’s Blog.",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Intro to EDA</span>"
     ]
   },
@@ -213,7 +213,7 @@
     "section": "",
     "text": "Classical categories of missing data\nThis document (briefly) introduces the concept, categorization, and treatment of missing data.\nIf we know how the missing data are generated, so-called missing data mechanisms, we can take into account why data are missing in data analysis.\nA particularly useful (and wide-known) framework for missingness categorizes missingness into the following three categories (Little and Rudin, 2019):\nCaveat… the category namings are… confusing\nMCAR (missing completely at random): how data are missing is independent with any aspect of the data\nMAR (missing at random): how data are missing depends on observed quantities, so-called predictors, or independent variables - e.g., a person with certain characteristics (known) may not answer certain questions on a survey, imagine reporting salary for different socio-economic classes - e.g., for certain inputs, a simulation model may crash or produce nonsensical outputs\nMNAR (missing not at random): how data are missing depends on the unobserved quantities - e.g., a pollutant sensor can only detect particles that are \\(&gt; 0.1\\mu\\mathrm{m}\\)\n- e.g., storm surges only occur in areas that get below the water level\nUnderstanding the causes of missing data helps designing algorithms to handle missing data. However, in reality, we often do not know the causes, or multiple causes exist in producing a data set.\nCautionary note: Where the data are missing matters, i.e., is a response value missing, is a predictor value missing, or do we not know what our analysis questions are yet?",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
@@ -224,7 +224,7 @@
     "section": "Treatment of missing data",
     "text": "Treatment of missing data\nStarting with an example of “completing the data”\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean + noise\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplace with the mean + noise + parameter uncertainty\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMore information + replace with mean + noise\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredictive mean matching\n\n\n\n\n\n\n\n\n\nExample of missingness impacting analysis from Daniel et al. (2012), reproducing Figure 4 in the paper:\n\n\n\n\n\n\n\n\nEffect of missingness mechanism on data analysis.\n\n\n\n\nGeneral rules for treating missing data:\n\nUnder MCAR, focusing on complete cases or employing imputation methods tend to be sufficient.\nUnder MAR, some methods are valid choices:\n\nIf the missingness is independent of the response conditional on the predictor, linear regression is still “valid”.\nImputation methods tend to introduce biases, depending on the data analysis methods.\n\nUnder MNAR, the missingness should be explicitly modeled.\n\ne.g., censored observations in survival analysis.",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
@@ -233,9 +233,9 @@
     "href": "class-notebooks/03-missing-data-class.html#imputation-methods",
     "title": "Handling missing data",
     "section": "Imputation methods",
-    "text": "Imputation methods\nWe introduce a (limited) list of imputation methods in this section, using the titanic dataset as an example:\n\n!pip install missingno miceforest nineplot\n\nRequirement already satisfied: missingno in c:\\users\\moses\\appdata\\local\\programs\\python\\python312\\lib\\site-packages (0.5.2)\nRequirement already satisfied: miceforest in c:\\users\\moses\\appdata\\local\\programs\\python\\python312\\lib\\site-packages (6.0.5)\n\n\nERROR: Could not find a version that satisfies the requirement nineplot (from versions: none)\nERROR: No matching distribution found for nineplot\n\n[notice] A new release of pip is available: 23.3.2 -&gt; 25.3\n[notice] To update, run: python.exe -m pip install --upgrade pip\n\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\npd.set_option('display.precision', 3)\n\ntitanic = sns.load_dataset('titanic', cache=True, data_home='datasets/')\n\n\nIdentifying missingness\nWe have covered some basic ways how to identify missingness in the EDA module. Here is one other option with the help of missingno.\n\n# !pip install missingno  \n# in case you need to install the package\n\nimport missingno as msno\n\n\ntitanic.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 891 entries, 0 to 890\nData columns (total 15 columns):\n #   Column       Non-Null Count  Dtype   \n---  ------       --------------  -----   \n 0   survived     891 non-null    int64   \n 1   pclass       891 non-null    int64   \n 2   sex          891 non-null    object  \n 3   age          714 non-null    float64 \n 4   sibsp        891 non-null    int64   \n 5   parch        891 non-null    int64   \n 6   fare         891 non-null    float64 \n 7   embarked     889 non-null    object  \n 8   class        891 non-null    category\n 9   who          891 non-null    object  \n 10  adult_male   891 non-null    bool    \n 11  deck         203 non-null    category\n 12  embark_town  889 non-null    object  \n 13  alive        891 non-null    object  \n 14  alone        891 non-null    bool    \ndtypes: bool(2), category(2), float64(2), int64(4), object(5)\nmemory usage: 80.7+ KB\n\n\n\nimport missingno as msno\n# visualization of available/missing data\nmsno.bar(titanic)\nmsno.matrix(titanic)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRemoving data\nWe have discussed that removing data is typically not ideal, but nothing stops us from doing that…\n\n# retaining titanic dataset with complete data\ntitanic_agecomp = titanic.dropna(subset='age', how='any')\ntitanic_agecomp.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nIndex: 714 entries, 0 to 890\nData columns (total 15 columns):\n #   Column       Non-Null Count  Dtype   \n---  ------       --------------  -----   \n 0   survived     714 non-null    int64   \n 1   pclass       714 non-null    int64   \n 2   sex          714 non-null    object  \n 3   age          714 non-null    float64 \n 4   sibsp        714 non-null    int64   \n 5   parch        714 non-null    int64   \n 6   fare         714 non-null    float64 \n 7   embarked     712 non-null    object  \n 8   class        714 non-null    category\n 9   who          714 non-null    object  \n 10  adult_male   714 non-null    bool    \n 11  deck         184 non-null    category\n 12  embark_town  712 non-null    object  \n 13  alive        714 non-null    object  \n 14  alone        714 non-null    bool    \ndtypes: bool(2), category(2), float64(2), int64(4), object(5)\nmemory usage: 70.2+ KB\n\n\n\n# comparing the correlation with / without missing data\ncorr = titanic.select_dtypes('number').corr()\ncorr_agecomp = titanic_agecomp.select_dtypes('number').corr()\n\n# changes in correlation matrix with / without age missingness\ncorr - corr_agecomp\n\n\n\n\n\n\n\n\nsurvived\npclass\nage\nsibsp\nparch\nfare\n\n\n\n\nsurvived\n0.000\n0.021\n0.0\n-0.018\n-0.012\n-0.011\n\n\npclass\n0.021\n0.000\n0.0\n0.016\n-0.007\n0.005\n\n\nage\n0.000\n0.000\n0.0\n0.000\n0.000\n0.000\n\n\nsibsp\n-0.018\n0.016\n0.0\n0.000\n0.031\n0.021\n\n\nparch\n-0.012\n-0.007\n0.0\n0.031\n0.000\n0.011\n\n\nfare\n-0.011\n0.005\n0.0\n0.021\n0.011\n0.000\n\n\n\n\n\n\n\n\n# one other possibility (that includes boolean)\n\n# changes in correlation matrix with / without age missingness\n\n\n\nSimple imputation with a constant\n\n# !pip install scikit-learn\nfrom sklearn.impute import SimpleImputer\n\n\ntitanic_constant = titanic.copy()\n\n# set constant, completing data\nconstant_imputer = SimpleImputer(strategy='constant')\nconstant_imputer.fill_value = 100\n\ntitanic_constant['age'] = constant_imputer.fit_transform(titanic_constant[['age']])\n\n# visualize completed data\nsns.histplot(titanic_constant['age'])\n\n\n\n\n\n\n\n\n\ntitanic_median = titanic.copy()\n\n# example with median, admitting only numeric columns\n\nmedian_imputer = SimpleImputer(strategy='median')\n\ntitanic_median['age'] = median_imputer.fit_transform(titanic_median[['age']])\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_median['age'], binwidth=5, alpha=0.3, color='k', label='imputed w/ median')\nsns.histplot(titanic['age'], binwidth=5, alpha=0.3, color='purple', label='unimputed')\nax.legend()\n\n\n\n\n\n\n\n\n\n\nMultiple imputation\nMultiple imputation is a technique to generate multiple realizations of imputation values, often modeled by a probability distribution.\nOne method is the multiple imputation by chained equations, or MICE. miceforest uses LightBGM as its training algorithm for MICE.\n\n# !pip install -U miceforest plotnine\n\n\nimport miceforest as mf\n\n# miceforest requires a real matrix. \n# For illustrative purposes, we only use the numerical columns.\n\n# set up a kernel to produce `num_datasets` imputed datasets\nnum_datasets = 50\nkernel = mf.ImputationKernel(\n    titanic.select_dtypes('number'),\n    num_datasets=num_datasets,\n    save_all_iterations_data=False,\n    random_state=1\n)\n\n\n# run the MICE algorithm\nkernel.mice(iterations=10)\n\n\n\nkernel.plot_imputed_distributions()\n\n\n\n\n\n\n\n\n\n# retrieve completed data\ntitanic_mf = kernel.complete_data\n\n\n# code for plotting mice completed dataset\ndef plot_hist(kernel, completed_titanic, original_titanic, num_plot):\n    num_datasets = kernel.num_datasets\n    num_plot = min(num_datasets, num_plot)\n    for k in range(num_plot):  # 1, 2, 3, num_datasets\n        sns.histplot(completed_titanic(dataset=k)['age'], binwidth=5, stat='probability', color='k', label='imputed sample', alpha=0.3)\n    \n    sns.histplot(original_titanic['age'], binwidth=5, stat='probability', color='purple', label='unimputed', alpha=0.2)\n    \n    plt.title('{:d} realizations of imputed age'.format(num_plot))\n    plt.legend()\n    plt.tight_layout()\n    plt.show()\n\n\n# retrieving each imputed dataset (recall that M in MICE means multiple)\nplot_hist(kernel=kernel, completed_titanic=titanic_mf, original_titanic=titanic, num_plot=num_datasets)\n\n\n\n\n\n\n\n\n\n# comparing the original and imputed dataset\nfig, ax = plt.subplots(ncols=5)\n\nfor k, axi in enumerate(ax.flatten()):\n    if k &lt; num_datasets:\n        sns.boxplot(titanic_mf(dataset=k)['age'], ax=axi)\n    else:\n        sns.boxplot(titanic['age'], ax=axi, color='purple')\n\nplt.tight_layout()\n\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\n\n\n\n\n\n\n\n\n\n\n# Generate more datasets \n\n\n\n# Visualize the result variable density/histogram\n\n\n\nPredictive mean matiching (MICE) [Last figure in the gas consumption example]\n\nkernel_pmm = mf.ImputationKernel(\n    titanic.select_dtypes('number'),\n    num_datasets=25,\n    mean_match_candidates=200,\n    save_all_iterations_data=False,\n    random_state=1\n)\n\n\n\nkernel_pmm.mice(iterations=10)\n\n\nkernel_pmm.plot_imputed_distributions()\n\n\n\n\n\n\n\n\n\n\n\\(k\\) Nearest Neighbor\n\ntitanic_knn = titanic.select_dtypes('number').copy()\n\nfrom sklearn.impute import KNNImputer\n# set up imputing for KNN\n\nknn_imputer = KNNImputer(n_neighbors=25)\ntitanic_knn_df = pd.DataFrame(knn_imputer.fit_transform(titanic_knn), columns=titanic_knn.columns)\n\n\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_knn_df['age'], binwidth=5, stat='probability', alpha=0.3, color='k', label='knn imputation')\nsns.histplot(titanic['age'], binwidth=5, stat='probability', alpha=0.3, color='purple', label='unimputed')\nax.legend()",
+    "text": "Imputation methods\nWe introduce a (limited) list of imputation methods in this section, using the titanic dataset as an example:\n\n!pip install missingno miceforest nineplot\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\npd.set_option('display.precision', 3)\n\ntitanic = sns.load_dataset('titanic', cache=True, data_home='datasets/')\n\n\nIdentifying missingness\nWe have covered some basic ways how to identify missingness in the EDA module. Here is one other option with the help of missingno.\n\n# !pip install missingno  \n# in case you need to install the package\n\nimport missingno as msno\n\n\ntitanic.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 891 entries, 0 to 890\nData columns (total 15 columns):\n #   Column       Non-Null Count  Dtype   \n---  ------       --------------  -----   \n 0   survived     891 non-null    int64   \n 1   pclass       891 non-null    int64   \n 2   sex          891 non-null    object  \n 3   age          714 non-null    float64 \n 4   sibsp        891 non-null    int64   \n 5   parch        891 non-null    int64   \n 6   fare         891 non-null    float64 \n 7   embarked     889 non-null    object  \n 8   class        891 non-null    category\n 9   who          891 non-null    object  \n 10  adult_male   891 non-null    bool    \n 11  deck         203 non-null    category\n 12  embark_town  889 non-null    object  \n 13  alive        891 non-null    object  \n 14  alone        891 non-null    bool    \ndtypes: bool(2), category(2), float64(2), int64(4), object(5)\nmemory usage: 80.7+ KB\n\n\n\nimport missingno as msno\n# visualization of available/missing data\nmsno.bar(titanic)\nmsno.matrix(titanic)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRemoving data\nWe have discussed that removing data is typically not ideal, but nothing stops us from doing that…\n\n# retaining titanic dataset with complete data\ntitanic_agecomp = titanic.dropna(subset='age', how='any')\ntitanic_agecomp.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nIndex: 714 entries, 0 to 890\nData columns (total 15 columns):\n #   Column       Non-Null Count  Dtype   \n---  ------       --------------  -----   \n 0   survived     714 non-null    int64   \n 1   pclass       714 non-null    int64   \n 2   sex          714 non-null    object  \n 3   age          714 non-null    float64 \n 4   sibsp        714 non-null    int64   \n 5   parch        714 non-null    int64   \n 6   fare         714 non-null    float64 \n 7   embarked     712 non-null    object  \n 8   class        714 non-null    category\n 9   who          714 non-null    object  \n 10  adult_male   714 non-null    bool    \n 11  deck         184 non-null    category\n 12  embark_town  712 non-null    object  \n 13  alive        714 non-null    object  \n 14  alone        714 non-null    bool    \ndtypes: bool(2), category(2), float64(2), int64(4), object(5)\nmemory usage: 70.2+ KB\n\n\n\n# comparing the correlation with / without missing data\ncorr = titanic.select_dtypes('number').corr()\ncorr_agecomp = titanic_agecomp.select_dtypes('number').corr()\n\n# changes in correlation matrix with / without age missingness\ncorr - corr_agecomp\n\n\n\n\n\n\n\n\nsurvived\npclass\nage\nsibsp\nparch\nfare\n\n\n\n\nsurvived\n0.000\n0.021\n0.0\n-0.018\n-0.012\n-0.011\n\n\npclass\n0.021\n0.000\n0.0\n0.016\n-0.007\n0.005\n\n\nage\n0.000\n0.000\n0.0\n0.000\n0.000\n0.000\n\n\nsibsp\n-0.018\n0.016\n0.0\n0.000\n0.031\n0.021\n\n\nparch\n-0.012\n-0.007\n0.0\n0.031\n0.000\n0.011\n\n\nfare\n-0.011\n0.005\n0.0\n0.021\n0.011\n0.000\n\n\n\n\n\n\n\n\n# one other possibility (that includes boolean)\n\n# changes in correlation matrix with / without age missingness\n\n\n\nSimple imputation with a constant\n\n# !pip install scikit-learn\nfrom sklearn.impute import SimpleImputer\n\n\ntitanic_constant = titanic.copy()\n\n# set constant, completing data\nconstant_imputer = SimpleImputer(strategy='constant')\nconstant_imputer.fill_value = 100\n\ntitanic_constant['age'] = constant_imputer.fit_transform(titanic_constant[['age']])\n\n# visualize completed data\nsns.histplot(titanic_constant['age'])\n\n\n\n\n\n\n\n\n\ntitanic_median = titanic.copy()\n\n# example with median, admitting only numeric columns\n\nmedian_imputer = SimpleImputer(strategy='median')\n\ntitanic_median['age'] = median_imputer.fit_transform(titanic_median[['age']])\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_median['age'], binwidth=5, alpha=0.3, color='k', label='imputed w/ median')\nsns.histplot(titanic['age'], binwidth=5, alpha=0.3, color='purple', label='unimputed')\nax.legend()\n\n\n\n\n\n\n\n\n\n\nMultiple imputation\nMultiple imputation is a technique to generate multiple realizations of imputation values, often modeled by a probability distribution.\nOne method is the multiple imputation by chained equations, or MICE. miceforest uses LightBGM as its training algorithm for MICE.\n\n# !pip install -U miceforest plotnine\n\n\nimport miceforest as mf\n\n# miceforest requires a real matrix. \n# For illustrative purposes, we only use the numerical columns.\n\n# set up a kernel to produce `num_datasets` imputed datasets\nnum_datasets = 4\nkernel = mf.ImputationKernel(\n    titanic.select_dtypes('number'),\n    num_datasets=num_datasets,\n    save_all_iterations_data=False,\n    random_state=1\n)\n\n\n# run the MICE algorithm\nkernel.mice(iterations=10)\n\n\n\nkernel.plot_imputed_distributions()\n\n\n\n\n\n\n\n\n\n# retrieve completed data\ntitanic_mf = kernel.complete_data\n\n\n# code for plotting mice completed dataset\ndef plot_hist(kernel, completed_titanic, original_titanic, num_plot):\n    num_datasets = kernel.num_datasets\n    num_plot = min(num_datasets, num_plot)\n    for k in range(num_plot):  # 1, 2, 3, num_datasets\n        sns.histplot(completed_titanic(dataset=k)['age'], binwidth=5, stat='probability', color='k', label='imputed sample', alpha=0.3)\n    \n    sns.histplot(original_titanic['age'], binwidth=5, stat='probability', color='purple', label='unimputed', alpha=0.2)\n    \n    plt.title('{:d} realizations of imputed age'.format(num_plot))\n    plt.legend()\n    plt.tight_layout()\n    plt.show()\n\n\n# retrieving each imputed dataset (recall that M in MICE means multiple)\nplot_hist(kernel=kernel, completed_titanic=titanic_mf, original_titanic=titanic, num_plot=num_datasets)\n\n\n\n\n\n\n\n\n\n# comparing the original and imputed dataset\nfig, ax = plt.subplots(ncols=5)\n\nfor k, axi in enumerate(ax.flatten()):\n    if k &lt; num_datasets:\n        sns.boxplot(titanic_mf(dataset=k)['age'], ax=axi)\n    else:\n        sns.boxplot(titanic['age'], ax=axi, color='purple')\n\nplt.tight_layout()\n\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\nC:\\Users\\moses\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\seaborn\\categorical.py:640: FutureWarning: SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.\n\n\n\n\n\n\n\n\n\n\n# Generate more datasets \n\n# Visualize the result variable density/histogram\n\n\n\nPredictive mean matiching (MICE) [Last figure in the gas consumption example]\n\nkernel_pmm = mf.ImputationKernel(\n    mea\n)\n\n\n\n\\(k\\) Nearest Neighbor\n\ntitanic_knn = titanic.select_dtypes('number').copy()\n\nfrom sklearn.impute import KNNImputer\n# set up imputing for KNN\n\ntitanic_knn_df =\n\n# visualize completed data\nfig, ax = plt.subplots(1, 1)\nsns.histplot(titanic_knn_df['age'], binwidth=5, stat='probability', alpha=0.3, color='k', label='knn imputation')\nsns.histplot(titanic['age'], binwidth=5, stat='probability', alpha=0.3, color='purple', label='unimputed')\nax.legend()",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
@@ -246,7 +246,7 @@
     "section": "(Exercise) Imputation of tips",
     "text": "(Exercise) Imputation of tips\nConsider the taxis dataset from seaborn, practice the imputation methods on the tip column for the dataset subtaxi_missing, given below:\n\nComplete the data using\n\nmean simple imputation,\nmedian simple imputation,\nk-nearest neighbor, and\npredictive mean matching.\n\nCompute the root mean squared error for each imputation method (because you know the truth). Which one is the best in this case?\nExamine the correlation matrix among the numerical columns. Which methods preserve the correlation among variables?\n\n\nimport seaborn as sns\n\ntaxi = sns.load_dataset('taxis')\ntaxi.info()\nsubtaxi = taxi.loc[:, ['passengers', 'distance', 'fare', 'tip', 'tolls', 'total']]\n\n\nimport numpy as np\n# create missingness\nnp.random.seed(42)\nmask1 = subtaxi.total &gt; 25\nmask2 = np.random.rand(subtaxi.shape[0]) &lt; 0.7\n\nsubtaxi_missing = subtaxi.copy()\nsubtaxi_missing.loc[mask1 & mask2, 'tip'] = np.nan\n\n\nmsno.matrix(subtaxi_missing.sort_values('total'))",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
@@ -257,7 +257,7 @@
     "section": "(Exercise) Imputation of crop recommendation",
     "text": "(Exercise) Imputation of crop recommendation\nInvestigate the dataset for crop recommendation.\n\nCreate a function that can induce some missingness (start with missing completely at random).\nCreate a logistic regression model (or any prediction model) for the column label.\nCreate a function that can take in an “imputation type” argument and return an imputed dataset.\nCompare the different imputation types in prediction accuracy of label and correlation conservation.\n\n\nimport pandas as pd\ncrop = pd.read_csv('https://raw.githubusercontent.com/mosesyhc/de300-2026wi/refs/heads/main/datasets/crop_recommendation.csv')",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Handling missing data</span>"
     ]
   },
@@ -268,7 +268,7 @@
     "section": "",
     "text": "Matrix completion\nMatrix completion typically assumes some low-rank structure within the dataset.\nExamples of usage:",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Handling missing data in recommendation systems</span>"
     ]
   },
@@ -279,7 +279,7 @@
     "section": "",
     "text": "recommendation system\nimage restoration\ngenerative image",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Handling missing data in recommendation systems</span>"
     ]
   },
@@ -290,7 +290,7 @@
     "section": "Alternating Least Squares",
     "text": "Alternating Least Squares\nOne particular algorithm that has garnered considerable interest is the Alternating Least Squares algorithm (Hastie et al. 2015).\nSuppose we have a matrix \\(R \\in \\mathbb{R}^{n\\times m}\\) that contains user ratings for items. The matrix completion or factorziation problem typically solves for some matrices \\(X \\in \\mathbb{R}^{k\\times n}, Y \\in \\mathbb{R}^{k\\times m}\\) such that \\(R \\approx X^\\mathsf{T} Y\\), through the optimization problem\n\\[\\min_{X, Y} \\ell(X, Y) := \\underbrace{\\frac{1}{2} \\|R - X^\\mathsf{T} Y\\|^2_F}_\\text{recovery} + \\underbrace{\\frac{\\lambda}{2} (\\|X\\|^2_F + \\|Y\\|^2_F)}_\\text{regularization}.\\]\n\nObservation:\n\n\\(\\ell(X, Y)\\) is non-convex.\n\\(\\ell(X, Y)\\) is bi-convex, meaning that fixing either \\(X\\), or \\(Y\\) leads to a convex function.\n\nThe bi-convexity leads to an alternating algorithm (for a full \\(R\\)). But the missing locations do introduce nuances to the algorithm. See details in Theorem 3.1 of (Hastie et al. 2015).",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Handling missing data in recommendation systems</span>"
     ]
   },
@@ -301,7 +301,7 @@
     "section": "Bidirectional Encoder Representations (BERT) (Devlin et al. 2019)",
     "text": "Bidirectional Encoder Representations (BERT) (Devlin et al. 2019)\nModern methods replace explicit low-rank assumptions with contextual representation learning, especially through masked prediction and self-attention.\nInstead of predicting a single entry or factorizing the matrix directly, consider a full row as a sequence:\n\\[\\mathbf{r}_i = (r_{i1}, r_{i2}, \\dots, r_{im})\\]\nwith missing entries treated as masked tokens.\nThe question becomes:\nhow do we predict a missing entry using all other entries in the row?\nConsider a contextual encoder (BERT):\n\\[(\\mathbf{h}_{i1}, \\dots, \\mathbf{h}_{im})=\\mathrm{BERT}_\\theta(\\mathbf{r}_i)\\]\nwhere each \\(\\mathbf{h}_{ij}\\) depends on both left and right context.\nPrediction is made from a contextual embedding, e.g.,:\n\\[\\hat{R}_{ij} = W \\mathbf{h}_{ij}\\]\nTraining is performed via masked reconstruction (randomly drop data in training):\n\\[\\min_\\theta \\underbrace{\\sum_{(i,j)\\in\\Omega_{\\text{mask}}}\\ell\\big(\\hat{R}_{ij}, R_{ij}\\big)}_{\\text{predict masked entries}}\\]\nCompare with classical matrix completion:\n\\[\\min_{X,Y}\\underbrace{\\tfrac12 \\|R - X^\\mathsf{T}Y\\|_F^2}_{\\text{low-rank structure}} + \\underbrace{\\tfrac{\\lambda}{2}(\\|X\\|_F^2+\\|Y\\|_F^2)}_{\\text{regularization}}\\]",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Handling missing data in recommendation systems</span>"
     ]
   },
@@ -309,10 +309,10 @@
     "objectID": "04-rec-system.html#low-rank-adaptation-hu2022lora",
     "href": "04-rec-system.html#low-rank-adaptation-hu2022lora",
     "title": "Handling missing data in recommendation systems",
-    "section": "Low rank adaptation (Hu et al. 2022)",
-    "text": "Low rank adaptation (Hu et al. 2022)\nModern methods consider “pre-trained” data and adaptation to previously trained models, especially in the large language model perspective.\nInstead of viewing all data at once, consider the prediction of row \\(i\\) of the matrix \\(R\\):\n\\[ \\mathbf{r}_i = W \\underbrace{\\mathbf{e}_i}_{\\text{unit vec.}} \\]\nThe question becomes, how do we learn the weight matrix \\(W\\)?\nSuppose there is a pre-trained estimate \\(W_0\\), then matrix completion technique is used in estimating the residual:\n\\[ \\min_{X, Y} \\ell(X, Y; W_0) := \\underbrace{\\frac{1}{2} \\|R - W_0 - X^\\mathsf{T} Y\\|^2_F}_\\text{fit residual} + \\underbrace{\\frac{\\lambda}{2} (\\|X\\|^2_F + \\|Y\\|^2_F)}_\\text{regularization} \\]\nCompare with:\n\\[ \\min_{X, Y} \\ell(X, Y) := \\underbrace{\\frac{1}{2} \\|R - X^\\mathsf{T} Y\\|^2_F}_\\text{recovery} + \\underbrace{\\frac{\\lambda}{2} (\\|X\\|^2_F + \\|Y\\|^2_F)}_\\text{regularization}. \\]\n\n\n\n\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. “Bert: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015. “Matrix Completion and Low-Rank SVD via Fast Alternating Least Squares.” The Journal of Machine Learning Research 16 (1): 3367–3402.\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, et al. 2022. “Lora: Low-Rank Adaptation of Large Language Models.” ICLR 1 (2): 3.",
+    "section": "Low rank adaptation (Shen et al., n.d.)",
+    "text": "Low rank adaptation (Shen et al., n.d.)\nModern methods consider “pre-trained” data and adaptation to previously trained models, especially in the large language model perspective.\nInstead of viewing all data at once, consider the prediction of row \\(i\\) of the matrix \\(R\\):\n\\[ \\mathbf{r}_i = W \\underbrace{\\mathbf{e}_i}_{\\text{unit vec.}} \\]\nThe question becomes, how do we learn the weight matrix \\(W\\)?\nSuppose there is a pre-trained estimate \\(W_0\\), then matrix completion technique is used in estimating the residual:\n\\[ \\min_{X, Y} \\ell(X, Y; W_0) := \\underbrace{\\frac{1}{2} \\|R - W_0 - X^\\mathsf{T} Y\\|^2_F}_\\text{fit residual} + \\underbrace{\\frac{\\lambda}{2} (\\|X\\|^2_F + \\|Y\\|^2_F)}_\\text{regularization} \\]\nCompare with:\n\\[ \\min_{X, Y} \\ell(X, Y) := \\underbrace{\\frac{1}{2} \\|R - X^\\mathsf{T} Y\\|^2_F}_\\text{recovery} + \\underbrace{\\frac{\\lambda}{2} (\\|X\\|^2_F + \\|Y\\|^2_F)}_\\text{regularization}. \\]\n\n\n\n\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. “Bert: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015. “Matrix Completion and Low-Rank SVD via Fast Alternating Least Squares.” The Journal of Machine Learning Research 16 (1): 3367–3402.\n\n\nShen, Yelong, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, et al. n.d. “Lora: Low-Rank Adaptation of Large Language Models.”",
     "crumbs": [
-      "Exploratory Data Analysis",
+      "Exploratory data analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Handling missing data in recommendation systems</span>"
     ]
   },
@@ -493,6 +493,325 @@
     ]
   },
   {
+    "objectID": "09-mwaa-taskflow-lecture.html",
+    "href": "09-mwaa-taskflow-lecture.html",
+    "title": "MWAA and Taskflow",
+    "section": "",
+    "text": "Why MWAA - Managed Workflow Apache Airflow?\nApache Airflow orchestrates workflows as DAGs.\n. . .\nMWAA reduces ops burden:",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#why-mwaa---managed-workflow-apache-airflow",
+    "href": "09-mwaa-taskflow-lecture.html#why-mwaa---managed-workflow-apache-airflow",
+    "title": "MWAA and Taskflow",
+    "section": "",
+    "text": "Scheduling + dependencies\nRetries + backfills\nObservability\nExtensible operators/hooks\n\n\n\n\nManaged scheduler/webserver/workers\nS3 for DAGs\nCloudWatch logs\nIAM + VPC integration",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#airflow-components",
+    "href": "09-mwaa-taskflow-lecture.html#airflow-components",
+    "title": "MWAA and Taskflow",
+    "section": "Airflow Components",
+    "text": "Airflow Components\n\n\n\n\n\nflowchart LR\n  W[GUI]\n  S[Scheduler]\n  Q[Queue]\n  WK[Workers]\n  DB[Database]\n\n  DAG[DAG] --&gt; S\n  S --&gt; DB\n  S --&gt; Q\n  W --&gt; DB\n  Q --&gt; WK\n  WK --&gt; DB\n\n\n\n\n\n\nNotes:\n\nWebserver renders state from the metadata DB.\nScheduler parses DAGs and enqueues runnable tasks.\nWorkers pull tasks from the queue and execute them.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#mwaa-managed-airflow-on-aws",
+    "href": "09-mwaa-taskflow-lecture.html#mwaa-managed-airflow-on-aws",
+    "title": "MWAA and Taskflow",
+    "section": "MWAA: Managed Airflow on AWS",
+    "text": "MWAA: Managed Airflow on AWS\n\n\n\n\n\nflowchart TB\n  S3[S3 Bucket]\n  CW[Logs]\n  RDS[Managed DB]\n  VPC[Your VPC]\n  IAM[IAM Role]\n  MWAA[MWAA]\n\n  S3 --&gt; MWAA\n  MWAA --&gt; CW\n  MWAA --&gt; RDS\n  IAM --- MWAA\n  VPC --- MWAA\n\n\n\n\n\n\nNotes:\n\nMWAA pulls DAGs/plugins/requirements from S3.\nLogs stream to CloudWatch.\nIAM controls AWS access; VPC controls networking.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#dags-as-graphs",
+    "href": "09-mwaa-taskflow-lecture.html#dags-as-graphs",
+    "title": "MWAA and Taskflow",
+    "section": "DAGs as Graphs",
+    "text": "DAGs as Graphs\nA DAG is a directed acyclic graph:\n\nNodes = tasks\nEdges = dependencies\nNo cycles\n\n. . .\n\n\n\n\n\nflowchart LR\n  A[extract] --&gt; B[transform] --&gt; C[load]\n\n\n\n\n\n\n\n. . .\nNotes:\n\nAirflow enforces dependency order and handles retries/failures per task.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#taskflow-api-modern-airflow",
+    "href": "09-mwaa-taskflow-lecture.html#taskflow-api-modern-airflow",
+    "title": "MWAA and Taskflow",
+    "section": "TaskFlow API (Modern Airflow)",
+    "text": "TaskFlow API (Modern Airflow)\nTaskFlow is essentially Pythonic DAG authoring:\n\n@dag defines the DAG\n@task defines tasks as functions\nReturn values become XComs automatically\n\n. . .\n\n\n\n\n\nflowchart LR\n  F1[\"@task\"] --&gt; F2[\"@task\"]\n  F2 --&gt; F3[\"@task\"]\n\n\n\n\n\n\n. . .\nNotes:\n\nWith TaskFlow, your wiring is function calls + returned objects.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#demo-dag",
+    "href": "09-mwaa-taskflow-lecture.html#demo-dag",
+    "title": "MWAA and Taskflow",
+    "section": "Demo DAG",
+    "text": "Demo DAG\nWe’ll build a minimal DAG that still feels production-ish:\n\nscheduled (@daily)\nparams (runtime configuration)\nretries\nautomatic XCom passing\nbranching\nlogs",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#design-graph",
+    "href": "09-mwaa-taskflow-lecture.html#design-graph",
+    "title": "MWAA and Taskflow",
+    "section": "Design graph",
+    "text": "Design graph\n\n\n\n\n\nflowchart TD\n  G[generate_numbers] --&gt; M[multiply_numbers]\n  M --&gt; E[choose_path]\n  E --&gt;|sum &gt; 50| L[large_total]\n  E --&gt;|else| S[small_total]\n\n\n\n\n\n\n. . .\nNotes:\n\nBranching is based on computed value.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#code-dag-params",
+    "href": "09-mwaa-taskflow-lecture.html#code-dag-params",
+    "title": "MWAA and Taskflow",
+    "section": "Code: DAG + Params",
+    "text": "Code: DAG + Params\nfrom airflow.decorators import dag, task\nfrom airflow.utils.dates import days_ago\nfrom airflow.models.param import Param\nfrom airflow.operators.python import get_current_context\nimport random\nimport logging\n\n@dag(\n    schedule=\"@daily\",\n    start_date=days_ago(1),\n    catchup=False,\n    tags=[\"mwaa\", \"taskflow\", \"demo\"],\n    params={\"multiplier\": Param(2, type=\"integer\")},\n)\n\n...\nNotes:\n\ncatchup=False avoids backfilling by default.\nparams are visible in the Airflow UI and overrideable per run.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#code-task-1-generate",
+    "href": "09-mwaa-taskflow-lecture.html#code-task-1-generate",
+    "title": "MWAA and Taskflow",
+    "section": "Code: Task 1 — Generate",
+    "text": "Code: Task 1 — Generate\n    @task(retries=2)\n    def generate_numbers():\n        numbers = [random.randint(1, 10) for _ in range(5)]\n        logging.info(f\"Generated numbers: {numbers}\")\n        return numbers\n. . .\nNotes:\n\nThe return value is automatically pushed to XCom.\nRetries here maintain task-level resiliency.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#code-task-2-transform-with-context",
+    "href": "09-mwaa-taskflow-lecture.html#code-task-2-transform-with-context",
+    "title": "MWAA and Taskflow",
+    "section": "Code: Task 2 — Transform with Context",
+    "text": "Code: Task 2 — Transform with Context\n    @task\n    def multiply_numbers(numbers):\n        context = get_current_context()\n        multiplier = context[\"params\"][\"multiplier\"]\n        result = [n * multiplier for n in numbers]\n        logging.info(f\"Multiplied result: {result}\")\n        return result\n. . .\nNotes:\n\nPull DAG params at runtime via context.\nThis pattern is common for tuning behavior per run.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#code-task-3-branch",
+    "href": "09-mwaa-taskflow-lecture.html#code-task-3-branch",
+    "title": "MWAA and Taskflow",
+    "section": "Code: Task 3 — Branch",
+    "text": "Code: Task 3 — Branch\n    @task.branch\n    def choose_path(numbers):\n        total = sum(numbers)\n        logging.info(f\"Total sum: {total}\")\n        return \"large_total\" if total &gt; 50 else \"small_total\"\n. . .\nNotes:\n\n@task.branch performs true branching: non-chosen downstream tasks are skipped.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#code-task-4-outcomes-wiring",
+    "href": "09-mwaa-taskflow-lecture.html#code-task-4-outcomes-wiring",
+    "title": "MWAA and Taskflow",
+    "section": "Code: Task 4 — Outcomes + Wiring",
+    "text": "Code: Task 4 — Outcomes + Wiring\n    @task\n    def large_total():\n        logging.info(\"Sum is large\")\n\n    @task\n    def small_total():\n        logging.info(\"Sum is small\")\n\n    nums = generate_numbers()\n    multiplied = multiply_numbers(nums)\n    decision = choose_path(multiplied)\n\n    decision &gt;&gt; [large_total(), small_total()]\nNotes:\n\nFunction calls define dependencies.\nValues flow through XCom automatically.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#deploying-to-mwaa-high-level",
+    "href": "09-mwaa-taskflow-lecture.html#deploying-to-mwaa-high-level",
+    "title": "MWAA and Taskflow",
+    "section": "Deploying to MWAA (High-level)",
+    "text": "Deploying to MWAA (High-level)\n\n\n\n\n\nsequenceDiagram\n  participant Dev as You (Dev)\n  participant S3 as S3 (dags/)\n  participant MWAA as MWAA Scheduler\n  participant W as Workers\n  participant CW as CloudWatch\n\n  Dev-&gt;&gt;S3: Upload first_dag.py\n  MWAA-&gt;&gt;S3: Sync & parse DAGs\n  MWAA-&gt;&gt;W: Queue runnable tasks\n  W-&gt;&gt;CW: Stream task logs\n\n\n\n\n\n\n. . .\nNotes:\n\nMWAA periodically syncs DAGs from S3.\nIf the DAG doesn’t appear, check path + parsing errors + requirements.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#mwaa-execution-lifecycle",
+    "href": "09-mwaa-taskflow-lecture.html#mwaa-execution-lifecycle",
+    "title": "MWAA and Taskflow",
+    "section": "MWAA Execution Lifecycle",
+    "text": "MWAA Execution Lifecycle\n\n\n\n\n\nflowchart LR\n  A[Parse DAG from S3] --&gt; B[Create DAG Run]\n  B --&gt; C[Schedule Tasks]\n  C --&gt; D[Execute on Workers]\n  D --&gt; E[Persist State to Metadata DB]\n  D --&gt; F[Emit Logs to CloudWatch]\n\n\n\n\n\n\n. . .\nNotes:\n\nMost “why didn’t it run?” issues are parse/schedule/config issues.\nMost “it ran but failed” issues are dependencies/IAM/networking.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#scaling-concurrency-concepts",
+    "href": "09-mwaa-taskflow-lecture.html#scaling-concurrency-concepts",
+    "title": "MWAA and Taskflow",
+    "section": "Scaling & Concurrency Concepts",
+    "text": "Scaling & Concurrency Concepts\n\n\n\n\n\nflowchart TB\n  subgraph Concurrency Controls\n    P[Parallelism, global]\n    DC[DAG Concurrency]\n    TC[Task Concurrency]\n    Pools[Pools]\n  end\n\n  subgraph MWAA\n    Min[Min Workers] --&gt; Auto[Autoscaling]\n    Max[Max Workers] --&gt; Auto\n  end\n\n  Auto --&gt; Exec[Task Execution Capacity]\n  P --&gt; Exec\n  DC --&gt; Exec\n  TC --&gt; Exec\n  Pools --&gt; Exec\n\n\n\n\n\n\n. . .\nNotes:\n\nEven with many workers, Airflow limits can cap parallel execution.\nPools are a great “safety valve” for expensive systems.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "09-mwaa-taskflow-lecture.html#what-to-look-at-in-the-ui",
+    "href": "09-mwaa-taskflow-lecture.html#what-to-look-at-in-the-ui",
+    "title": "MWAA and Taskflow",
+    "section": "What to Look at in the UI",
+    "text": "What to Look at in the UI\n\n\n\n\n\nmindmap\n  root(Airflow UI)\n    DAGs List\n      Import Errors\n      Tags\n      Paused/Unpaused\n    Graph View\n      Dependencies\n      Branches\n    Grid View\n      Run status\n      Duration\n    Task Instance\n      Logs\n      Retries\n      XCom\n    Admin\n      Connections\n      Variables\n      Pools\n\n\n\n\n\n\n. . .\nNotes:\n\n“Import Errors” is the first stop if the DAG doesn’t show.\nLogs + XCom help debug data flow and branching.",
+    "crumbs": [
+      "Managed workflow with Airflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>MWAA and Taskflow</span>"
+    ]
+  },
+  {
+    "objectID": "10-data-modeling.html",
+    "href": "10-data-modeling.html",
+    "title": "Data Modeling",
+    "section": "",
+    "text": "Examples of data engineering scenarios\nThis set of notes introduces concepts of data modeling and the associated tools.\nOnline transaction processing (OLTP)\nOnline analytics processing (OLAP)\nChange data capture\nLogs",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Data Modeling</span>"
+    ]
+  },
+  {
+    "objectID": "10-data-modeling.html#examples-of-data-engineering-scenarios",
+    "href": "10-data-modeling.html#examples-of-data-engineering-scenarios",
+    "title": "Data Modeling",
+    "section": "",
+    "text": "Any transactions, literally\ne.g., retail, banking, texting\n\n\n\nInteractive analytics queries\ni.e., retrieve and aggregate data for information (or insight)\ne.g., aircraft inventory analysis\n\n\n\nSnapshots, differential updates\ne.g., appointment scheduling\n\n\n\n\n\n\n\n\n\nExample of average provider availability into the future.\n\n\n\n\n\nbinary logs\nJSON\nPlain-text",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Data Modeling</span>"
+    ]
+  },
+  {
+    "objectID": "10-data-modeling.html#database-and-query",
+    "href": "10-data-modeling.html#database-and-query",
+    "title": "Data Modeling",
+    "section": "Database and query",
+    "text": "Database and query\nDatabase refers to a data storage system and a query engine.\nQuery refers to the avenue to retrieve and act on data.\nQuery commands generally include:\n\nData Definition Language, e.g., CREATE, UPDATE, DROP\nData Manipulation Language, e.g., SELECT, INSERT, UPDATE, DELETE, COPY, MERGE\nData Control Language, e.g., GRANT, DENY, REVOKE\nTransaction Control Language, e.g., COMMIT, ROLLBACK\n\nSeveral notes about queries:\n\nComplex queries incur higher computations.\n\n\nWhat is the goal? Are we looking for a particular flight? or are we finding the number of flights that are delayed due to weather within date A and date B?\n\n\nAvoid large number of scans when possible. Prepartitioning or pruning may be beneficial.\nUse EXPLAIN on a query for analysis.\nUse common table expressions, e.g.,\n\nWITH\n  cte1 AS (SELECT a, b FROM table1),\n  cte2 AS (SELECT c, d FROM table2)\nSELECT b, d FROM cte1 JOIN cte2\nWHERE cte1.a = cte2.c;\n\nIncome scenario\nSay we have a table called information, with two columns department and salary.\nWe would like to query for the average maximum income across department.\n\n\n\n\n\n\n\n\nExample of a CTE usage\n\n\n\nNote: Chapters 5 and 8 of Fundamentals of Data Engineering (Reis, 2022) are excellent resources on this topic.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Data Modeling</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html",
+    "href": "11-intro-to-nosql.html",
+    "title": "Introduction to NoSQL databases",
+    "section": "",
+    "text": "What is NoSQL\nThis document introduces the concept and usage of NoSQL databases.\nThe term NoSQL refers to a variety of database systems that do not follow all the rules in a relational (SQL) database system.\nNoSQL typically stands for not only SQL or non-relational.\nExamples of NoSQL systems:\nNote: Many of these systems can handle most of the applications listed. Their main use case is listed.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html#what-is-nosql",
+    "href": "11-intro-to-nosql.html#what-is-nosql",
+    "title": "Introduction to NoSQL databases",
+    "section": "",
+    "text": "Apache Cassandra: commerce, recommandation systems\nMongoDB: text-based content\nRedis: queues, messaging",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html#key-features-of-nosql",
+    "href": "11-intro-to-nosql.html#key-features-of-nosql",
+    "title": "Introduction to NoSQL databases",
+    "section": "Key features of NoSQL",
+    "text": "Key features of NoSQL\n\n(Horizontal) scalability: distribute operations over many nodes\nRedundancy: replicate and distribute data over many nodes\nFlexibility:\n\nlooser restriction on concurrency than most relational database systems\nability to add new features/attributes (columns) dynamically",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html#cap-theorem",
+    "href": "11-intro-to-nosql.html#cap-theorem",
+    "title": "Introduction to NoSQL databases",
+    "section": "CAP Theorem",
+    "text": "CAP Theorem\nThe CAP theorem (Fox and Brewer, 1999, Brewer, 2012) describes the following performance properties of a system:\n\nconsistency (C) equivalent to having a single up-to-date copy of the data;\nhigh availability (A) of that data (for updates); and\ntolerance to network partitions (P).\n\nOn a high-level, a general system only satisfies two of the three properties.\nNote: Tension spectra among the three properties.\n\n\n\n\n\n\n\n\nACID and BASE example schema (luminousmen)",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html#acid-and-base-properties",
+    "href": "11-intro-to-nosql.html#acid-and-base-properties",
+    "title": "Introduction to NoSQL databases",
+    "section": "ACID and BASE properties",
+    "text": "ACID and BASE properties\n\n\n\n\n\n\n\n\nProperty\nACID (Relational DBs) (e.g. bank transactions)\nBASE (NoSQL DBs) (e.g. social media post edit)\n\n\n\n\nAtomicity\nTransactions are all-or-nothing.\nNot guaranteed; partial updates allowed.\n\n\nConsistency\nEnsures data consistency at all times.\nEventually consistent; temporary inconsistencies may occur.\n\n\nIsolation\nTransactions are executed independently.\nOperations may be interleaved for efficiency.\n\n\nDurability\nData is permanently saved upon transaction commit.\nData availability is prioritized over strict durability.\n\n\nAvailability\nStrict availability within transaction rules.\nHighly available; no strict transaction requirements.\n\n\nScalability\nLess scalable due to strict transaction rules.\nHighly scalable, optimized for distributed computing.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "11-intro-to-nosql.html#main-forms-of-nosql-database-systems",
+    "href": "11-intro-to-nosql.html#main-forms-of-nosql-database-systems",
+    "title": "Introduction to NoSQL databases",
+    "section": "Main forms of NoSQL database systems",
+    "text": "Main forms of NoSQL database systems\n\nDocument databases\n\nStoring data in JSON-like documents.\ne.g., MongoDB and Couchbase.\n\nKey-value stores\n\nStoring data as a collection of key-value pairs.\ne.g., Redis and DynamoDB.\n\nGraph databases\n\nStoring data as vertices and edges.\ne.g., Neo4j and Amazon Neptune.\n\nColumn-family (wide-column) stores\n\nStoring data in columns rather than rows\nScalable data storage.\ne.g., Apache Cassandra and ScyllaDB.\n\n\nNotes:\nFox, A., & Brewer, E. A. (1999, March). Harvest, yield, and scalable tolerant systems. In Proceedings of the seventh workshop on hot topics in operating systems (pp. 174-178). IEEE.\nBrewer, E. (2012). CAP twelve years later: How the” rules” have changed. Computer, 45(2), 23-29.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to NoSQL databases</span>"
+    ]
+  },
+  {
+    "objectID": "12-cassandra.html",
+    "href": "12-cassandra.html",
+    "title": "Wide-column database system (Apache Cassandra)",
+    "section": "",
+    "text": "An abridged version of the Cassandra timeline\nThis document covers the wide-column database system, with Cassandra queries that are used via AWS Keyspaces.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Wide-column database system (Apache Cassandra)</span>"
+    ]
+  },
+  {
+    "objectID": "12-cassandra.html#an-abridged-version-of-the-cassandra-timeline",
+    "href": "12-cassandra.html#an-abridged-version-of-the-cassandra-timeline",
+    "title": "Wide-column database system (Apache Cassandra)",
+    "section": "",
+    "text": "2008: First developed to address Facebook scaling needs by improving search function.\n2008: Released by Facebook as an open-source project.\n2009: Apache picked up Cassandra as an Incubator project, and graduated in 2010.\n2011: Cassandra Query Language (CQL) is introduced (v0.8).\n2021: Cassandra 4.0 was released. In Patrick McFadin’s own words, &gt; This is an important milestone in the lifecycle of a database project that has come into its own as an important database used around the world.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Wide-column database system (Apache Cassandra)</span>"
+    ]
+  },
+  {
+    "objectID": "12-cassandra.html#architecture-of-cassandra",
+    "href": "12-cassandra.html#architecture-of-cassandra",
+    "title": "Wide-column database system (Apache Cassandra)",
+    "section": "Architecture of Cassandra",
+    "text": "Architecture of Cassandra\n\n\n\n\n\n\n\n\nApache Cassandra distributed database schema.\n\n\n\n\nDecentralized multiple nodes\nEach node can receive request (query) and coordinates the request:\n\nIf the coordinator node contains the data, it may return the results.\nIf the coordinator node does not contain the data, it can calculate which other node does (via a consistent hashing algorithm).\nIf consistency level is requested, the coordinator node queries the data from replica nodes.\n\nA note about the hashing algorithm:\n\nData are assigned to nodes by a hash function to calculate a token for the partition key.\nEach node owns a range of the tokens.\n\nExample through the following query:\nSELECT subject_id, token(subject_id) FROM de300_demo.patient_tbl;\n\n\n\n\n\n\n\n\nToken ring (Fig 6.2 from Carpenter, 2022).\n\n\n\n\n\nPartitions\nRecall what a primary key is in a relational database table.\nCassandra calls the main entity a Keyspace, as a group of tables with some relationships (analogous to database in a relational database system).\nThe primary key in a Cassandra table consists of - a mandatory partition key, and - an optional set of clustering columns.\nExample of partitioning:\n&gt;&gt;&gt; CREATE TABLE de300keyspaces.users_by_country (\n    country text,\n    user_email text,\n    first_name text,\n    last_name text,\n    age smallint,\n    PRIMARY KEY ((country), user_email)\n);\nTable Users | Legend: p - Partition-Key, c - Clustering Column\n\ncountry (p) | user_email (c)  | first_name | last_name | age\n----------------------------------------------------------------\nUS          | john@email.com  | John       | Wick      | 55  \nUK          | peter@email.com | Peter      | Clark     | 65  \nUK          | bob@email.com   | Bob        | Sandler   | 23 \nUK          | alice@email.com | Alice      | Brown     | 26\nWhy use country as the mandatory key? - The most important bit to understanding is scalability. - If we often query the user database for specific countries, this may be a good idea.\n\n\n\n\n\n\n\n\nIllstration for partition key.\n\n\n\nThe main role of the partition key is to distribute data evenly among nodes.\nAn example query that will work really efficiently is the following:\n&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE country='US';\nAn example query that will work poorly would be the following:\n&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE age &gt; 50;\nIn fact, the query above will not run. Queries without conditions (WHERE) or use conditions that don’t use the partition key should be avoided.\nWith caution: You may force this kind of query to run with the following:\n&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country WHERE age &gt; 50 ALLOW FILTERING;\n\n\nReplication\nData are duplicated and stored in different nodes (replicas). By default, a replication of three “availability zones” is supported in AWS Keyspace.\nWhen a keyspace is created, a query such as the following requires specifying a replication factor.\n# AWS Keyspace\n&gt;&gt;&gt; CREATE KEYSPACE IF NOT EXISTS \"de300keyspaces\"\n  WITH REPLICATION = {'class': 'SingleRegionStrategy'};\n# General Cassandra\n&gt;&gt;&gt; CREATE KEYSPACE de300keyspaces  \n  WITH REPLICATION = { \n   'class' : 'NetworkTopologyStrategy',\n   'datacenter1' : 3 \n  };\nA replication factor of 3 means that for each row of data, there are three copies stored on different nodes.\n&gt;&gt;&gt; CONSISTENCY ONE;\n&gt;&gt;&gt; CONSISTENCY LOCAL_ONE;\n&gt;&gt;&gt; CONSISTENCY LOCAL_QUORUM;\nNote: Strong consistency means \\[[\\textrm{read-consistency-level}] + [\\textrm{write-consistency-level}] &gt; [\\textrm{replication-factor}].\\]\n\n\nConsistency\nOnce we have replicates, the notion of consistency beceomes important. As we have seen before, strong consistency means only one state of your data can be observed at any time in any location. Cassandra generally runs an eventually consistent model.\nThe biggest question is how important strong consistency in your use case.\nRead/Write consistency level means how many of the read/write operations (replica) are completed.\nConsistency for all queries can be set by the following query examples:\n&gt;&gt;&gt; CONSISTENCY ONE;\n&gt;&gt;&gt; CONSISTENCY LOCAL_QUORUM;\n\n\nPre-sorting\nRecalling that the primary key consists of - a mandatory partition key (1+ columns), and - an optional set of clustering columns (0+ columns).\nCassandra sorts the data by default. Using the same example from above:\n&gt;&gt;&gt; CREATE TABLE de300keyspaces.users_by_country_sorted_by_age_asc (\n    country text,\n    user_email text,\n    first_name text,\n    last_name text,\n    age smallint,\n    PRIMARY KEY ((country), age, user_email)\n) WITH CLUSTERING ORDER BY (age ASC);\n&gt;&gt;&gt; SELECT * FROM de300keyspaces.users_by_country_sorted_by_age_asc WHERE country='UK';\n\n country | age | user_email       | first_name | last_name\n---------+-----+------------------+------------+-----------\n      UK |  20 | bob@email.com   |        Bob |   Sandler\n      UK |  30 | peter@email.com |      Peter |     Clark\n      UK |  40 | alice@email.com |      Alice |   Brown\nNotice that age is included as a clustering column, and sorted.\nThe order of your clustering columns matters!\nIt is now possible to query the table by - country - country, age - country, age, user_email\nBut querying by country and user_email becomes inefficient.\n\n\nDeletion of data\nWhen data are replicated, deletion of data becomes complicated.\nCassandra sets up tombstone to prevent reintroducing any deleted data.\n\nTypically a tombstone is placed on the values to be deleted (i.e., an update).\n(In a relational database,) an update statement is issued to change values to deleted in a row.\nThe tombstones are kept for some length of time (gc_grace_seconds = 864000 by default).\n\n\n\nNode failure detection\nSince a Cassandra ring (or cluster of nodes) contains potentially many nodes (which may fail), we need a mechanism to check if any individual node is failing.\nA gossip protocol system is employed in Cassandra to detect failures in the ring. When any node spins up, it registers itself with the gossiper to receive the state of the cluster.\nThe gossip protocol goes as follows: 1. Once per second, the gossiper will choose a random node in the cluster and initialize a gossip session.\n(Each round of gossip requires three messages back-and-forth.) 2. The gossip initiator sends a GossipDigestSyn message. 3. When the friend receives the message, it returns a GossipDigestAck message. 4. When the initiator receives the ack message, it sends a GossipDigestAck2 message to complete the round of gossip. 5. If there is no response, the initiator convicts the friend by marking it as dead in its local list and logging that fact.\nWhen is a failure detected? Cassandra implements the \\(\\phi\\) accrual failure detector (Hayashibara et al., 2004). - A suspicion level is maintained by the failure monitoring system. - Each node has a Phi suspicion level attached. - If the suspicion level (e.g., number of gossips missed) goes beyond Phi in the node, then failure is declared.\n\n\nMain take-aways\n\nThe strength of Cassandra is in horizontal scalability, balancing consistency and availability.\nImplication:\n\nNo JOIN statements\nNo nested query, subquery\nTables are designed for queries, not the other way around.",
+    "crumbs": [
+      "Non-relational database modeling",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Wide-column database system (Apache Cassandra)</span>"
+    ]
+  },
+  {
     "objectID": "a0-project-specification.html",
     "href": "a0-project-specification.html",
     "title": "Project Specification",
@@ -500,7 +819,7 @@
     "text": "Group formation\nThe project group may consist of up to 3 students.",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -511,7 +830,7 @@
     "text": "Project grading\nThe project is worth 35% of the class grade, with the following details:\n\n\n\n\nDue date\nProportion (%)\n\n\nProposal\nFeb 3\n15\n\n\nCheck-up\nFeb 19\n20\n\n\nPresentation\nMar 12\n25\n\n\nReport\nMar 18\n35\n\n\nPeer experience summary\nMar 18\n10\n\n\nTotal\n\n100",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -522,7 +841,7 @@
     "text": "Project proposal\nDevelop a proposal that includes your topic, the selection of relevant dataset(s), and a plan to answer questions of interests. Keep in mind the timeline of the quarter and set achievable goals.\n\nGuidelines for proposal\nReview the guidelines below carefully.\nOverarching theme: Design a data process that involves ingesting data, preprocessing, analysis, and service. Consider a process that can scale and can be reused given data update.\nThe proposal should follow this format (5 points):\n\nInclude full names of all teammates.\nBetween 1 to 2 pages, single-spaced, 11-point type, 1-inch margins.\nDo not include graphics.\nDecide on the name of your group. A pdf named [GroupName]_proposal.pdf should be submitted.\n\nThe proposal should cover the following components (but in a narrative format, not Q/A):\n\nIntroduction (12 points): Introduce your project and motivation, e.g.,\n\nWhat is the main issue you are interested in?\nWhy is this topic important?\nIn what way does this project provide a solution?\n\nData source(s) (10 points): Describe the data sources you have chosen, e.g.,\n\nHow can the data be retrieved?\nHow are the data related to the topic?\nState the amount of data you will be working with.\n\nGoal definitions (18 points): State two to three goals you are interested in achieving with the selected data sources.\nAs you tackle the goals, you should use at least one of the data engineering techniques covered in class:\n\nMissing data imputation\nDatabase system (relational or non-relational)\nDistributed computing framework (e.g., pyspark)\nFor each goal, answer the following:\nHow do you intend to achieve your goal?\nHow do you intend to use the above techniques?\nWhat can you answer (and not answer) with the proposed datasets?\n\nReference (5 points): Provide valid references for your data source(s). (Reference does not count toward the page limit.)\n\nFor example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., & Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). PhysioNet. https://doi.org/10.13026/C2XW26.\nor the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … & Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. Scientific data, 3(1), 1-9.",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -533,7 +852,7 @@
     "text": "Potential data sources\nBelow are some possible avenues for finding data sources:\n\nGoogle dataset search\nAwesome public datasets\nBuzzFeed news repository\nRecommendation systems reference\nOpen data challenge",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -544,7 +863,7 @@
     "text": "Project check-up\nTwo elements are required for the project check-up:\n\nGroup, submitted on Canvas as a pdf. (30 points)\n\nFor each of your set goals in the proposal, provide a brief summary of progress. If you have not worked on a particular goal yet, feel free to say that you have not made progress there.\nInclude any questions or roadblocks you are encountering and require assistance.\nIf you find it helpful to set up a time to meet with Prof. Chan, indicate so.\n\nIndividual. (20 points)\n\nComplete the following Google form: DE300 Project check-up Google Form, Link to come\n\n\nNote: While the check-up form would not necessarily change your individual project grades, adjustments will be considered combining the feedback from the check-up and the peer experience summary.",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -555,7 +874,7 @@
     "text": "Presentation\nA presentation will be due on the last day of class. The presentation should follow these guidelines:\n\nUp to fifteen minutes.\nTips: Distribute your content and do a quick dry run in advance. This will smoothen out your presentation.\n\nThe presentation should include but not limited to the following:\n\nMotivation of your project.\nIntroduction to your dataset(s) and its relevance.\nGoals, method of analyses, and findings.\nSummary.\n\nThe presentation is evaluated via the following criteria (20 each):\n\nOrganization of content\nAppropriate use of language\nDelivery\nUse of supporting materials (visuals, statistics, etc.)\nClarity of central idea\n\nNote that while the evaluation is primarily for the entire group, evaluation may differ among students if significant discrepancy is observed. You may refer to the sample reference rubric for details.",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -566,7 +885,7 @@
     "text": "Report\nPrepare a project report to clearly outline your project choice and its importance, your approach to achieving the set of goals, your results, and a summary.\nThe report should follow these guidlines:\n\nInclude full names of all teammates.\n\nThis is a reminder that it is an academic violation to include your name on any work you have not contributed or performed.\n\nUp to 15 pages (not including Appendix), single-spaced, 11-point type, 1-inch margins.\n\nSubmission: A single pdf named LastName1_LastName2_..._report.pdf should be submitted.\nInclude all of your code in a zipped folder in your submission. Make sure your codes and code organization are understandable.\n\nThe report should include the following components in a narrative format:\n\nIntroduction (5 points): Introduce your project and motivation, e.g.,\n\nWhat is the main issue you are interested in?\nWhy is this topic important?\nIn what way does this project provide a solution?\n\nData source(s) (5 points): Describe the data sources you have chosen, e.g.,\n\nHow can the data be retrieved?\nHow are the data related to the topic?\nState the amount of data you will be working with.\n\nGoals and approaches (60 points): State the specific goals you are attempting to achieve with the selected data sources. For each goal, provide the approach in achieving said goal, its implementation, and your results. Use any graph, table, or other visualization to support your narrative.\nSummary (10 points): Provide a brief summary of your project, and describe any loose ends or future opportunities.\nGenerative AI statement and reference (10 points):\n\nGenerative AI statement: If you have, in any way, employed the use of generative AI tools, report all usage according to the syllabus. This statement does not count toward the page limit.\nReference: Provide valid references for your data source(s). (Does not count toward the page limit.)\n\nFor example, using APA guidelines, the MIMIC-III database can be cited as &gt; Johnson, A., Pollard, T., & Mark, R. (2016). MIMIC-III Clinical Database (version 1.4). PhysioNet. https://doi.org/10.13026/C2XW26.\nor the original article &gt; Johnson, A. E., Pollard, T. J., Shen, L., Lehman, L. W. H., Feng, M., Ghassemi, M., … & Mark, R. G. (2016). MIMIC-III, a freely accessible critical care database. Scientific data, 3(1), 1-9.\n\n\nCode legibility and organization (10 points): Give a brief summary or provide a README to use and evaluate your code. (Does not count toward the page limit.)",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Project Specification</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Project Specification</span>"
     ]
   },
   {
@@ -577,7 +896,7 @@
     "text": "Thorough Understanding\nGood Understanding\nBasic Understanding\nPoor/No Understanding\n\n\n\n\nOrganization\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable and is skillful and makes the content of the presentation cohesive.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is clearly and consistently observable within the presentation.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is intermittently observable within the presentation.\nOrganizational pattern (specific introduction and conclusion, sequenced material within the body, and transitions) is not observable within the presentation.\n\n\nLanguage\nLanguage choices are memorable, compelling, and enhance the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are thoughtful and generally support the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are mundane and commonplace and partially support the effectiveness of the presentation. Language in presentation is appropriate to audience.\nLanguage choices are unclear and minimally support the effectiveness of the presentation. Language in presentation is not appropriate to audience.\n\n\nDelivery\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation compelling, and speaker appears polished and confident.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation interesting, and speaker appears comfortable.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) make the presentation understandable, and speaker appears tentative.\nDelivery techniques (posture, gesture, eye contact, and vocal expressiveness) detract from the understandability of the presentation, and speaker appears uncomfortable.\n\n\nSupporting Material\nA variety of types of supporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that significantly supports the presentation or establishes the presenter’s credibility/authority on the topic.\nSupporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that generally supports the presentation or establishes the presenter’s credibility/authority on the topic.\nSupporting materials (explanations, illustrations, statistics) make appropriate reference to information or analysis that partially supports the presentation or establishes the presenter’s credibility/authority on the topic.\nInsufficient supporting materials (explanations, illustrations, statistics) make reference to information or analysis that minimally supports the presentation or establishes the presenter’s credibility/authority on the topic.\n\n\nCentral Message\nCentral message is precisely stated and strongly supported.\nCentral message is clear and consistent with the supporting material.\nCentral message is basically understandable but is not memorable.\nCentral message can be deduced, but is not explicitly stated in the presentation.",
     "crumbs": [
       "Project",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Presentation reference rubric</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Presentation reference rubric</span>"
     ]
   },
   {
@@ -588,7 +907,7 @@
     "text": "Reconnect to EC2 Jupyter notebook\nImportant: Whenever you are not running anything (for more than 15 minutes), you should stop the EC2 instance on the AWS Instances page.",
     "crumbs": [
       "Useful guides",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
     ]
   },
   {
@@ -599,7 +918,62 @@
     "text": "Start your EC2 instance from https://nu-sso.awsapps.com/start/. (The one you have a private key for.)\nOnce the EC2 instance is running, connect to the instance via SSH\n\nUnder the SSH client tab, you will see the instructions to connect to the EC2 instance via SSH on your console.\n\nIf your EC2 console shows (base) before your cursor, it indicates that conda environment is already running.\n\nIf not, you have to run eval \"$($CONDA_PATH/bin/conda shell.bash hook)\" to activate the conda environment.\n\nSSH into Jupyter notebook on EC2 (as in step 7 above.)",
     "crumbs": [
       "Useful guides",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Setting up EC2 instance for jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0b-access-keyspaces.html",
+    "href": "0b-access-keyspaces.html",
+    "title": "Setting up access to Keyspace in Jupyter notebook",
+    "section": "",
+    "text": "Prerequisites\nTwo files are required for accessing Keyspace in Jupyter notebook:\nMore details about the setup can be found in Using a Cassandra Python client.",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Setting up access to Keyspace in Jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0b-access-keyspaces.html#prerequisites",
+    "href": "0b-access-keyspaces.html#prerequisites",
+    "title": "Setting up access to Keyspace in Jupyter notebook",
+    "section": "",
+    "text": "Starfield digital certificate\nAWS credentials for Keyspace\n\n\n\nStarfield digital certificate\nThe digital certificate can be downloaded by:\n\n!curl -O https://www.amazontrust.com/repository/AmazonRootCA1.pem\n!curl -O https://www.amazontrust.com/repository/AmazonRootCA2.pem\n!curl -O https://www.amazontrust.com/repository/AmazonRootCA3.pem\n!curl -O https://www.amazontrust.com/repository/AmazonRootCA4.pem\n!curl -O https://certs.secureserver.net/repository/sf-class2-root.crt\n\n\n# combine key files\n!cat AmazonRootCA1.pem AmazonRootCA2.pem AmazonRootCA3.pem AmazonRootCA4.pem sf-class2-root.crt &gt; keyspaces-bundle.pem\n\n\n\nAWS credentials\nThe AWS credentials file can be downloaded via Canvas. Place this credentials file under .aws/ folder on your local machine, or your EC2 instance, so that AWS knows where to look for the credentials.\nMAJOR NOTE: Do not store this credentials anywhere that is publicly accessible, github, public S3 bucket, etc. That is the primary reason why this file is only available on Canvas.",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Setting up access to Keyspace in Jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0b-access-keyspaces.html#sample-code-for-connection",
+    "href": "0b-access-keyspaces.html#sample-code-for-connection",
+    "title": "Setting up access to Keyspace in Jupyter notebook",
+    "section": "Sample code for connection",
+    "text": "Sample code for connection\n\nInstall cassandra-sigv4 via the following command:\n\n\n!pip install cassandra-sigv4\n\n\nSet up a boto3 session and a Cassandra cluster (the Python way of interacting with AWS).\n\n\nfrom cassandra.cluster import Cluster\nfrom ssl import SSLContext, PROTOCOL_TLSv1_2 , CERT_REQUIRED\nimport boto3\nfrom cassandra_sigv4.auth import SigV4AuthProvider\n\nssl_context = SSLContext(PROTOCOL_TLSv1_2)\nssl_context.load_verify_locations('keyspaces-bundle.pem')\nssl_context.verify_mode = CERT_REQUIRED\n\n\nimport pandas as pd\naccess_key = pd.read_csv('../../admin/de300-keyspaces_accessKeys.csv')\n\n\n# use this if you want to use Boto to set the session parameters.\nboto_session = boto3.Session(aws_access_key_id=\"AKIAYAAO5HRMC6K3K34T\",\n                             aws_secret_access_key=access_key['Secret access key'].values[0],\n                            #  aws_session_token=\"AQoDYXdzEJr...&lt;remainder of token&gt;\",\n                             region_name=\"us-east-1\")\nauth_provider = SigV4AuthProvider(boto_session)\n\ncluster = Cluster(['cassandra.us-east-1.amazonaws.com'], \n                  ssl_context=ssl_context, \n                  auth_provider=auth_provider,\n                  port=9142)\nsession = cluster.connect()\nr = session.execute('select * from system_schema.keyspaces')\nprint(r.current_rows)",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Setting up access to Keyspace in Jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0b-access-keyspaces.html#working-with-cassandra-aws-keyspace",
+    "href": "0b-access-keyspaces.html#working-with-cassandra-aws-keyspace",
+    "title": "Setting up access to Keyspace in Jupyter notebook",
+    "section": "Working with Cassandra (AWS Keyspace)",
+    "text": "Working with Cassandra (AWS Keyspace)\n\n# establishing connection to Keyspace\nsession = cluster.connect()\n\n\n# Insert any CQL queries between .connect() and .shutdown()\n\n# For example, show all keyspaces created\nr = session.execute('''\n    SELECT * FROM system_schema.keyspaces;\n    ''')\nprint(r.current_rows)\n\n\n# For example, create a keyspace for HW2\nr = session.execute('''\n    CREATE KEYSPACE IF NOT EXISTS de300_demo \n    WITH replication = {'class': 'SingleRegionStrategy'};\n    ''')\nprint(r.current_rows)",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Setting up access to Keyspace in Jupyter notebook</span>"
+    ]
+  },
+  {
+    "objectID": "0b-access-keyspaces.html#shutdown-your-cassandra-connection",
+    "href": "0b-access-keyspaces.html#shutdown-your-cassandra-connection",
+    "title": "Setting up access to Keyspace in Jupyter notebook",
+    "section": "Shutdown your Cassandra connection",
+    "text": "Shutdown your Cassandra connection\n\nsession.shutdown()",
+    "crumbs": [
+      "Useful guides",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Setting up access to Keyspace in Jupyter notebook</span>"
     ]
   },
   {
@@ -607,7 +981,7 @@
     "href": "99-references.html",
     "title": "References",
     "section": "",
-    "text": "Dean, Jeffrey, and Sanjay Ghemawat. 2008. “MapReduce: Simplified\nData Processing on Large Clusters.” Communications of the\nACM 51 (1): 107–13.\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.\n“Bert: Pre-Training of Deep Bidirectional Transformers for\nLanguage Understanding.” In Proceedings of the 2019\nConference of the North American Chapter of the Association for\nComputational Linguistics: Human Language Technologies, Volume 1 (Long\nand Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015.\n“Matrix Completion and Low-Rank SVD via Fast Alternating Least\nSquares.” The Journal of Machine Learning Research 16\n(1): 3367–3402.\n\n\nHu, Edward J, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li,\nShean Wang, Lu Wang, Weizhu Chen, et al. 2022. “Lora: Low-Rank\nAdaptation of Large Language Models.” ICLR 1 (2): 3.\n\n\nReis, Joe, and Matt Housley. 2022. Fundamentals of Data\nEngineering. O’Reilly Media, Inc.\n\n\nTian, Wenhong, and Yong Zhao. 2015. “9 - Energy Efficiency\nScheduling in Hadoop.” In Optimized Cloud Resource Management\nand Scheduling, edited by Wenhong Tian and Yong Zhao, 179–204.\nBoston: Morgan Kaufmann. https://doi.org/https://doi.org/10.1016/B978-0-12-801476-9.00009-4.",
+    "text": "Dean, Jeffrey, and Sanjay Ghemawat. 2008. “MapReduce: Simplified\nData Processing on Large Clusters.” Communications of the\nACM 51 (1): 107–13.\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.\n“Bert: Pre-Training of Deep Bidirectional Transformers for\nLanguage Understanding.” In Proceedings of the 2019\nConference of the North American Chapter of the Association for\nComputational Linguistics: Human Language Technologies, Volume 1 (Long\nand Short Papers), 4171–86.\n\n\nHastie, Trevor, Rahul Mazumder, Jason D Lee, and Reza Zadeh. 2015.\n“Matrix Completion and Low-Rank SVD via Fast Alternating Least\nSquares.” The Journal of Machine Learning Research 16\n(1): 3367–3402.\n\n\nReis, Joe, and Matt Housley. 2022. Fundamentals of Data\nEngineering. O’Reilly Media, Inc.\n\n\nShen, Yelong, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang,\net al. n.d. “Lora: Low-Rank Adaptation of Large Language\nModels.”\n\n\nTian, Wenhong, and Yong Zhao. 2015. “9 - Energy Efficiency\nScheduling in Hadoop.” In Optimized Cloud Resource Management\nand Scheduling, edited by Wenhong Tian and Yong Zhao, 179–204.\nBoston: Morgan Kaufmann. https://doi.org/https://doi.org/10.1016/B978-0-12-801476-9.00009-4.",
     "crumbs": [
       "References"
     ]

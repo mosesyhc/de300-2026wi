@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Moses Y.-H. Chan">
 
-<title>DATA_ENG 300: Data Engineering Studio</title>
+<title>MWAA and Taskflow – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -51,7 +65,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-intro-data-engineering.html" rel="next">
+<link href="./10-data-modeling.html" rel="next">
+<link href="./08-add-times-series.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -90,6 +105,10 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<meta name="mermaid-theme" content="neutral">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -103,7 +122,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html">Managed workflow with Airflow</a></li><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html"><span class="chapter-title">MWAA and Taskflow</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -132,7 +151,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">DATA_ENG 300: Data Engineering Studio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -219,7 +238,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mwaa-taskflow-lecture.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MWAA and Taskflow</span></a>
+  <a href="./09-mwaa-taskflow-lecture.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">MWAA and Taskflow</span></a>
   </div>
 </li>
       </ul>
@@ -308,41 +327,37 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials">Course Materials</a></li>
-  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading">Grading</a></li>
-  <li><a href="#class-policy" id="toc-class-policy" class="nav-link" data-scroll-target="#class-policy">Class policy</a>
-  <ul class="collapse">
-  <li><a href="#inclusivity" id="toc-inclusivity" class="nav-link" data-scroll-target="#inclusivity">Inclusivity</a></li>
-  <li><a href="#office-hours" id="toc-office-hours" class="nav-link" data-scroll-target="#office-hours">Office Hours</a></li>
-  <li><a href="#late-days" id="toc-late-days" class="nav-link" data-scroll-target="#late-days">Late Days</a></li>
-  <li><a href="#communications" id="toc-communications" class="nav-link" data-scroll-target="#communications">Communications</a></li>
-  <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a></li>
-  <li><a href="#generative-ai-policy" id="toc-generative-ai-policy" class="nav-link" data-scroll-target="#generative-ai-policy">Generative AI Policy</a></li>
-  <li><a href="#accessibility" id="toc-accessibility" class="nav-link" data-scroll-target="#accessibility">Accessibility</a></li>
-  <li><a href="#northwestern-university-syllabus-standards" id="toc-northwestern-university-syllabus-standards" class="nav-link" data-scroll-target="#northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</a></li>
-  </ul></li>
+  <li><a href="#why-mwaa---managed-workflow-apache-airflow" id="toc-why-mwaa---managed-workflow-apache-airflow" class="nav-link active" data-scroll-target="#why-mwaa---managed-workflow-apache-airflow">Why MWAA - Managed Workflow Apache Airflow?</a></li>
+  <li><a href="#airflow-components" id="toc-airflow-components" class="nav-link" data-scroll-target="#airflow-components">Airflow Components</a></li>
+  <li><a href="#mwaa-managed-airflow-on-aws" id="toc-mwaa-managed-airflow-on-aws" class="nav-link" data-scroll-target="#mwaa-managed-airflow-on-aws">MWAA: Managed Airflow on AWS</a></li>
+  <li><a href="#dags-as-graphs" id="toc-dags-as-graphs" class="nav-link" data-scroll-target="#dags-as-graphs">DAGs as Graphs</a></li>
+  <li><a href="#taskflow-api-modern-airflow" id="toc-taskflow-api-modern-airflow" class="nav-link" data-scroll-target="#taskflow-api-modern-airflow">TaskFlow API (Modern Airflow)</a></li>
+  <li><a href="#demo-dag" id="toc-demo-dag" class="nav-link" data-scroll-target="#demo-dag">Demo DAG</a></li>
+  <li><a href="#design-graph" id="toc-design-graph" class="nav-link" data-scroll-target="#design-graph">Design graph</a></li>
+  <li><a href="#code-dag-params" id="toc-code-dag-params" class="nav-link" data-scroll-target="#code-dag-params">Code: DAG + Params</a></li>
+  <li><a href="#code-task-1-generate" id="toc-code-task-1-generate" class="nav-link" data-scroll-target="#code-task-1-generate">Code: Task 1 — Generate</a></li>
+  <li><a href="#code-task-2-transform-with-context" id="toc-code-task-2-transform-with-context" class="nav-link" data-scroll-target="#code-task-2-transform-with-context">Code: Task 2 — Transform with Context</a></li>
+  <li><a href="#code-task-3-branch" id="toc-code-task-3-branch" class="nav-link" data-scroll-target="#code-task-3-branch">Code: Task 3 — Branch</a></li>
+  <li><a href="#code-task-4-outcomes-wiring" id="toc-code-task-4-outcomes-wiring" class="nav-link" data-scroll-target="#code-task-4-outcomes-wiring">Code: Task 4 — Outcomes + Wiring</a></li>
+  <li><a href="#deploying-to-mwaa-high-level" id="toc-deploying-to-mwaa-high-level" class="nav-link" data-scroll-target="#deploying-to-mwaa-high-level">Deploying to MWAA (High-level)</a></li>
+  <li><a href="#mwaa-execution-lifecycle" id="toc-mwaa-execution-lifecycle" class="nav-link" data-scroll-target="#mwaa-execution-lifecycle">MWAA Execution Lifecycle</a></li>
+  <li><a href="#scaling-concurrency-concepts" id="toc-scaling-concurrency-concepts" class="nav-link" data-scroll-target="#scaling-concurrency-concepts">Scaling &amp; Concurrency Concepts</a></li>
+  <li><a href="#what-to-look-at-in-the-ui" id="toc-what-to-look-at-in-the-ui" class="nav-link" data-scroll-target="#what-to-look-at-in-the-ui">What to Look at in the UI</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html">Managed workflow with Airflow</a></li><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html"><span class="chapter-title">MWAA and Taskflow</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">DATA_ENG 300: Data Engineering Studio</h1>
+<h1 class="title"><span class="chapter-title">MWAA and Taskflow</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Moses Y.-H. Chan </p>
-          </div>
-  </div>
     
   
     
@@ -353,124 +368,424 @@ div.csl-indent {
 </header>
 
 
-<p><strong>Instructor:</strong> Moses Chan, <code>moses.chan@northwestern.edu</code></p>
-<p><strong>TA:</strong> Dinglin Xia</p>
-<p><strong>Office Hours:</strong> See <a href="https://canvas.northwestern.edu">Canvas</a>.</p>
-<p><strong>Prerequisites:</strong> DATA_ENG 200, Statistics Foundations course; CS150; CS 214 or 217; IEMS 304 or CS 349.</p>
-<section id="course-outline" class="level1">
-<h1>Course Outline</h1>
-<p>Introduction to the foundation and modern tools of data engineering. Topics include:</p>
+<section id="why-mwaa---managed-workflow-apache-airflow" class="level2">
+<h2 class="anchored" data-anchor-id="why-mwaa---managed-workflow-apache-airflow">Why MWAA - Managed Workflow Apache Airflow?</h2>
+<p>Apache Airflow orchestrates workflows as DAGs.</p>
 <ul>
-<li>Introduction to data engineering</li>
-<li>Containerization</li>
-<li>Exploratory data analysis</li>
-<li>Distributed (cloud) computing</li>
-<li>ETL and ELT via Spark</li>
-<li>Automation of data pipelines</li>
-<li>NoSQL databases</li>
-<li>A/B testing, <em>if time permits</em></li>
-<li>Transfer learning, <em>if time permits</em></li>
+<li>Scheduling + dependencies</li>
+<li>Retries + backfills</li>
+<li>Observability</li>
+<li>Extensible operators/hooks</li>
 </ul>
-</section>
-<section id="course-materials" class="level1">
-<h1>Course Materials</h1>
-<p>All required materials will be communicated through lecture notes, code examples, uploaded in Jupyter notebooks via Canvas.</p>
-<p><strong>Recommended Text</strong>. <span class="citation" data-cites="reis2022fundamentals">Reis and Housley (<a href="99-references.html#ref-reis2022fundamentals" role="doc-biblioref">2022</a>)</span>. Available at <a href="https://search.library.northwestern.edu/permalink/01NWU_INST/h04e76/alma9982316255202441">Northwestern Library</a>.</p>
-</section>
-<section id="grading" class="level1">
-<h1>Grading</h1>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Item</strong></th>
-<th><strong>Count</strong></th>
-<th><strong>Contribution</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Labs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
-<td>8</td>
-<td>15 %</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Homeworks</td>
-<td>4</td>
-<td>40 %</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Project</td>
-<td>1</td>
-<td>35 %</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">In-class participation</td>
-<td>~10</td>
-<td>10 %</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="class-policy" class="level1">
-<h1>Class policy</h1>
-<section id="inclusivity" class="level2">
-<h2 class="anchored" data-anchor-id="inclusivity">Inclusivity</h2>
-<p>This course strives to be an inclusive learning community, respecting those of differing backgrounds and beliefs. As a community, we aim to be respectful to all students in this class, regardless of race, ethnicity, socio-economic status, religion, gender identity or sexual orientation.</p>
-</section>
-<section id="office-hours" class="level2">
-<h2 class="anchored" data-anchor-id="office-hours">Office Hours</h2>
-<p>Weekly office hours are a dedicated time that the teaching team is available to answer your questions, discuss course content, and generally be of support. If none of the offered times in the syllabus works for you, please email the instructor to schedule an appointment.</p>
-</section>
-<section id="late-days" class="level2">
-<h2 class="anchored" data-anchor-id="late-days">Late Days</h2>
-<p>You have 4 late days total for the quarter that you may use on homeworks. <strong>Late days are automatically applied.</strong></p>
-<p>A late day covers up to 24 hours after the deadline (or any part of that 24-hour period). Submissions covered by available late days are accepted with no penalty. No assignment is accepted more than 48 hours late, i.e., at most 2 late days can be used on one assignment.</p>
-<p>If you have no late days remaining, late work will incur a penalty:</p>
+<p>. . .</p>
+<p>MWAA reduces ops burden:</p>
 <ul>
-<li>Less than 24 hours late: 20% deduction</li>
-<li>24–48 hours late: 40% deduction</li>
-<li>More than 48 hours late: not accepted</li>
+<li>Managed scheduler/webserver/workers</li>
+<li>S3 for DAGs</li>
+<li>CloudWatch logs</li>
+<li>IAM + VPC integration</li>
 </ul>
-<p><em>Please contact Professor Chan in the case of an emergency and discuss a plan.</em></p>
-</section>
-<section id="communications" class="level2">
-<h2 class="anchored" data-anchor-id="communications">Communications</h2>
-<p><a href="https://canvas.northwestern.edu">Canvas</a>, where the syllabus, class announcements, exams, notes, and assignments are posted.</p>
-<p>Emails should lead with a title including <strong>DE300</strong>, followed by the matter of concern. Formal communications should be directed to emails, e.g., accommodation, progress discussion. The teaching team observes a 24-workhour response policy.</p>
-</section>
-<section id="collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
-<p>You are encouraged to work with classmates on homeworks and labs. Discussing ideas, comparing approaches, and helping each other debug are all part of learning.</p>
-<p>You are required to submit your own homeworks and labs written in your own words and presented in your own ways. Do not copy or paraphrase any other write-up other than your own, or share code files and solutions to others intended for direct usage.</p>
-</section>
-<section id="generative-ai-policy" class="level2">
-<h2 class="anchored" data-anchor-id="generative-ai-policy">Generative AI Policy</h2>
-<p>GenAI tools (e.g., ChatGPT, Copilot) may be used to support learning and productivity, but you are considered <strong>the engineer of record</strong>: you are fully responsible for the correctness, reproducibility, and integrity of all work you submit, and you must be able to explain and justify your design choices (e.g., schema/modeling, data processing choices, cost/performance, security/privacy).</p>
-<p>Allowed uses: brainstorming pipeline designs and tradeoffs; debugging; drafting documentation; generating small code snippets that you can adapt and verify; identifying strengths and weaknesses of code.</p>
-<p>Required disclosure: each submission must include an AI Usage note stating: (1) tool(s) used, (2) the key prompt(s), and (3) what you changed and how you verified the results. If none, write: “AI Usage: None.”</p>
-<p>Not allowed: submitting work you do not understand or cannot explain; fabricating results, benchmarks, or citations; sharing credentials, private data, or any restricted datasets with GenAI tools.</p>
-</section>
-<section id="accessibility" class="level2">
-<h2 class="anchored" data-anchor-id="accessibility">Accessibility</h2>
-<p>Northwestern University is committed to providing a supportive environment for students with disabilities. Should you anticipate or experience disability-related barriers in the academic setting, please contact <a href="https://www.northwestern.edu/accessiblenu/about-us/contact-us/">AccessibleNU</a> to move forward with the university’s established accommodation process. If you already have established accommodations with AccessibleNU, please let your instructor know as soon as possible, preferably within the first two weeks of the term, so we can work with you to implement your disability accommodations. Disability information, including academic accommodations, is confidential under the Family Educational Rights and Privacy Act.</p>
-</section>
-<section id="northwestern-university-syllabus-standards" class="level2">
-<h2 class="anchored" data-anchor-id="northwestern-university-syllabus-standards">Northwestern University Syllabus Standards</h2>
-<p>In addition, this course follows the <a href="https://www.registrar.northwestern.edu/registration-graduation/northwestern-university-syllabus-standards.html">Northwestern University Syllabus Standards</a>. Students are responsible for familiarizing themselves with this information.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-reis2022fundamentals" class="csl-entry" role="listitem">
-Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O’Reilly Media, Inc.
-</div>
-</div>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
-<ol>
-<li id="fn1"><p>The lowest lab and the lowest (or missed) in-class participation will be dropped.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
+</section>
+<section id="airflow-components" class="level2">
+<h2 class="anchored" data-anchor-id="airflow-components">Airflow Components</h2>
+<div class="cell" width="90%" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  W[GUI]
+  S[Scheduler]
+  Q[Queue]
+  WK[Workers]
+  DB[Database]
+
+  DAG[DAG] --&gt; S
+  S --&gt; DB
+  S --&gt; Q
+  W --&gt; DB
+  Q --&gt; WK
+  WK --&gt; DB
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Notes:</p>
+<ul>
+<li>Webserver renders state from the metadata DB.</li>
+<li>Scheduler parses DAGs and enqueues runnable tasks.</li>
+<li>Workers pull tasks from the queue and execute them.</li>
+</ul>
+<hr>
+</section>
+<section id="mwaa-managed-airflow-on-aws" class="level2">
+<h2 class="anchored" data-anchor-id="mwaa-managed-airflow-on-aws">MWAA: Managed Airflow on AWS</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  S3[S3 Bucket]
+  CW[Logs]
+  RDS[Managed DB]
+  VPC[Your VPC]
+  IAM[IAM Role]
+  MWAA[MWAA]
+
+  S3 --&gt; MWAA
+  MWAA --&gt; CW
+  MWAA --&gt; RDS
+  IAM --- MWAA
+  VPC --- MWAA
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Notes:</p>
+<ul>
+<li>MWAA pulls DAGs/plugins/requirements from S3.</li>
+<li>Logs stream to CloudWatch.</li>
+<li>IAM controls AWS access; VPC controls networking.</li>
+</ul>
+<hr>
+</section>
+<section id="dags-as-graphs" class="level2">
+<h2 class="anchored" data-anchor-id="dags-as-graphs">DAGs as Graphs</h2>
+<p>A DAG is a directed acyclic graph:</p>
+<ul>
+<li>Nodes = tasks</li>
+<li>Edges = dependencies</li>
+<li>No cycles</li>
+</ul>
+<p>. . .</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[extract] --&gt; B[transform] --&gt; C[load]
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>Airflow enforces dependency order and handles retries/failures per task.</li>
+</ul>
+<hr>
+</section>
+<section id="taskflow-api-modern-airflow" class="level2">
+<h2 class="anchored" data-anchor-id="taskflow-api-modern-airflow">TaskFlow API (Modern Airflow)</h2>
+<p>TaskFlow is essentially Pythonic DAG authoring:</p>
+<ul>
+<li><code>@dag</code> defines the DAG</li>
+<li><code>@task</code> defines tasks as functions</li>
+<li>Return values become XComs automatically</li>
+</ul>
+<p>. . .</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  F1["@task"] --&gt; F2["@task"]
+  F2 --&gt; F3["@task"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>With TaskFlow, your wiring is function calls + returned objects.</li>
+</ul>
+<hr>
+</section>
+<section id="demo-dag" class="level2">
+<h2 class="anchored" data-anchor-id="demo-dag">Demo DAG</h2>
+<p>We’ll build a minimal DAG that still feels production-ish:</p>
+<ul>
+<li>scheduled (<code>@daily</code>)</li>
+<li>params (runtime configuration)</li>
+<li>retries</li>
+<li>automatic XCom passing</li>
+<li>branching</li>
+<li>logs</li>
+</ul>
+<hr>
+</section>
+<section id="design-graph" class="level2">
+<h2 class="anchored" data-anchor-id="design-graph">Design graph</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  G[generate_numbers] --&gt; M[multiply_numbers]
+  M --&gt; E[choose_path]
+  E --&gt;|sum &gt; 50| L[large_total]
+  E --&gt;|else| S[small_total]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>Branching is based on computed value.</li>
+</ul>
+<hr>
+</section>
+<section id="code-dag-params" class="level2">
+<h2 class="anchored" data-anchor-id="code-dag-params">Code: DAG + Params</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.decorators <span class="im">import</span> dag, task</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.utils.dates <span class="im">import</span> days_ago</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.models.param <span class="im">import</span> Param</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.operators.python <span class="im">import</span> get_current_context</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">@dag</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    schedule<span class="op">=</span><span class="st">"@daily"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    start_date<span class="op">=</span>days_ago(<span class="dv">1</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    catchup<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    tags<span class="op">=</span>[<span class="st">"mwaa"</span>, <span class="st">"taskflow"</span>, <span class="st">"demo"</span>],</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">"multiplier"</span>: Param(<span class="dv">2</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"integer"</span>)},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notes:</p>
+<ul>
+<li><code>catchup=False</code> avoids backfilling by default.</li>
+<li><code>params</code> are visible in the Airflow UI and overrideable per run.</li>
+</ul>
+<hr>
+</section>
+<section id="code-task-1-generate" class="level2">
+<h2 class="anchored" data-anchor-id="code-task-1-generate">Code: Task 1 — Generate</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span>(retries<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> generate_numbers():</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        numbers <span class="op">=</span> [random.randint(<span class="dv">1</span>, <span class="dv">10</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Generated numbers: </span><span class="sc">{</span>numbers<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> numbers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>The return value is automatically pushed to XCom.</li>
+<li>Retries here maintain task-level resiliency.</li>
+</ul>
+<hr>
+</section>
+<section id="code-task-2-transform-with-context" class="level2">
+<h2 class="anchored" data-anchor-id="code-task-2-transform-with-context">Code: Task 2 — Transform with Context</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> multiply_numbers(numbers):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        context <span class="op">=</span> get_current_context()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        multiplier <span class="op">=</span> context[<span class="st">"params"</span>][<span class="st">"multiplier"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> [n <span class="op">*</span> multiplier <span class="cf">for</span> n <span class="kw">in</span> numbers]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Multiplied result: </span><span class="sc">{</span>result<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>Pull DAG params at runtime via context.</li>
+<li>This pattern is common for tuning behavior per run.</li>
+</ul>
+<hr>
+</section>
+<section id="code-task-3-branch" class="level2">
+<h2 class="anchored" data-anchor-id="code-task-3-branch">Code: Task 3 — Branch</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task.branch</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> choose_path(numbers):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> <span class="bu">sum</span>(numbers)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Total sum: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"large_total"</span> <span class="cf">if</span> total <span class="op">&gt;</span> <span class="dv">50</span> <span class="cf">else</span> <span class="st">"small_total"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li><code>@task.branch</code> performs true branching: non-chosen downstream tasks are skipped.</li>
+</ul>
+<hr>
+</section>
+<section id="code-task-4-outcomes-wiring" class="level2">
+<h2 class="anchored" data-anchor-id="code-task-4-outcomes-wiring">Code: Task 4 — Outcomes + Wiring</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> large_total():</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="st">"Sum is large"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> small_total():</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="st">"Sum is small"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    nums <span class="op">=</span> generate_numbers()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    multiplied <span class="op">=</span> multiply_numbers(nums)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">=</span> choose_path(multiplied)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">&gt;&gt;</span> [large_total(), small_total()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notes:</p>
+<ul>
+<li>Function calls define dependencies.</li>
+<li>Values flow through XCom automatically.</li>
+</ul>
+<hr>
+</section>
+<section id="deploying-to-mwaa-high-level" class="level2">
+<h2 class="anchored" data-anchor-id="deploying-to-mwaa-high-level">Deploying to MWAA (High-level)</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+  participant Dev as You (Dev)
+  participant S3 as S3 (dags/)
+  participant MWAA as MWAA Scheduler
+  participant W as Workers
+  participant CW as CloudWatch
+
+  Dev-&gt;&gt;S3: Upload first_dag.py
+  MWAA-&gt;&gt;S3: Sync &amp; parse DAGs
+  MWAA-&gt;&gt;W: Queue runnable tasks
+  W-&gt;&gt;CW: Stream task logs
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>MWAA periodically syncs DAGs from S3.</li>
+<li>If the DAG doesn’t appear, check path + parsing errors + requirements.</li>
+</ul>
+<hr>
+</section>
+<section id="mwaa-execution-lifecycle" class="level2">
+<h2 class="anchored" data-anchor-id="mwaa-execution-lifecycle">MWAA Execution Lifecycle</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[Parse DAG from S3] --&gt; B[Create DAG Run]
+  B --&gt; C[Schedule Tasks]
+  C --&gt; D[Execute on Workers]
+  D --&gt; E[Persist State to Metadata DB]
+  D --&gt; F[Emit Logs to CloudWatch]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>Most “why didn’t it run?” issues are parse/schedule/config issues.</li>
+<li>Most “it ran but failed” issues are dependencies/IAM/networking.</li>
+</ul>
+<hr>
+</section>
+<section id="scaling-concurrency-concepts" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-concurrency-concepts">Scaling &amp; Concurrency Concepts</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  subgraph Concurrency Controls
+    P[Parallelism, global]
+    DC[DAG Concurrency]
+    TC[Task Concurrency]
+    Pools[Pools]
+  end
+
+  subgraph MWAA
+    Min[Min Workers] --&gt; Auto[Autoscaling]
+    Max[Max Workers] --&gt; Auto
+  end
+
+  Auto --&gt; Exec[Task Execution Capacity]
+  P --&gt; Exec
+  DC --&gt; Exec
+  TC --&gt; Exec
+  Pools --&gt; Exec
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>Even with many workers, Airflow limits can cap parallel execution.</li>
+<li>Pools are a great “safety valve” for expensive systems.</li>
+</ul>
+<hr>
+</section>
+<section id="what-to-look-at-in-the-ui" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-look-at-in-the-ui">What to Look at in the UI</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">mindmap
+  root(Airflow UI)
+    DAGs List
+      Import Errors
+      Tags
+      Paused/Unpaused
+    Graph View
+      Dependencies
+      Branches
+    Grid View
+      Run status
+      Duration
+    Task Instance
+      Logs
+      Retries
+      XCom
+    Admin
+      Connections
+      Variables
+      Pools
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>. . .</p>
+<p>Notes:</p>
+<ul>
+<li>“Import Errors” is the first stop if the DAG doesn’t show.</li>
+<li>Logs + XCom help debug data flow and branching.</li>
+</ul>
+<hr>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -876,10 +1191,13 @@ Reis, Joe, and Matt Housley. 2022. <em>Fundamentals of Data Engineering</em>. O�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./08-add-times-series.html" class="pagination-link" aria-label="Time Series Prediction with XGBoost and LSTM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Time Series Prediction with XGBoost and LSTM</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-intro-data-engineering.html" class="pagination-link" aria-label="Introduction to Data Engineering">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to Data Engineering</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10-data-modeling.html" class="pagination-link" aria-label="Data Modeling">
+        <span class="nav-page-text"><span class="chapter-title">Data Modeling</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
