@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MWAA and Taskflow – DATA_ENG 300: Data Engineering Studio</title>
+<title>A/B Testing: Design and analysis – DATA_ENG 300: Data Engineering Studio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./10-data-modeling.html" rel="next">
-<link href="./08-add-times-series.html" rel="prev">
+<link href="./a0-project-specification.html" rel="next">
+<link href="./12-cassandra.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -105,11 +105,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<meta name="mermaid-theme" content="neutral">
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -122,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html">Managed workflow with Airflow</a></li><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html"><span class="chapter-title">MWAA and Taskflow</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-ab-testing.html">A/B testing</a></li><li class="breadcrumb-item"><a href="./13-ab-testing.html"><span class="chapter-title">A/B Testing: Design and analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -238,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-mwaa-taskflow-lecture.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">MWAA and Taskflow</span></a>
+  <a href="./09-mwaa-taskflow-lecture.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">MWAA and Taskflow</span></a>
   </div>
 </li>
       </ul>
@@ -280,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13-ab-testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">A/B Testing: Design and analysis</span></a>
+  <a href="./13-ab-testing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">A/B Testing: Design and analysis</span></a>
   </div>
 </li>
       </ul>
@@ -343,31 +368,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#why-mwaa---managed-workflow-apache-airflow" id="toc-why-mwaa---managed-workflow-apache-airflow" class="nav-link active" data-scroll-target="#why-mwaa---managed-workflow-apache-airflow">Why MWAA - Managed Workflow Apache Airflow?</a></li>
-  <li><a href="#airflow-components" id="toc-airflow-components" class="nav-link" data-scroll-target="#airflow-components">Airflow Components</a></li>
-  <li><a href="#mwaa-managed-airflow-on-aws" id="toc-mwaa-managed-airflow-on-aws" class="nav-link" data-scroll-target="#mwaa-managed-airflow-on-aws">MWAA: Managed Airflow on AWS</a></li>
-  <li><a href="#dags-as-graphs" id="toc-dags-as-graphs" class="nav-link" data-scroll-target="#dags-as-graphs">DAGs as Graphs</a></li>
-  <li><a href="#taskflow-api-modern-airflow" id="toc-taskflow-api-modern-airflow" class="nav-link" data-scroll-target="#taskflow-api-modern-airflow">TaskFlow API (Modern Airflow)</a></li>
-  <li><a href="#demo-dag" id="toc-demo-dag" class="nav-link" data-scroll-target="#demo-dag">Demo DAG</a></li>
-  <li><a href="#design-graph" id="toc-design-graph" class="nav-link" data-scroll-target="#design-graph">Design graph</a></li>
-  <li><a href="#code-dag-params" id="toc-code-dag-params" class="nav-link" data-scroll-target="#code-dag-params">Code: DAG + Params</a></li>
-  <li><a href="#code-task-1-generate" id="toc-code-task-1-generate" class="nav-link" data-scroll-target="#code-task-1-generate">Code: Task 1 — Generate</a></li>
-  <li><a href="#code-task-2-transform-with-context" id="toc-code-task-2-transform-with-context" class="nav-link" data-scroll-target="#code-task-2-transform-with-context">Code: Task 2 — Transform with Context</a></li>
-  <li><a href="#code-task-3-branch" id="toc-code-task-3-branch" class="nav-link" data-scroll-target="#code-task-3-branch">Code: Task 3 — Branch</a></li>
-  <li><a href="#code-task-4-outcomes-wiring" id="toc-code-task-4-outcomes-wiring" class="nav-link" data-scroll-target="#code-task-4-outcomes-wiring">Code: Task 4 — Outcomes + Wiring</a></li>
-  <li><a href="#deploying-to-mwaa-high-level" id="toc-deploying-to-mwaa-high-level" class="nav-link" data-scroll-target="#deploying-to-mwaa-high-level">Deploying to MWAA (High-level)</a></li>
-  <li><a href="#mwaa-execution-lifecycle" id="toc-mwaa-execution-lifecycle" class="nav-link" data-scroll-target="#mwaa-execution-lifecycle">MWAA Execution Lifecycle</a></li>
-  <li><a href="#scaling-concurrency-concepts" id="toc-scaling-concurrency-concepts" class="nav-link" data-scroll-target="#scaling-concurrency-concepts">Scaling &amp; Concurrency Concepts</a></li>
-  <li><a href="#what-to-look-at-in-the-ui" id="toc-what-to-look-at-in-the-ui" class="nav-link" data-scroll-target="#what-to-look-at-in-the-ui">What to Look at in the UI</a></li>
+  <li><a href="#experimental-design-for-data-driven-decisions" id="toc-experimental-design-for-data-driven-decisions" class="nav-link active" data-scroll-target="#experimental-design-for-data-driven-decisions">Experimental Design for Data-Driven Decisions</a></li>
+  <li><a href="#example-scenario" id="toc-example-scenario" class="nav-link" data-scroll-target="#example-scenario">Example Scenario</a></li>
+  <li><a href="#ab-testing-pipeline" id="toc-ab-testing-pipeline" class="nav-link" data-scroll-target="#ab-testing-pipeline">A/B Testing Pipeline</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a>
+  <ul class="collapse">
+  <li><a href="#two-proportion-test" id="toc-two-proportion-test" class="nav-link" data-scroll-target="#two-proportion-test">Two-Proportion Test</a></li>
+  </ul></li>
+  <li><a href="#simulating-an-experiment" id="toc-simulating-an-experiment" class="nav-link" data-scroll-target="#simulating-an-experiment">Simulating an Experiment</a></li>
+  <li><a href="#statistical-power" id="toc-statistical-power" class="nav-link" data-scroll-target="#statistical-power">Statistical Power</a></li>
+  <li><a href="#multiple-metrics-problem-multiple-testing" id="toc-multiple-metrics-problem-multiple-testing" class="nav-link" data-scroll-target="#multiple-metrics-problem-multiple-testing">Multiple metrics problem (Multiple testing)</a>
+  <ul class="collapse">
+  <li><a href="#common-remedies" id="toc-common-remedies" class="nav-link" data-scroll-target="#common-remedies">Common remedies</a></li>
+  </ul></li>
+  <li><a href="#ab-testing-at-scale" id="toc-ab-testing-at-scale" class="nav-link" data-scroll-target="#ab-testing-at-scale">A/B Testing at Scale</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html">Managed workflow with Airflow</a></li><li class="breadcrumb-item"><a href="./09-mwaa-taskflow-lecture.html"><span class="chapter-title">MWAA and Taskflow</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-ab-testing.html">A/B testing</a></li><li class="breadcrumb-item"><a href="./13-ab-testing.html"><span class="chapter-title">A/B Testing: Design and analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">MWAA and Taskflow</span></h1>
+<h1 class="title"><span class="chapter-title">A/B Testing: Design and analysis</span></h1>
 </div>
 
 
@@ -384,422 +408,214 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="why-mwaa---managed-workflow-apache-airflow" class="level2">
-<h2 class="anchored" data-anchor-id="why-mwaa---managed-workflow-apache-airflow">Why MWAA - Managed Workflow Apache Airflow?</h2>
-<p>Apache Airflow orchestrates workflows as DAGs.</p>
+<section id="experimental-design-for-data-driven-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="experimental-design-for-data-driven-decisions">Experimental Design for Data-Driven Decisions</h2>
 <ul>
-<li>Scheduling + dependencies</li>
-<li>Retries + backfills</li>
-<li>Observability</li>
-<li>Extensible operators/hooks</li>
-</ul>
-<p>. . .</p>
-<p>MWAA reduces ops burden:</p>
+<li>Goal: measure <strong>causal impact</strong></li>
+<li>Widely used in:
 <ul>
-<li>Managed scheduler/webserver/workers</li>
-<li>S3 for DAGs</li>
-<li>CloudWatch logs</li>
-<li>IAM + VPC integration</li>
+<li>Product analytics</li>
+<li>Marketing</li>
+<li>Online platforms</li>
+</ul></li>
+<li>Core idea:
+<ul>
+<li>Randomly split users into <strong>A (control)</strong> and <strong>B (treatment)</strong></li>
+</ul></li>
 </ul>
-<hr>
 </section>
-<section id="airflow-components" class="level2">
-<h2 class="anchored" data-anchor-id="airflow-components">Airflow Components</h2>
-<div class="cell" width="90%" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  W[GUI]
-  S[Scheduler]
-  Q[Queue]
-  WK[Workers]
-  DB[Database]
-
-  DAG[DAG] --&gt; S
-  S --&gt; DB
-  S --&gt; Q
-  W --&gt; DB
-  Q --&gt; WK
-  WK --&gt; DB
-</pre>
+<section id="example-scenario" class="level2">
+<h2 class="anchored" data-anchor-id="example-scenario">Example Scenario</h2>
+<p>Suppose we want to test:</p>
+<blockquote class="blockquote">
+<p>Does a <strong>new signup page</strong> increase conversions?</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ab_testing.png" class="img-fluid figure-img"></p>
+<figcaption>Two sign-up pages</figcaption>
+</figure>
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Notes:</p>
+<p>Metric:</p>
 <ul>
-<li>Webserver renders state from the metadata DB.</li>
-<li>Scheduler parses DAGs and enqueues runnable tasks.</li>
-<li>Workers pull tasks from the queue and execute them.</li>
+<li>conversion rate</li>
 </ul>
-<hr>
 </section>
-<section id="mwaa-managed-airflow-on-aws" class="level2">
-<h2 class="anchored" data-anchor-id="mwaa-managed-airflow-on-aws">MWAA: Managed Airflow on AWS</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-  S3[S3 Bucket]
-  CW[Logs]
-  RDS[Managed DB]
-  VPC[Your VPC]
-  IAM[IAM Role]
-  MWAA[MWAA]
-
-  S3 --&gt; MWAA
-  MWAA --&gt; CW
-  MWAA --&gt; RDS
-  IAM --- MWAA
-  VPC --- MWAA
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Notes:</p>
-<ul>
-<li>MWAA pulls DAGs/plugins/requirements from S3.</li>
-<li>Logs stream to CloudWatch.</li>
-<li>IAM controls AWS access; VPC controls networking.</li>
-</ul>
-<hr>
+<section id="ab-testing-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="ab-testing-pipeline">A/B Testing Pipeline</h2>
+<ol type="1">
+<li>Define metric</li>
+<li>Randomize users</li>
+<li>Run experiment</li>
+<li>Measure outcomes</li>
+<li>Statistical test</li>
+<li>Decision</li>
+</ol>
 </section>
-<section id="dags-as-graphs" class="level2">
-<h2 class="anchored" data-anchor-id="dags-as-graphs">DAGs as Graphs</h2>
-<p>A DAG is a directed acyclic graph:</p>
-<ul>
-<li>Nodes = tasks</li>
-<li>Edges = dependencies</li>
-<li>No cycles</li>
-</ul>
-<p>. . .</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[extract] --&gt; B[transform] --&gt; C[load]
-
-</pre>
+<section id="hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
+<p><span class="math inline">\(p_A:\)</span> conversion rate for A</p>
+<p><span class="math inline">\(p_B:\)</span> conversion rate for B</p>
+<p><span class="math display">\[H_0: p_A = p_B \quad \text{v.s.} \quad H_1: p_A \neq p_B.\]</span></p>
+<p>Example metric:</p>
+<blockquote class="blockquote">
+<p>Conversion Rate = <code>conversions / users</code></p>
+</blockquote>
+<p>Treatment effect:</p>
+<p><span class="math inline">\(\Delta = p_B − p_A\)</span></p>
+<section id="two-proportion-test" class="level3">
+<h3 class="anchored" data-anchor-id="two-proportion-test">Two-Proportion Test</h3>
+<div id="9b384fd8" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.proportion <span class="im">import</span> proportions_ztest</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pA <span class="op">=</span> <span class="fl">0.10</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pB <span class="op">=</span> <span class="fl">0.12</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pA, n) </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pB, n)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>success <span class="op">=</span> [B.<span class="bu">sum</span>(), A.<span class="bu">sum</span>()] </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>nobs <span class="op">=</span> [<span class="bu">len</span>(B), <span class="bu">len</span>(A)]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>proportions_ztest(success, nobs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>(np.float64(2.2988195728615644), np.float64(0.021515186901800022))</code></pre>
 </div>
-<p></p></figure><p></p>
+</div>
+<p>If <span class="math inline">\(p &lt; \alpha\)</span>, we reject the null hypothesis (for example, <span class="math inline">\(\alpha = 0.05\)</span>).</p>
+<div id="ef0bf1a2" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ci_low, ci_high <span class="op">=</span> sm.stats.proportion_confint(B.<span class="bu">sum</span>(), <span class="bu">len</span>(B))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ci_low, ci_high</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>(0.12036604574105579, 0.16363395425894417)</code></pre>
 </div>
 </div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>Airflow enforces dependency order and handles retries/failures per task.</li>
-</ul>
-<hr>
+<p>Interpretation:</p>
+<p>Range of plausible values.</p>
 </section>
-<section id="taskflow-api-modern-airflow" class="level2">
-<h2 class="anchored" data-anchor-id="taskflow-api-modern-airflow">TaskFlow API (Modern Airflow)</h2>
-<p>TaskFlow is essentially Pythonic DAG authoring:</p>
-<ul>
-<li><code>@dag</code> defines the DAG</li>
-<li><code>@task</code> defines tasks as functions</li>
-<li>Return values become XComs automatically</li>
-</ul>
-<p>. . .</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  F1["@task"] --&gt; F2["@task"]
-  F2 --&gt; F3["@task"]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>With TaskFlow, your wiring is function calls + returned objects.</li>
-</ul>
-<hr>
 </section>
-<section id="demo-dag" class="level2">
-<h2 class="anchored" data-anchor-id="demo-dag">Demo DAG</h2>
-<p>We’ll build a minimal DAG that still feels production-ish:</p>
-<ul>
-<li>scheduled (<code>@daily</code>)</li>
-<li>params (runtime configuration)</li>
-<li>retries</li>
-<li>automatic XCom passing</li>
-<li>branching</li>
-<li>logs</li>
-</ul>
-<hr>
-</section>
-<section id="design-graph" class="level2">
-<h2 class="anchored" data-anchor-id="design-graph">Design graph</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-  G[generate_numbers] --&gt; M[multiply_numbers]
-  M --&gt; E[choose_path]
-  E --&gt;|sum &gt; 50| L[large_total]
-  E --&gt;|else| S[small_total]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>Branching is based on computed value.</li>
-</ul>
-<hr>
-</section>
-<section id="code-dag-params" class="level2">
-<h2 class="anchored" data-anchor-id="code-dag-params">Code: DAG + Params</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.decorators <span class="im">import</span> dag, task</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.utils.dates <span class="im">import</span> days_ago</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.models.param <span class="im">import</span> Param</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> airflow.operators.python <span class="im">import</span> get_current_context</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">@dag</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    schedule<span class="op">=</span><span class="st">"@daily"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    start_date<span class="op">=</span>days_ago(<span class="dv">1</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    catchup<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    tags<span class="op">=</span>[<span class="st">"mwaa"</span>, <span class="st">"taskflow"</span>, <span class="st">"demo"</span>],</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">"multiplier"</span>: Param(<span class="dv">2</span>, <span class="bu">type</span><span class="op">=</span><span class="st">"integer"</span>)},</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notes:</p>
-<ul>
-<li><code>catchup=False</code> avoids backfilling by default.</li>
-<li><code>params</code> are visible in the Airflow UI and overrideable per run.</li>
-</ul>
-<hr>
-</section>
-<section id="code-task-1-generate" class="level2">
-<h2 class="anchored" data-anchor-id="code-task-1-generate">Code: Task 1 — Generate</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span>(retries<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> generate_numbers():</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        numbers <span class="op">=</span> [random.randint(<span class="dv">1</span>, <span class="dv">10</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Generated numbers: </span><span class="sc">{</span>numbers<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> numbers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>The return value is automatically pushed to XCom.</li>
-<li>Retries here maintain task-level resiliency.</li>
-</ul>
-<hr>
-</section>
-<section id="code-task-2-transform-with-context" class="level2">
-<h2 class="anchored" data-anchor-id="code-task-2-transform-with-context">Code: Task 2 — Transform with Context</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> multiply_numbers(numbers):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        context <span class="op">=</span> get_current_context()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        multiplier <span class="op">=</span> context[<span class="st">"params"</span>][<span class="st">"multiplier"</span>]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> [n <span class="op">*</span> multiplier <span class="cf">for</span> n <span class="kw">in</span> numbers]</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Multiplied result: </span><span class="sc">{</span>result<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>Pull DAG params at runtime via context.</li>
-<li>This pattern is common for tuning behavior per run.</li>
-</ul>
-<hr>
-</section>
-<section id="code-task-3-branch" class="level2">
-<h2 class="anchored" data-anchor-id="code-task-3-branch">Code: Task 3 — Branch</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task.branch</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> choose_path(numbers):</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> <span class="bu">sum</span>(numbers)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="ss">f"Total sum: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"large_total"</span> <span class="cf">if</span> total <span class="op">&gt;</span> <span class="dv">50</span> <span class="cf">else</span> <span class="st">"small_total"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li><code>@task.branch</code> performs true branching: non-chosen downstream tasks are skipped.</li>
-</ul>
-<hr>
-</section>
-<section id="code-task-4-outcomes-wiring" class="level2">
-<h2 class="anchored" data-anchor-id="code-task-4-outcomes-wiring">Code: Task 4 — Outcomes + Wiring</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> large_total():</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="st">"Sum is large"</span>)</span>
+<section id="simulating-an-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-an-experiment">Simulating an Experiment</h2>
+<div id="4707b3f0" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pA_hat, pB_hat <span class="op">=</span> A.mean(), B.mean()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing Conversion Rates</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@task</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> small_total():</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="st">"Sum is small"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    nums <span class="op">=</span> generate_numbers()</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    multiplied <span class="op">=</span> multiply_numbers(nums)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">=</span> choose_path(multiplied)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">&gt;&gt;</span> [large_total(), small_total()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notes:</p>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rates <span class="op">=</span> [pA_hat, pB_hat]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sds <span class="op">=</span> [np.sqrt(pA_hat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>pA_hat)<span class="op">/</span>n), np.sqrt(pB_hat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>pB_hat)<span class="op">/</span>n)]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.errorbar([<span class="st">"A"</span>, <span class="st">"B"</span>], rates, fmt<span class="op">=</span><span class="st">'o'</span>, yerr<span class="op">=</span>sds, linestyle<span class="op">=</span><span class="st">'dashed'</span>, capsize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Conversion Rate"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulated A/B Test"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-ab-testing_files/figure-html/cell-5-output-1.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-power" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-power">Statistical Power</h2>
+<p>How good are we in detecting a difference? <span class="math inline">\(\mathrm{Pr}\{\text{reject}\mid \Delta &gt; 0\}\)</span></p>
+<p>Depends on:</p>
 <ul>
-<li>Function calls define dependencies.</li>
-<li>Values flow through XCom automatically.</li>
+<li>sample size</li>
+<li>effect size</li>
+<li>variance</li>
+<li>significance level</li>
 </ul>
+<p>For example, with <span class="math inline">\(n=1000\)</span>, this is how often we actually detect a difference:</p>
+<div id="a386c40f" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> []</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>effects <span class="op">=</span> [] </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>): </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, <span class="fl">0.1</span>, n) </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, <span class="fl">0.12</span>, n)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    stat, p <span class="op">=</span> proportions_ztest([A.<span class="bu">sum</span>(), B.<span class="bu">sum</span>()], [n, n])</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    means.append([A.mean(), B.mean()])</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    effects.append(p <span class="op">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> np.array(means)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>np.mean(effects)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.hist(means, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">30</span>, histtype<span class="op">=</span><span class="st">'stepfilled'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">"B"</span>, <span class="st">"A"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-ab-testing_files/figure-html/cell-6-output-1.png" width="566" height="411" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <hr>
 </section>
-<section id="deploying-to-mwaa-high-level" class="level2">
-<h2 class="anchored" data-anchor-id="deploying-to-mwaa-high-level">Deploying to MWAA (High-level)</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">sequenceDiagram
-  participant Dev as You (Dev)
-  participant S3 as S3 (dags/)
-  participant MWAA as MWAA Scheduler
-  participant W as Workers
-  participant CW as CloudWatch
-
-  Dev-&gt;&gt;S3: Upload first_dag.py
-  MWAA-&gt;&gt;S3: Sync &amp; parse DAGs
-  MWAA-&gt;&gt;W: Queue runnable tasks
-  W-&gt;&gt;CW: Stream task logs
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
+<section id="multiple-metrics-problem-multiple-testing" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-metrics-problem-multiple-testing">Multiple metrics problem (Multiple testing)</h2>
+<p>Real experiments track:</p>
 <ul>
-<li>MWAA periodically syncs DAGs from S3.</li>
-<li>If the DAG doesn’t appear, check path + parsing errors + requirements.</li>
+<li>conversion</li>
+<li>engagement</li>
+<li>retention</li>
+<li>revenue</li>
 </ul>
-<hr>
+<p><strong>Or,</strong> the experiments test more than two groups at a time.</p>
+<p>Testing many metrics increases <strong>false positives</strong>.</p>
+<section id="common-remedies" class="level3">
+<h3 class="anchored" data-anchor-id="common-remedies">Common remedies</h3>
+<ul>
+<li>Bonferroni correction, <span class="math inline">\(\frac{\alpha}{m}\)</span>: controls <strong>Family-wise error rate</strong>: makes the chance of <em>any</em> false positive small.</li>
+<li>Benjamani-Hochberg (BH), <span class="math inline">\(\frac{i \alpha}{m}\)</span>: controls <strong>False discovery rate</strong>: out of the “significant” results, keep the expected proportion of false positives small.</li>
+</ul>
+<div id="77cf9a6a" class="cell" width="6in" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-ab-testing_files/figure-html/cell-7-output-1.png" width="1142" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="mwaa-execution-lifecycle" class="level2">
-<h2 class="anchored" data-anchor-id="mwaa-execution-lifecycle">MWAA Execution Lifecycle</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Parse DAG from S3] --&gt; B[Create DAG Run]
-  B --&gt; C[Schedule Tasks]
-  C --&gt; D[Execute on Workers]
-  D --&gt; E[Persist State to Metadata DB]
-  D --&gt; F[Emit Logs to CloudWatch]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
-<ul>
-<li>Most “why didn’t it run?” issues are parse/schedule/config issues.</li>
-<li>Most “it ran but failed” issues are dependencies/IAM/networking.</li>
-</ul>
-<hr>
 </section>
-<section id="scaling-concurrency-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="scaling-concurrency-concepts">Scaling &amp; Concurrency Concepts</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-  subgraph Concurrency Controls
-    P[Parallelism, global]
-    DC[DAG Concurrency]
-    TC[Task Concurrency]
-    Pools[Pools]
-  end
-
-  subgraph MWAA
-    Min[Min Workers] --&gt; Auto[Autoscaling]
-    Max[Max Workers] --&gt; Auto
-  end
-
-  Auto --&gt; Exec[Task Execution Capacity]
-  P --&gt; Exec
-  DC --&gt; Exec
-  TC --&gt; Exec
-  Pools --&gt; Exec
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
+<section id="ab-testing-at-scale" class="level2">
+<h2 class="anchored" data-anchor-id="ab-testing-at-scale">A/B Testing at Scale</h2>
+<p>Companies running experiments:</p>
 <ul>
-<li>Even with many workers, Airflow limits can cap parallel execution.</li>
-<li>Pools are a great “safety valve” for expensive systems.</li>
+<li>Google</li>
+<li>Netflix</li>
+<li>Amazon</li>
+<li>Meta</li>
 </ul>
-<hr>
+<p>Infrastructure:</p>
+<ul>
+<li>randomization service</li>
+<li>experiment tracking</li>
+<li>metrics pipeline</li>
+</ul>
 </section>
-<section id="what-to-look-at-in-the-ui" class="level2">
-<h2 class="anchored" data-anchor-id="what-to-look-at-in-the-ui">What to Look at in the UI</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">mindmap
-  root(Airflow UI)
-    DAGs List
-      Import Errors
-      Tags
-      Paused/Unpaused
-    Graph View
-      Dependencies
-      Branches
-    Grid View
-      Run status
-      Duration
-    Task Instance
-      Logs
-      Retries
-      XCom
-    Admin
-      Connections
-      Variables
-      Pools
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>. . .</p>
-<p>Notes:</p>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
 <ul>
-<li>“Import Errors” is the first stop if the DAG doesn’t show.</li>
-<li>Logs + XCom help debug data flow and branching.</li>
+<li>A/B testing estimates causal effects (by randomization)</li>
+<li>Randomization removes bias</li>
+<li>Hypothesis tests quantify uncertainty</li>
+<li>Multiple testing must be controlled</li>
 </ul>
-<hr>
 
 
 </section>
@@ -1207,13 +1023,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./08-add-times-series.html" class="pagination-link" aria-label="Time Series Prediction with XGBoost and LSTM">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Time Series Prediction with XGBoost and LSTM</span></span>
+      <a href="./12-cassandra.html" class="pagination-link" aria-label="Wide-column database system (Apache Cassandra)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Wide-column database system (Apache Cassandra)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./10-data-modeling.html" class="pagination-link" aria-label="Data Modeling">
-        <span class="nav-page-text"><span class="chapter-title">Data Modeling</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./a0-project-specification.html" class="pagination-link" aria-label="Project Specification">
+        <span class="nav-page-text"><span class="chapter-title">Project Specification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
